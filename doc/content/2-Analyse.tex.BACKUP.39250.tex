@@ -57,11 +57,15 @@ Langwellensender
 
 Der DCF77 sendet im Sekundenrythmus die aktuelle mitteleuropäische Zeit, bzw. mitteleuropäische Sommerzeit. Seit 1973 werden Datum und Uhrzeit gesendet.
 
-Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 ausgesendet. Es wurde aber festgestellt, dass dieses Signal eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
+<<<<<<< HEAD
 Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^{-12}$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
+=======
+Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 ausgesendet. Es wurde aber festgestellt, dass dieses Signal eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
 
 Erzeugung des Signals durch PTB, Aussendung durch Telekom
 
+Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^-12$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
+>>>>>>> a90db571d435d6f5e936b66b9397f2d0bd1986a7
 
 Das Signal wird von drei Steuereinheiten unabhängig voneinander erzeugt. Stimmt das Signal der Hauptsteuereinheit nicht mit den Signalen der Reserveeinheiten überein, wird auf eine Reserveeinheit umgestellt. Sind alle drei Signal unterschiedlich, wird die Signalaussendung unterbrochen.
 
@@ -125,8 +129,10 @@ Ein grosser Nachteile der GPS Synchronisation ergibt sich jedoch durch das verwe
 %GPS: http://www.mono.rgbtechnology.pl/de/faq/gps-zeitsynchronisation.html
 %http://www.stardado.de/1244, http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 %GPS vs DCF77: http://www.hopf.com/de/dcf77-gps_de.html
-\subsection{Internet} \label{Anaylse:Internet}
+<<<<<<< HEAD
 
+
+\subsection{Internet}
 Will man eine Uhr via Internet synchronisieren, stösst man rasch auf folgendes Problem:
 
 \begin{verse}
@@ -164,9 +170,9 @@ Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer
 % http://stackoverflow.com/questions/1228089/how-does-the-network-time-protocol-work
 % http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf
 % http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
-
+=======
+\subsection{Internet} \label{Anaylse:Internet}
+\subsubsection{(S)NTP}
 
 \subsection{Weitere Zeitsignaldienste}
-
-
-
+>>>>>>> a90db571d435d6f5e936b66b9397f2d0bd1986a7

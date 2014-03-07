@@ -21,18 +21,9 @@ Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir kein
 %http://diepresse.com/home/spectrum/zeichenderzeit/695559/Auf-der-Hohe-der-Zeit
 
 \subsection{Atomuhr}
-Defition:
-\begin{quote}
-Eine Atomuhr ist ein Zeitmesser, dessen Zeitnormal die hochfrequente Schwingungsdauer bestimmter Atome ist (z.B. Caesium, Rubidium), die durch ein elektromagnetisches Feld oder optisches Pumpen zu Schwingungen angeregt werden und einen Quarzgenerator synchronisieren.
-\end{quote} % http://www.meinberg.de/german/info/atomic_clock.htm
-Die Atomuhr wurde vom Amerkikaner Isidor Isaac Rabi (1898-1988) erfunden. 1944 wurde der Erfinder mit dem Nobelpreis belohnt.
-%Quelle http://www.meinberg.de/german/info/atomic_clock.htm
+%http://www.meinberg.de/german/info/atomic_clock.htm
 
 \subsection{Funkuhr}
-Im Gegensatz zur Atomuhr, kann eine Funkuhr nicht selbst die korrekte Zeit berechnen. Sie hat einen Funkempfänger eingebaut, der von einen "`echten"' Atomuhr das Funksignal empfangen kann und darus die genaue Uhrzeit annäheren kann. Der erstmalige Zeitabgleich dauert jenach Synchronisationstyp wenige Minuten. Sobald der Decode Prozess abeschlosse ist, läuft die Uhr synchronisiert.
-
-Die Genauigkeit einer Funkuhr liegt im zwischen 5 und 25 msec.
-
 %Quartzuhren...
 %http://de.wikipedia.org/wiki/Funkuhr
 %http://www.heret.de/funkuhr/index.htm
@@ -58,10 +49,10 @@ Langwellensender
 Der DCF77 sendet im Sekundenrythmus die aktuelle mitteleuropäische Zeit, bzw. mitteleuropäische Sommerzeit. Seit 1973 werden Datum und Uhrzeit gesendet.
 
 Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 ausgesendet. Es wurde aber festgestellt, dass dieses Signal eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
-Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^{-12}$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
 
 Erzeugung des Signals durch PTB, Aussendung durch Telekom
 
+Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^-12$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
 
 Das Signal wird von drei Steuereinheiten unabhängig voneinander erzeugt. Stimmt das Signal der Hauptsteuereinheit nicht mit den Signalen der Reserveeinheiten überein, wird auf eine Reserveeinheit umgestellt. Sind alle drei Signal unterschiedlich, wird die Signalaussendung unterbrochen.
 
@@ -112,61 +103,10 @@ Im Signal ist die Zeitinformation der nächsten Minute kodiert.
 Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Analyse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' versehen.
 
 \subsection{GPS}
-Nebst der Zeitsynchronisation über Funk, kann eine genaure Information aus den GPS-Satelliten gewonnen werden. Dies obwhol GPS-Systeme hauptsächlich zur Lokalisierung des Standortes entwickelt wurden.
-Momentan befinden sich sechs solche Satelliten auf ungefähr 200'000km Höhe. Jeder umrundet die Erde zweimal pro Tag. Auf jedem Satellit sind jeweils zwei Atomuhren vorhanden.
-Ein Satellit sendet dauernd seine Bahnposition und die genaue Uhrzeit. Durch Signale mehrere Satelliten, kann der Empfänger seinen genauen Standort ermitteln.
-Anschliessend kann die Laufzeit des Signals zurück gerechnet werden und die durchs Versenden verstrichene Zeit, das Delay, approximiert werden.
-Durch dieses Verfahren kann die Uhrzeit, mit einer Genauigkeit unter 1${\mu}sec$, berechnet werden.
-
-Vorteile der Zeit-Synchronisation über GPS sind: weltweilte Abdeckung und hohe sehr hohe Genauigkeit.
-
-Ein grosser Nachteile der GPS Synchronisation ergibt sich jedoch durch das verwendete Kurzwellen Signal (zwischen 1176,45 bis 1575,42 MHz). Dieses Signal kann nur unter freien Himmel empfangen werden und eignet sich daher nicht für einen typischen Computer.
-
 %GPS: http://www.mono.rgbtechnology.pl/de/faq/gps-zeitsynchronisation.html
 %http://www.stardado.de/1244, http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 %GPS vs DCF77: http://www.hopf.com/de/dcf77-gps_de.html
 \subsection{Internet} \label{Anaylse:Internet}
-
-Will man eine Uhr via Internet synchronisieren, stösst man rasch auf folgendes Problem:
-
-\begin{verse}
-Die genaue Senddauer eines  Datenpaktes, welches die der korreketen Uhrzeit beinhaltet, ist weder vorhersehbar noch kan man die verstrichene Zeit beim Empfänger zurückrechnen.
-\end{verse}
-
-Da keine Aussagen über die Genauigkeit der empfangenen Information möglich ist, verliert sie drastisch an Wert.
-
-\section{Zeitprotokoll}
-Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)
-
-\begin{enumerate}
-\item Der Client schickt eine \textbf{Anfrage an den Server} und \textbf{merkt} sich seine aktuelle, lokale Zeit (welche mit grosser Wahrscheinlichkit nicht der korrekten Serverzeit entspricht).
-\item Der Server antwortet mit seiner lokalen, korrekten \textbf{Zeit des Empfangs und der des Rückversandes}.
-\item Der Client merkt sich die Zeit des Empfangs der Antwort. 
-\end{enumerate}
-
-Der Client hat in diesem Zustand folgende vier versch. Zeiten zur Verfügung:
-\begin{enumerate}
-\item Client: lokale Zeit bei der Anfrage
-\item Server: Empfangszeit
-\item Server: Versandzeit
-\item Client: Empfangszeit
-\end{enumerate}
-
-Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer Fehlerabschätzung.
-
-
-
-\section{(S)NTP}
-
-
-
-
-% http://stackoverflow.com/questions/1228089/how-does-the-network-time-protocol-work
-% http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf
-% http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
-
+\subsubsection{(S)NTP}
 
 \subsection{Weitere Zeitsignaldienste}
-
-
-
