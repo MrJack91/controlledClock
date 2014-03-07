@@ -21,6 +21,7 @@ Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir kein
 %http://diepresse.com/home/spectrum/zeichenderzeit/695559/Auf-der-Hohe-der-Zeit
 
 \subsection{Atomuhr}
+%http://www.meinberg.de/german/info/atomic_clock.htm
 Defition:
 \begin{quote}
 Eine Atomuhr ist ein Zeitmesser, dessen Zeitnormal die hochfrequente Schwingungsdauer bestimmter Atome ist (z.B. Caesium, Rubidium), die durch ein elektromagnetisches Feld oder optisches Pumpen zu Schwingungen angeregt werden und einen Quarzgenerator synchronisieren.
@@ -58,6 +59,7 @@ Langwellensender
 Der DCF77 sendet im Sekundenrythmus die aktuelle mitteleuropäische Zeit, bzw. mitteleuropäische Sommerzeit. Seit 1973 werden Datum und Uhrzeit gesendet.
 
 Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 ausgesendet. Es wurde aber festgestellt, dass dieses Signal eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
+
 Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^{-12}$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
 
 Erzeugung des Signals durch PTB, Aussendung durch Telekom
@@ -146,14 +148,16 @@ Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender,
 
 Der Client hat in diesem Zustand folgende vier versch. Zeiten zur Verfügung:
 \begin{enumerate}
-\item Client: lokale Zeit bei der Anfrage
-\item Server: Empfangszeit
-\item Server: Versandzeit
-\item Client: Empfangszeit
+\item Client: lokale Zeit bei der Anfrage - A
+\item Server: Empfangszeit - X
+\item Server: Versandzeit - Y
+\item Client: Empfangszeit B
 \end{enumerate}
 
 Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer Fehlerabschätzung.
 
+Y+[B-A-(Y-X)]/2
+% http://stackoverflow.com/questions/1228089/how-does-the-network-time-protocol-work
 
 
 \section{(S)NTP}
@@ -161,7 +165,7 @@ Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer
 
 
 
-% http://stackoverflow.com/questions/1228089/how-does-the-network-time-protocol-work
+
 % http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf
 % http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 
