@@ -13,11 +13,12 @@ Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir kein
 \subsubsection{Kurzer Rückblick in die Geschichte}
 %http://www.astro-siggi.de/tutorial-funkuhr.html
 %http://de.wikipedia.org/wiki/Geschichtliche_Entwicklung_der_Zeit%C3%BCbertragung_per_Funk
-
+%http://en.wikipedia.org/wiki/Time_signal
 \subsubsection{Was wäre wenn...}
 %Stichwort: GPS, Börse, ÖV, 
 
 \subsection{Was für Schwierigkeiten können dabei auftreten?}
+%http://diepresse.com/home/spectrum/zeichenderzeit/695559/Auf-der-Hohe-der-Zeit
 
 \subsection{Atomuhr}
 %http://www.meinberg.de/german/info/atomic_clock.htm
@@ -25,6 +26,7 @@ Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir kein
 \subsection{Funkuhr}
 %Quartzuhren...
 %http://de.wikipedia.org/wiki/Funkuhr
+%http://www.heret.de/funkuhr/index.htm
 
 \section{Möglichkeiten der Zeitsynchronisation}
 Grundsätzlich stehen mit dem heutigen Stand der Technik die nachfolgend im Detail beschriebenen Möglichkeiten zur Zeitsynchronisation zur Verfügung.
@@ -32,31 +34,79 @@ Grundsätzlich stehen mit dem heutigen Stand der Technik die nachfolgend im Deta
 \subsection{Funk}
 Funk, bwz. Funkwellen sind allgegenwärtig und aus dem heutigen Alltag nicht mehr Weg zu denken.
 
-\subsection{Zeitzeichensender}
+\subsection{Zeitzeichensender - Allgemein}
+Zeitzeichensender senden in der Regel im Sekundentakt 
 Jeder Zeitzeichensender verfügt über ein eindeutiges Kennzeichen...
 %dUT1: Differenz Erdrotationszeit und Atomzeit	
 %http://de.wikipedia.org/wiki/Zeitzeichensender
 
-\subsection{DCF77}
+\subsection{Zeitzeichensender - DCF77}
 DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhausen) der von der Physikalisch-Technischen Bundesanstalt in Braunschweig (PTB) entwickelt wurde. Der Betrieb erfolgt durch die Media Broadcast GmbH. Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz).
 
 Langwellensender
+%Seit 1959: Normalfrequenz (Eichfrequenz, hochgenaue Frequenz, häufig identisch mit Trägerfrequenz von Zeitzeichendiensten und Rundfunksendern im Lang- und Mittelwellenbereich)
 
 Der DCF77 sendet im Sekundenrythmus die aktuelle mitteleuropäische Zeit, bzw. mitteleuropäische Sommerzeit. Seit 1973 werden Datum und Uhrzeit gesendet.
 
+Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 ausgesendet. Es wurde aber festgestellt, dass dieses Signal eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
+
+Erzeugung des Signals durch PTB, Aussendung durch Telekom
+
 Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^-12$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
 
-Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite von 2'000 km.
-%Seit 1959: Normalfrequenz (Eichfrequenz, hochgenaue Frequenz, häufig identisch mit Trägerfrequenz von Zeitzeichendiensten und Rundfunksendern im Lang- und Mittelwellenbereich)
+Das Signal wird von drei Steuereinheiten unabhängig voneinander erzeugt. Stimmt das Signal der Hauptsteuereinheit nicht mit den Signalen der Reserveeinheiten überein, wird auf eine Reserveeinheit umgestellt. Sind alle drei Signal unterschiedlich, wird die Signalaussendung unterbrochen.
+
+Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite von 2'000 km. Da der Zeitcode durch Amplitudenmodulation erfolgt kann das Signal leicht gestört werden, z.B. durch Gewitter. Bei Gewitter / Sturm oder starken Winden wird die Antenne vorübergehend ausser Betrieb genommen, da durch die Schwingung der Antenne eine messbare Phasenmodulation bei den Empfängern entsteht.
+
+Der Sender sendet mit 50 kW (nominell).
+
+Neben der Normalfrequenz wird seit 1973 zusätzlich ein Digitales Signal gesendet welches Informationen zu Datum und Uhrzeit enthält.
+
+Im Signal ist die Zeitinformation der nächsten Minute kodiert. 
 %DCF-77
 %http://www.cyber-sciences.com/support/technical_dcf77.html
 %http://de.wikipedia.org/wiki/DCF77
 %http://www.dcf77.de/
 %http://www.bmvit.gv.at/telekommunikation/publikationen/infoblaetter/downloads/042013.pdf
+%Wetter
+\subsubsection{Codierung}
+\begin{tabular}{p{0.5cm} p{13.5cm}}
+\textbf{Bit} & \textbf{Bedeutung} \\ \hline
+0 & Start einer Minute \\
+1-14 & Wetterinformationen und Katastrophenschutz \\ \hline
+\multicolumn{2}{p{14cm}}{\textit{Informationen zu Unregelmässigkeiten im Sendebetrieb, Zeitzone, Beginn / Ende Sommerzeit, Schaltsekunden}}  \\ \hline
+15 & Rufbit \\
+16 & Wenn Wert 1: Umstellung MEZ/MESZ am Ende der Stunde \\
+17 & Wenn Wert 0: MEZ, Wenn Wert 1: MESZ \\
+18 & Wenn Wert 0: MESZ, Wenn Wert 1: MEZ \\
+19 & Wenn Wert 1: Schaltsekunde am Ende der Stunde. \\ \hline
+\multicolumn{2}{p{14cm}}{\textit{Zeitinformation der nachfolgenden Minute in BCD-Zahlen (Start mit LSB). Gerade Parität für Fehlererkennung. Erster Wochentag ist der Montag (Tag 1)}}  \\ \hline
+20 & Beginn der Zeitinformation (immer 1) \\
+21 & Minute (Einer) - Bit für 1 \\
+22 & Minute (Einer) - Bit für 2 \\
+23 & Minute (Einer) - Bit für 4 \\
+24 & Minute (Einer) - Bit für 8 \\
+25 & Minute (Zehner) - Bit für 10 \\
+26 & Minute (Zehner) - Bit für 20 \\
+27 & Minute (Zehner) - Bit für 40 \\
+28 & Parität Minute \\ \hline
+29 & Stunde (Einer) - Bit für 1 \\
+30 & Stunde (Einer) - Bit für 2 \\
+31 & Stunde (Einer) - Bit für 4 \\
+32 & Stunde (Einer) - Bit für 8 \\
+33 & Stunde (Zehner) - Bit für 10 \\
+34 & Stunde (Zehner) - Bit für 20 \\
+35 & Parität Stunde \\ \hline
+\end{tabular}
+
+\subsubsection{Network Time Protocol}
+Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Analyse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' versehen.
 
 \subsection{GPS}
 %GPS: http://www.mono.rgbtechnology.pl/de/faq/gps-zeitsynchronisation.html
 %http://www.stardado.de/1244, http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 %GPS vs DCF77: http://www.hopf.com/de/dcf77-gps_de.html
-\subsection{Internet}
+\subsection{Internet} \label{Anaylse:Internet}
 \subsubsection{(S)NTP}
+
+\subsection{Weitere Zeitsignaldienste}
