@@ -1,0 +1,3 @@
+Bildunterschrift:
+
+\caption[Kurztitel fuer das Bilderverzeichnis]{Kurztitel mit (Quelle: Autor, Vorname; \emph{\glqq Titel des Werkes\grqq{}}; Verlag; Ort; Jahr; Seite)} 
