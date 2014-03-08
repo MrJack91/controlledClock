@@ -30,9 +30,9 @@ Die Atomuhr wurde vom Amerkikaner Isidor Isaac Rabi (1898-1988) erfunden. 1944 w
 %Quelle http://www.meinberg.de/german/info/atomic_clock.htm
 
 \subsection{Funkuhr}
-Im Gegensatz zur Atomuhr, kann eine Funkuhr nicht selbst die korrekte Zeit berechnen. Sie hat einen Funkempfänger eingebaut, der von einen "`echten"' Atomuhr das Funksignal empfangen kann und darus die genaue Uhrzeit annäheren kann. Der erstmalige Zeitabgleich dauert jenach Synchronisationstyp wenige Minuten. Sobald der Decode Prozess abeschlosse ist, läuft die Uhr synchronisiert.
+Im Gegensatz zur Atomuhr, kann eine Funkuhr nicht selbst die korrekte Zeit berechnen. Sie hat einen Funkempfänger eingebaut, der von einen "`echten"' Atomuhr das Funksignal empfangen kann und darus die genaue Uhrzeit annäheren kann. Der erstmalige Zeitabgleich dauert je nach Synchronisationstyp wenige Minuten. Sobald der Decode Prozess abeschlosse ist, läuft die Uhr synchronisiert.
 
-Die Genauigkeit einer Funkuhr liegt im zwischen 5 und 25 msec.
+Die Genauigkeit einer Funkuhr liegt im Schnitt zwischen 5 und 25 msec.
 
 %Quartzuhren...
 %http://de.wikipedia.org/wiki/Funkuhr
@@ -44,11 +44,39 @@ Grundsätzlich stehen mit dem heutigen Stand der Technik die nachfolgend im Deta
 \subsection{Funk}
 Funk, bwz. Funkwellen sind allgegenwärtig und aus dem heutigen Alltag nicht mehr Weg zu denken.
 
+\subsection{Zeitsignaldienste}
+Zeitsignal Dienste sind untereinander mit höchster Genaugigkeit und Präzision vernetzt. Die von diesen Diensten ermittelte Zeit stimmt in weiten Bereichen weit unter Nanosekunden überein.(Weltzeit: UTC). Koordination durch Erdrotations-Dienst (IERS)
+
 \subsection{Zeitzeichensender - Allgemein}
-Zeitzeichensender senden in der Regel im Sekundentakt 
+Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird dann mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen muss dass Signal eine gewisse Zeit empfangen werden. Vielfach dient für das Signal mit den Zeitinformationen eine Normalfrequenz als Grundlage.
+
+Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, vielfach werden die Signale über einen Rundfunksender übermittelt.
+
+Die Signal werden in der Regel im Sekundentakt übermittelt (Ausnahme: Russische Sender senden zum Beispiel zum Teil im Zehntelsekundentakt). Damit ein Minutenwechsel einfach und eindeutig identifiziert werden kann wird bei der Sekunde 0 / 59 eine Minutenkennung gesendet.
+
+Die Codierung der Sender ist nicht vereinheitlicht, hat jedoch mehrheitlich eine ähnliche Struktur und basiert auf einer 60-Bit (bzw. 59) Codierung. Die Codierung und das Signal sind so ausgelegt, dass diese einfach von Maschinen verarbeitet und interpretiert werden können.
+
+Das Signal wird am Sendestandort an in der unmittelbaren Nähe in der Regel von mehreren Atomuhren generiert und miteinander abgeglichen. Dadurch wird eine sehr hohe Genauigkeit erreicht. Wird die Distanz und die Signallaufzeit zwischen Sender und Empfänger berücksichtigt, ist die Genauigkeit im Nanosekundenbereich angesiedelt. Pro 300 km beträgt die Verzögerung ca. 1 ms.
+
+Das Signal wird entweder als Langwelle, Mittelwelle oder als Kurzwelle ausgesendet. An einigen Standorten wird sogar auf Langstwellen oder Ultrakurzwellen gesendet.
 Jeder Zeitzeichensender verfügt über ein eindeutiges Kennzeichen...
 %dUT1: Differenz Erdrotationszeit und Atomzeit	
 %http://de.wikipedia.org/wiki/Zeitzeichensender
+
+\subsubsection{Frequenznormale}
+Bis in die 70er Jahre wurde oft das Signal von Radiostationen als Frequenznormale ausgewertet.
+Vorstufe Zeitzeichensender, hochgenaue Schwingungsfrequenz, Empfänger muss einmal eingestellt werden, anschliessend werden Schwingungen gezählt. Radio z.B Langwellensender mit 150 kHz oder Stromnetz mit 50 oder 60 Hz
+
+\subsubsection{Zeitzeichensender in der Schweiz}
+
+\begin{wrapfigure}{r}{0.6\textwidth}
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{./images/Analyse/Prangings_VD_CH.jpg}
+  \end{center}
+  \caption[Zeitzeichensender in Prangins (VD)]{Zeitzeichensender in Prangins (VD) (Quelle: Eigenössisches Institut für Metrologie (METAS); \url{http://www.metas.ch/root_legnet/Web/Fachbereiche/Zeit_Frequenz/dissemination/HBG})} 
+\end{wrapfigure}
+
+In der Schweiz war zwischen 1966 und 2011 der Zeitzeichensender HBG in Prangins (VD) in Betrieb. Aufgrund mangelnder Nachfrage wurde der Sendebetrieb Ende 2011 eingestellt und die Sendeanlage gesprengt und abgebaut. Der Sender wurde vom Eigenössischen Institut für Metrologie betrieben und sendete mit einer Frequenz von 75 kHZ.
 
 \subsection{Zeitzeichensender - DCF77}
 DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhausen) der von der Physikalisch-Technischen Bundesanstalt in Braunschweig (PTB) entwickelt wurde. Der Betrieb erfolgt durch die Media Broadcast GmbH. Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz).
@@ -171,6 +199,6 @@ Y+[B-A-(Y-X)]/2
 
 
 \subsection{Weitere Zeitsignaldienste}
-
+Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit nicht mehr eine grosse Bedeutung haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
 
 
