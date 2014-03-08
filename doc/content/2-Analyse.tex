@@ -138,33 +138,42 @@ Die genaue Senddauer eines  Datenpaktes, welches die der korreketen Uhrzeit bein
 Da keine Aussagen über die Genauigkeit der empfangenen Information möglich ist, verliert sie drastisch an Wert.
 
 \section{Zeitprotokoll}
-Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)
+Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)\cite{ntp_stackoverfow}
 
 \begin{enumerate}
 \item Der Client schickt eine \textbf{Anfrage an den Server} und \textbf{merkt} sich seine aktuelle, lokale Zeit (welche mit grosser Wahrscheinlichkit nicht der korrekten Serverzeit entspricht).
 \item Der Server antwortet mit seiner lokalen, korrekten \textbf{Zeit des Empfangs und der des Rückversandes}.
 \item Der Client merkt sich die Zeit des Empfangs der Antwort. 
 \end{enumerate}
-
-Der Client hat in diesem Zustand folgende vier versch. Zeiten zur Verfügung:
+\vspace{1em}
+Nach dem Datenaustausch hat der Client folgende vier verschiedene Zeiten zur Verfügung:
 \begin{enumerate}
 \item Client: lokale Zeit bei der Anfrage - (A)
 \item Server: Empfangszeit - (X)
 \item Server: Versandzeit - (Y)
-\item Client: Empfangszeit (B)
+\item Client: Empfangszeit - (B)
 \end{enumerate}
+\vspace{1em}
+Als Annahme wird vereinfacht angenommen, das der Hinweg des Paketes ungefähr gleich lang wie der Rückweg dauert.
+\vspace{1em}
+Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer Fehlerabschätzung:
+\begin{itemize}
+\item Totale Zeit des Prozesses: B-A
+\item Server Bearbeitungszeit: Y-X
+\item Effektive Datentransferzeit: B-A-(Y-X)
+\item Nur Rückweg: [B-A-(Y-X)]/2
+\item Korrekte Zeit Plus dauer des Rückweges: Y+[B-A-(Y-X)]/2
+\item als einfache Fehlerabschätzung kann die \textit{Effektive Datentransferzeit} verwendet werden: B-A-(Y-X)
+\end{itemize}
 
-Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer Fehlerabschätzung.
-
-Y+[B-A-(Y-X)]/2
 % http://stackoverflow.com/questions/1228089/how-does-the-network-time-protocol-work
 
 
-\section{(S)NTP}
-
-
-
-
+\section{NTP / SNTP}
+NTP (Network Time Protocol) basiert auf dem obengenannten Prinzip, hat aber noch diverse Verbesserungen in sich.
+NTP befindet sich mometan in der Version 4.
+Da das Protokoll sehr komplex ist gibt es auch eine vereinfachte Version, die SNTP (Simple Network Time Protocol) genannt wird.
+Die genaue Funktionsweise dieses Protokolles wird in dieser Arbeit nicht erläutert.
 
 % http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf
 % http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
