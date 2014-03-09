@@ -92,7 +92,7 @@ Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Mi
 Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^{-12}$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
 
 Erzeugung des Signals durch PTB, Aussendung durch Telekom
-
+Das DCF77-Signal codiert innerhalb einer Minute die Zeit- und Datumsangaben für die nächste Minute. 
 
 Das Signal wird von drei Steuereinheiten unabhängig voneinander erzeugt. Stimmt das Signal der Hauptsteuereinheit nicht mit den Signalen der Reserveeinheiten überein, wird auf eine Reserveeinheit umgestellt. Sind alle drei Signal unterschiedlich, wird die Signalaussendung unterbrochen.
 
@@ -102,21 +102,29 @@ Der Sender sendet mit 50 kW (nominell).
 
 Neben der Normalfrequenz wird seit 1973 zusätzlich ein Digitales Signal gesendet welches Informationen zu Datum und Uhrzeit enthält.
 
-Im Signal ist die Zeitinformation der nächsten Minute kodiert. 
 %DCF-77
 %http://www.cyber-sciences.com/support/technical_dcf77.html
 %http://de.wikipedia.org/wiki/DCF77
 %http://www.dcf77.de/
 %http://www.bmvit.gv.at/telekommunikation/publikationen/infoblaetter/downloads/042013.pdf
-%Wetter
-\subsection{Fehlererkennung}
-In die Codierung ist eine einfache Fehlererkennung anhand von Paritätsbits eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit der gelieferten Zeitinformationen gesetzt. Beispiel: In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
 
-Eine Fehlerkorrektur ist mit der eingebauten Parität nicht möglich.
+\subsubsection{Signalerzeugung}
+
+
+\subsubsection{Das Signal}
+Das Signal setzt sich aus der Normalfrequenz (Trägerfrequenz; 77.5 kHz) und dem digitalen Signal zusammen. Das digitale Signal beinhaltet die Zeitinformation und wird durch negative Modulation (Absenkung Trägeramplitude auf ~15 \%) des Trägersignals codiert.
+
+Die Absenkung des Signals markiert jeweils den Beginn einer Sekunde. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung gemacht wird. Je nach dem wie lang die Absenkung der Amplitude andauert kennzeichnet dies den binären Wert als 0 oder 1. Eine Absenkung von 100 ms steht für den Wert 0 und eine Absenkung um 200 ms für den Wert 1.
+
+Das Signal erreicht beim Empfänger bei optimierter Hardware und optimiertem Decodierungsalgorithmus eine Genauigkeit von 100 Mikroskeunden. Bei handelsüblichen Geräten wird jedoch in der Regel nur eine Genauigkeit von 0.1 Sekunden erreicht.
+
+%TODO: Beispiel und Grafik
 
 \subsubsection{Codierung}
-\begin{tabular}{p{0.5cm} p{13.5cm}}
-\textbf{Bit} & \textbf{Bedeutung} \\ \hline
+Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
+
+\begin{longtable}{p{0.5cm} p{13.5cm}}
+\textbf{Bit} & \textbf{Bedeutung} \\ \hline \endhead
 0 & Start einer Minute \\
 1-14 & Wetterinformationen und Katastrophenschutz \\ \hline
 \multicolumn{2}{p{14cm}}{\textit{Informationen zu Unregelmässigkeiten im Sendebetrieb, Zeitzone, Beginn / Ende Sommerzeit, Schaltsekunden}}  \\ \hline
@@ -166,12 +174,19 @@ Eine Fehlerkorrektur ist mit der eingebauten Parität nicht möglich.
 57 & Jahr (Zehner) - Bit für 80 \\
 58 & Parität Datum \\
 59 & Keine Sekundenmarke
-\end{tabular}
+\end{longtable}
 
 Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört empfangen können um die Zeit eindeutig einzustellen. Auf jeden Fall werden die ersten 36 Sekunden und anschliessend ein Minutenübergang (Sekunden 58 und 59) benötigt.
 
+%TODO: Beispiel
+
 \subsubsection{Zusatznutzung}
 Das Signal des Zeitzeichensenders wird zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
+
+\subsection{Fehlererkennung}
+In die Codierung ist eine einfache Fehlererkennung anhand von Paritätsbits eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit der gelieferten Zeitinformationen gesetzt. Beispiel: In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
+
+Eine Fehlerkorrektur ist mit der eingebauten Parität nicht möglich.
 
 \subsubsection{Network Time Protocol}
 Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Analyse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' versehen.
