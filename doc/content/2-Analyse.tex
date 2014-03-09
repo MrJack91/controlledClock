@@ -6,7 +6,7 @@
 \section{Allgemein}
 Wieso braucht es Zeitsynchronisation? Was für Probleme und Schwierigkeiten können dabei auftreten? Diese Fragen aus der Aufgabenstellung werden in den nachfolgenden Kapiteln detailliert beantwortet.
 
-\subsection{Hintergründe}
+\subsection{Hintergründe} \label{Analyse:Hintergruende}
 In der heutigen Zeit sind wir es uns gewohnt, dass wir uns darauf verlassen können das unsere Uhren in der Regel die gleiche Zeit anzeigen. 
 Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir keine Uhren hätten, bzw. die Uhren nicht synchronisiert werden, oder etwa doch?
 
@@ -39,33 +39,34 @@ Die Genauigkeit einer Funkuhr liegt im Schnitt zwischen 5 und 25 msec.
 %http://www.heret.de/funkuhr/index.htm
 
 \section{Möglichkeiten der Zeitsynchronisation}
-Grundsätzlich stehen mit dem heutigen Stand der Technik die nachfolgend im Detail beschriebenen Möglichkeiten zur Zeitsynchronisation zur Verfügung.
+Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine Zeitsynchronisation vorzunehmen. Zum einen über Funk und zum anderen über das Internet.
 
 \subsection{Funk}
-Funk, bwz. Funkwellen sind allgegenwärtig und aus dem heutigen Alltag nicht mehr Weg zu denken.
+Elektromagnetische Wellen sind seit jeher allgegenwärtig. Es gilt hier natürliche und von Menschen erzeugte elektromagnetische Wellen zu unterscheiden. Natürliche Elektromagnetische Wellen werden z.B. durch die Sonne oder durch erzeugt. Im Laufe der Geschichte haben die Menschen diese Wellen entdeckt und damit begonnen diese für ihre Zwecke einzusetzen. (Mehr dazu im kapitel \ref{Analyse:Hintergruende}).
+
+Die Zeitinformationen werden von Zeitsignaldiensten ausgesendet und können von allen kostenfrei genutzt werden. Um diese Signale auszusenden werden sogenannte Zeitzeichensender eingesetzt. 
 
 \subsection{Zeitsignaldienste}
-Zeitsignal Dienste sind untereinander mit höchster Genaugigkeit und Präzision vernetzt. Die von diesen Diensten ermittelte Zeit stimmt in weiten Bereichen weit unter Nanosekunden überein.(Weltzeit: UTC). Koordination durch Erdrotations-Dienst (IERS)
+Auf der Erde verteilt gibt es zahlreiche Zeitsignaldienste, die alle miteinander verbunden sind. Die Zeit der jeweiligen Dienste stimmt bis weit unterhalb von Nanosekunden miteinander überein. Jeder Dienst verwaltet die UTC (Coordinated Universal Time, Weltzeit) für ihr Land. Daneben steuern auch Messungen vom Internationalen Dienst für Erdrotation und Referenzssysteme (IERS) zur Berechnung der Weltzeit bei.
+Die Bestimmung der Weltzeit wird durch das Internationale Büro für Mass und Gewicht koordiniert. 
 
 \subsection{Zeitzeichensender - Allgemein}
-Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird dann mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen muss dass Signal eine gewisse Zeit empfangen werden. Vielfach dient für das Signal mit den Zeitinformationen eine Normalfrequenz als Grundlage.
 
-Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, vielfach werden die Signale über einen Rundfunksender übermittelt.
+Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird dann mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen muss dass Signal eine gewisse Zeit empfangen werden. Vielfach liegt dem Signal mit den Zeitinformationen eine Normalfrequenz zu Grunde.
 
-Die Signal werden in der Regel im Sekundentakt übermittelt (Ausnahme: Russische Sender senden zum Beispiel zum Teil im Zehntelsekundentakt). Damit ein Minutenwechsel einfach und eindeutig identifiziert werden kann wird bei der Sekunde 0 / 59 eine Minutenkennung gesendet.
+\subsection{Sendeanlage}
+Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, vielfach werden die Signale über einen normalen Rundfunksender übermittelt. Jede Sendeanlage verfügt über eine eindeutige Identifikation um eine Zuordnung des Signals zu ermöglichen. Vielfach ist das Signal an sich bereits eindeutig und kann einer Sendeanlage zugeordnet werden.
 
-Die Codierung der Sender ist nicht vereinheitlicht, hat jedoch mehrheitlich eine ähnliche Struktur und basiert auf einer 60-Bit (bzw. 59) Codierung. Die Codierung und das Signal sind so ausgelegt, dass diese einfach von Maschinen verarbeitet und interpretiert werden können.
+\subsubsection{Codierung \& Übermittlung}
+Das Signal wird entweder als Langwelle, Mittelwelle oder als Kurzwelle ausgesendet. An einigen Standorten wird sogar auf Längstwellen oder Ultrakurzwellen gesendet. Dies ist primär vom Einsatzort und -zweck abhängig. Vorwiegend werden aufgrund der Reichweite Langwellen eingesetzt.
 
-Das Signal wird am Sendestandort an in der unmittelbaren Nähe in der Regel von mehreren Atomuhren generiert und miteinander abgeglichen. Dadurch wird eine sehr hohe Genauigkeit erreicht. Wird die Distanz und die Signallaufzeit zwischen Sender und Empfänger berücksichtigt, ist die Genauigkeit im Nanosekundenbereich angesiedelt. Pro 300 km beträgt die Verzögerung ca. 1 ms.
+Die Codierung des Signals ist nicht einheitlich, ist jedoch in den meisten Fällen ähnlich. Das Grundprinzip sieht vor, dass in einer laufenden Minute die Zeitinformationen für die nächste Minute übermittelt werden. Da das Signal in den meisten Fällen im Sekundentakt (Russische Sender senden zum Teil im Zehntelsekundentakt) ausgestrahlt wird stehen innerhalb einer Minute 60-Bit für die Übermittlung der Informationen zur Verfügung. Der Beginn einer Minute wird in der Regel bei Sekunde 0 / 59 durch eine Minutenkennung markiert. Die Codierung ist so ausgelegt, dass die Signale maschinell einfach und effizient verarbeitet werden können.
 
-Das Signal wird entweder als Langwelle, Mittelwelle oder als Kurzwelle ausgesendet. An einigen Standorten wird sogar auf Langstwellen oder Ultrakurzwellen gesendet.
-Jeder Zeitzeichensender verfügt über ein eindeutiges Kennzeichen...
-%dUT1: Differenz Erdrotationszeit und Atomzeit	
-%http://de.wikipedia.org/wiki/Zeitzeichensender
+\subsubsection{Ausgangssignal}
+Das Signal wird am Sendestandort oder in der unmittelbaren Nähe von mehreren Atomuhren generiert und miteinander abgeglichen. Dadurch wird eine sehr hohe Genauigkeit erreicht. Wird die Distanz und die Signallaufzeit zwischen Sender und Empfänger berücksichtigt ist die Genauigkeit im Nanosekundenbereich angesiedelt. Pro 300 km beträgt die Verzögerung ca. 1 ms.
 
 \subsubsection{Frequenznormale}
-Bis in die 70er Jahre wurde oft das Signal von Radiostationen als Frequenznormale ausgewertet.
-Vorstufe Zeitzeichensender, hochgenaue Schwingungsfrequenz, Empfänger muss einmal eingestellt werden, anschliessend werden Schwingungen gezählt. Radio z.B Langwellensender mit 150 kHz oder Stromnetz mit 50 oder 60 Hz
+Bis in die 70er Jahre wurde oft das Signal von Radiostationen als Frequenznormale ausgewertet. Die Frequenznormale war eine Vorstufe der heutigen Zeitzeichensenders (bzw. des heutigen Signals). Es wurde eine hochgenaue Schwingungsfrequenz eingesetzt (z.B. 150 kHz bei Langwellensendern oder 50 / 60 Hz im Stromnetz). Das Empfangsgerät musste dann einmal manuell auf die aktuelle Zeit eingestellt werden, anschliessend zählte dieses die Schwingungen des Signals, was jeweils einer Sekunde entsprach. Auch heute noch ist die Frequenznormale in Gebraucht, vorwiegend als Grundlage für die digitalen Zeitsignale.
 
 \subsubsection{Zeitzeichensender in der Schweiz}
 
@@ -207,7 +208,7 @@ Die genaue Funktionsweise dieses Protokolles wird in dieser Arbeit nicht erläut
 % http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 
 
-\subsection{Weitere Zeitsignaldienste}
+\section{Weitere Zeitsignaldienste}
 Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit nicht mehr eine grosse Bedeutung haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
 
 
