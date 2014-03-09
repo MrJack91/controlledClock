@@ -109,6 +109,11 @@ Im Signal ist die Zeitinformation der nächsten Minute kodiert.
 %http://www.dcf77.de/
 %http://www.bmvit.gv.at/telekommunikation/publikationen/infoblaetter/downloads/042013.pdf
 %Wetter
+\subsection{Fehlererkennung}
+In die Codierung ist eine einfache Fehlererkennung anhand von Paritätsbits eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit der gelieferten Zeitinformationen gesetzt. Beispiel: In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
+
+Eine Fehlerkorrektur ist mit der eingebauten Parität nicht möglich.
+
 \subsubsection{Codierung}
 \begin{tabular}{p{0.5cm} p{13.5cm}}
 \textbf{Bit} & \textbf{Bedeutung} \\ \hline
@@ -137,7 +142,36 @@ Im Signal ist die Zeitinformation der nächsten Minute kodiert.
 33 & Stunde (Zehner) - Bit für 10 \\
 34 & Stunde (Zehner) - Bit für 20 \\
 35 & Parität Stunde \\ \hline
+36 & Kalendertag (Einer) - Bit für 1 \\
+37 & Kalendertag (Einer) - Bit für 2 \\
+38 & Kalendertag (Einer) - Bit für 4 \\
+39 & Kalendertag (Einer) - Bit für 8 \\
+40 & Kalendertag (Zehner) - Bit für 10 \\
+41 & Kalendertag (Zehner) - Bit für 20 \\
+42 & Wochentag - Bit für 1 \\
+43 & Wochentag - Bit für 2 \\
+44 & Wochentag - Bit für 4 \\
+45 & Monatsnummer (Einer) - Bit für 1 \\
+46 & Monatsnummer (Einer) - Bit für 2 \\
+47 & Monatsnummer (Einer) - Bit für 4 \\
+48 & Monatsnummer (Einer) - Bit für 8 \\
+49 & Monatsnummer (Zehner) - Bit für 10 \\
+50 & Jahr (Einer) - Bit für 1 \\
+51 & Jahr (Einer) - Bit für 2 \\
+52 & Jahr (Einer) - Bit für 4 \\
+53 & Jahr (Einer) - Bit für 8 \\
+54 & Jahr (Zehner) - Bit für 10 \\
+55 & Jahr (Zehner) - Bit für 20 \\
+56 & Jahr (Zehner) - Bit für 40 \\
+57 & Jahr (Zehner) - Bit für 80 \\
+58 & Parität Datum \\
+59 & Keine Sekundenmarke
 \end{tabular}
+
+Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört empfangen können um die Zeit eindeutig einzustellen. Auf jeden Fall werden die ersten 36 Sekunden und anschliessend ein Minutenübergang (Sekunden 58 und 59) benötigt.
+
+\subsubsection{Zusatznutzung}
+Das Signal des Zeitzeichensenders wird zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
 
 \subsubsection{Network Time Protocol}
 Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Analyse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' versehen.
