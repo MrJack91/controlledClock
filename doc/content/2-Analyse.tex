@@ -22,15 +22,15 @@ Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir kein
 
 \subsection{Atomuhr}
 %http://www.meinberg.de/german/info/atomic_clock.htm
-Defition:
+Definition:
 \begin{quote}
 Eine Atomuhr ist ein Zeitmesser, dessen Zeitnormal die hochfrequente Schwingungsdauer bestimmter Atome ist (z.B. Caesium, Rubidium), die durch ein elektromagnetisches Feld oder optisches Pumpen zu Schwingungen angeregt werden und einen Quarzgenerator synchronisieren.
 \end{quote} % http://www.meinberg.de/german/info/atomic_clock.htm
-Die Atomuhr wurde vom Amerkikaner Isidor Isaac Rabi (1898-1988) erfunden. 1944 wurde der Erfinder mit dem Nobelpreis belohnt.
+Die Atomuhr wurde vom Amerkikaner Isidor Isaac Rabi (1898-1988) erfunden. Der Erfinder wurde 1944 mit dem Nobelpreis belohnt.
 %Quelle http://www.meinberg.de/german/info/atomic_clock.htm
 
 \subsection{Funkuhr}
-Im Gegensatz zur Atomuhr, kann eine Funkuhr nicht selbst die korrekte Zeit berechnen. Sie hat einen Funkempfänger eingebaut, der von einen "`echten"' Atomuhr das Funksignal empfangen kann und darus die genaue Uhrzeit annäheren kann. Der erstmalige Zeitabgleich dauert je nach Synchronisationstyp wenige Minuten. Sobald der Decode Prozess abeschlosse ist, läuft die Uhr synchronisiert.
+Im Gegensatz zur Atomuhr, kann eine Funkuhr nicht selbst die korrekte Zeit berechnen. Sie hat einen Funkempfänger eingebaut, der von einen "`echten"' Atomuhr das Funksignal empfängt und daraus die genaue Uhrzeit annäheren kann. Der erstmalige Zeitabgleich dauert, je nach Synchronisationstyp, wenige Minuten. Sobald der Decode Prozess abgeschlosse ist, läuft die Uhr synchronisiert.
 
 Die Genauigkeit einer Funkuhr liegt im Schnitt zwischen 5 und 25 msec.
 
@@ -39,10 +39,11 @@ Die Genauigkeit einer Funkuhr liegt im Schnitt zwischen 5 und 25 msec.
 %http://www.heret.de/funkuhr/index.htm
 
 \section{Möglichkeiten der Zeitsynchronisation}
-Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine Zeitsynchronisation vorzunehmen. Zum einen über Funk und zum anderen über das Internet.
+Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine Zeitsynchronisation vorzunehmen. Zum Einen über Funk, zum Anderen via Internet.
 
 \subsection{Funk}
-Elektromagnetische Wellen sind seit jeher allgegenwärtig. Es gilt hier natürliche und von Menschen erzeugte elektromagnetische Wellen zu unterscheiden. Natürliche Elektromagnetische Wellen werden z.B. durch die Sonne oder durch erzeugt. Im Laufe der Geschichte haben die Menschen diese Wellen entdeckt und damit begonnen diese für ihre Zwecke einzusetzen. (Mehr dazu im kapitel \ref{Analyse:Hintergruende}).
+%TODO @Dani Da fehlt noch ein Wort
+Elektromagnetische Wellen sind seit jeher allgegenwärtig. Es gilt hier natürliche und von Menschen erzeugte elektromagnetische Wellen zu unterscheiden. Natürliche Elektromagnetische Wellen werden z.B. durch die Sonne oder durch @Dani[Wortfehlt] erzeugt. Im Laufe der Geschichte haben die Menschen diese Wellen entdeckt und damit begonnen diese für ihre Zwecke einzusetzen. (Kapitel \ref{Analyse:Hintergruende}).
 
 Die Zeitinformationen werden von Zeitsignaldiensten ausgesendet und können von allen kostenfrei genutzt werden. Um diese Signale auszusenden werden sogenannte Zeitzeichensender eingesetzt. 
 
@@ -60,13 +61,13 @@ Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, viel
 \subsubsection{Codierung \& Übermittlung}
 Das Signal wird entweder als Langwelle, Mittelwelle oder als Kurzwelle ausgesendet. An einigen Standorten wird sogar auf Längstwellen oder Ultrakurzwellen gesendet. Dies ist primär vom Einsatzort und -zweck abhängig. Vorwiegend werden aufgrund der Reichweite Langwellen eingesetzt.
 
-Die Codierung des Signals ist nicht einheitlich, ist jedoch in den meisten Fällen ähnlich. Das Grundprinzip sieht vor, dass in einer laufenden Minute die Zeitinformationen für die nächste Minute übermittelt werden. Da das Signal in den meisten Fällen im Sekundentakt (Russische Sender senden zum Teil im Zehntelsekundentakt) ausgestrahlt wird stehen innerhalb einer Minute 60-Bit für die Übermittlung der Informationen zur Verfügung. Der Beginn einer Minute wird in der Regel bei Sekunde 0 / 59 durch eine Minutenkennung markiert. Die Codierung ist so ausgelegt, dass die Signale maschinell einfach und effizient verarbeitet werden können.
+Die Codierung des Signals ist nicht einheitlich, ist jedoch in den meisten Fällen ähnlich. Das Grundprinzip sieht vor, dass in einer laufenden Minute die Zeitinformationen für die nächste Minute übermittelt werden. Da das Signal in den meisten Fällen im Sekundentakt (Russische Sender senden zum Teil im Zehntelsekundentakt) ausgestrahlt wird, stehen innerhalb einer Minute 60-Bit für die Übermittlung der Informationen zur Verfügung. Der Beginn einer Minute wird in der Regel bei Sekunde 0 / 59 durch eine Minutenkennung markiert. Die Codierung ist so ausgelegt, dass die Signale maschinell einfach und effizient verarbeitet werden können.
 
 \subsubsection{Ausgangssignal}
-Das Signal wird am Sendestandort oder in der unmittelbaren Nähe von mehreren Atomuhren generiert und miteinander abgeglichen. Dadurch wird eine sehr hohe Genauigkeit erreicht. Wird die Distanz und die Signallaufzeit zwischen Sender und Empfänger berücksichtigt ist die Genauigkeit im Nanosekundenbereich angesiedelt. Pro 300 km beträgt die Verzögerung ca. 1 ms.
+Das Signal wird am Sendestandort oder in der unmittelbaren Nähe von mehreren Atomuhren generiert und miteinander abgeglichen. Dadurch wird eine sehr hohe Genauigkeit erreicht. Wird die Distanz und die Signallaufzeit zwischen Sender und Empfänger berücksichtigt, ist die Genauigkeit im Nanosekundenbereich angesiedelt. Pro 300 km beträgt die Verzögerung ca. 1 ms.
 
 \subsubsection{Frequenznormale}
-Bis in die 70er Jahre wurde oft das Signal von Radiostationen als Frequenznormale ausgewertet. Die Frequenznormale war eine Vorstufe der heutigen Zeitzeichensenders (bzw. des heutigen Signals). Es wurde eine hochgenaue Schwingungsfrequenz eingesetzt (z.B. 150 kHz bei Langwellensendern oder 50 / 60 Hz im Stromnetz). Das Empfangsgerät musste dann einmal manuell auf die aktuelle Zeit eingestellt werden, anschliessend zählte dieses die Schwingungen des Signals, was jeweils einer Sekunde entsprach. Auch heute noch ist die Frequenznormale in Gebraucht, vorwiegend als Grundlage für die digitalen Zeitsignale.
+Bis in die 70er Jahre wurde oft das Signal von Radiostationen als Frequenznormale ausgewertet. Die Frequenznormale war eine Vorstufe der heutigen Zeitzeichensenders (bzw. des heutigen Signals). Es wurde eine hochgenaue Schwingungsfrequenz eingesetzt (z.B. 150 kHz bei Langwellensendern oder 50 / 60 Hz im Stromnetz). Das Empfangsgerät musste dann einmal manuell auf die aktuelle Zeit eingestellt werden, anschliessend zählte dieses die Schwingungen des Signals, was jeweils einer Sekunde entsprach. Auch heute noch ist die Frequenznormale in Gebrauch, vorwiegend als Grundlage für digitalen Zeitsignale.
 
 \subsubsection{Zeitzeichensender in der Schweiz}
 
@@ -77,30 +78,32 @@ Bis in die 70er Jahre wurde oft das Signal von Radiostationen als Frequenznormal
   \caption[Zeitzeichensender in Prangins (VD)]{Zeitzeichensender in Prangins (VD) (Quelle: Eigenössisches Institut für Metrologie (METAS); \url{http://www.metas.ch/root_legnet/Web/Fachbereiche/Zeit_Frequenz/dissemination/HBG})} 
 \end{wrapfigure}
 
-In der Schweiz war zwischen 1966 und 2011 der Zeitzeichensender HBG in Prangins (VD) in Betrieb. Aufgrund mangelnder Nachfrage wurde der Sendebetrieb Ende 2011 eingestellt und die Sendeanlage gesprengt und abgebaut. Der Sender wurde vom Eigenössischen Institut für Metrologie betrieben und sendete mit einer Frequenz von 75 kHZ.
+In der Schweiz war zwischen 1966 und 2011 der Zeitzeichensender HBG in Prangins (VD) in Betrieb. Aufgrund mangelnder Nachfrage wurde der Sendebetrieb Ende 2011 eingestellt und die Sendeanlage gesprengt und abgebaut. Der Sender wurde vom Eigenössischen Institut für Metrologie betrieben und sendete mit einer Frequenz von 75 kHz.
 
 \subsection{Zeitzeichensender - DCF77}
 DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhausen) der von der Physikalisch-Technischen Bundesanstalt in Braunschweig (PTB) entwickelt wurde. Der Betrieb erfolgt durch die Media Broadcast GmbH. Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz).
 
-Langwellensender
+%TODO Wird der Titel gebraucht?
+\subsubsection{Langwellensender}
 %Seit 1959: Normalfrequenz (Eichfrequenz, hochgenaue Frequenz, häufig identisch mit Trägerfrequenz von Zeitzeichendiensten und Rundfunksendern im Lang- und Mittelwellenbereich)
 
-Der DCF77 sendet im Sekundenrythmus die aktuelle mitteleuropäische Zeit, bzw. mitteleuropäische Sommerzeit. Seit 1973 werden Datum und Uhrzeit gesendet.
+Der DCF77 sendet im Sekundenrythmus die aktuelle, mitteleuropäische Zeit, bzw. mitteleuropäische Sommerzeit. Seit 1973 werden Datum und Uhrzeit gesendet.
 
 Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 ausgesendet. Es wurde aber festgestellt, dass dieses Signal eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
 
-Die ausgesendete Zeit wird mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^{-12}$. Daraus resultiert ein Fehler von ca. einer Sekunde in 30'000 Jahren.
+Die auszusendende Zeit wird, mit einer am PTB entwickelten Steuereinrichtung auf Basis von drei Atomuhren, ermittelt. Das daraus erhaltene Signal wird mit den primären Atomuhren des PTB synchronisiert. Aktuell sind dort zwei Caesium-Uhren und zwei Caesium-Fontänen im Einsatz. Das Endsignal hat eine Genauigkeit von $10^{-12}$. Daraus resultiert ein Fehler von ungefähr einer Sekunde in 30'000 Jahren.
 
+%TODO Brauchts das noch?
 Erzeugung des Signals durch PTB, Aussendung durch Telekom
 Das DCF77-Signal codiert innerhalb einer Minute die Zeit- und Datumsangaben für die nächste Minute. 
 
 Das Signal wird von drei Steuereinheiten unabhängig voneinander erzeugt. Stimmt das Signal der Hauptsteuereinheit nicht mit den Signalen der Reserveeinheiten überein, wird auf eine Reserveeinheit umgestellt. Sind alle drei Signal unterschiedlich, wird die Signalaussendung unterbrochen.
 
-Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite von 2'000 km. Da der Zeitcode durch Amplitudenmodulation erfolgt kann das Signal leicht gestört werden, z.B. durch Gewitter. Bei Gewitter / Sturm oder starken Winden wird die Antenne vorübergehend ausser Betrieb genommen, da durch die Schwingung der Antenne eine messbare Phasenmodulation bei den Empfängern entsteht.
+Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite von 2'000 km. Da der Zeitcode durch Amplitudenmodulation erfolgt kann das Signal leicht gestört werden, z.B. durch Gewitter. Bei Gewitter, Sturm oder starken Winden wird die Antenne vorübergehend ausser Betrieb genommen, da durch die Schwingung der Antenne eine messbare Phasenmodulation bei den Empfängern entsteht.
 
 Der Sender sendet mit 50 kW (nominell).
 
-Neben der Normalfrequenz wird seit 1973 zusätzlich ein Digitales Signal gesendet welches Informationen zu Datum und Uhrzeit enthält.
+Neben der Normalfrequenz wird seit 1973 zusätzlich ein digitales Signal gesendet, welches Informationen zu Datum und Uhrzeit enthält.
 
 %DCF-77
 %http://www.cyber-sciences.com/support/technical_dcf77.html
@@ -116,7 +119,7 @@ Das Signal setzt sich aus der Normalfrequenz (Trägerfrequenz; 77.5 kHz) und dem
 
 Die Absenkung des Signals markiert jeweils den Beginn einer Sekunde. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung gemacht wird. Je nach dem wie lang die Absenkung der Amplitude andauert kennzeichnet dies den binären Wert als 0 oder 1. Eine Absenkung von 100 ms steht für den Wert 0 und eine Absenkung um 200 ms für den Wert 1.
 
-Das Signal erreicht beim Empfänger bei optimierter Hardware und optimiertem Decodierungsalgorithmus eine Genauigkeit von 100 Mikroskeunden. Bei handelsüblichen Geräten wird jedoch in der Regel nur eine Genauigkeit von 0.1 Sekunden erreicht.
+Das Signal erreicht beim Empfänger bei optimierter Hardware und optimiertem Decodierungsalgorithmus eine Genauigkeit von 100 ${\mu}sec$. Bei handelsüblichen Geräten wird jedoch in der Regel nur eine Genauigkeit von 0.1 Sekunden erreicht.
 
 %TODO: Beispiel und Grafik
 
@@ -184,49 +187,52 @@ Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört emp
 Das Signal des Zeitzeichensenders wird zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
 
 \subsection{Fehlererkennung}
-In die Codierung ist eine einfache Fehlererkennung anhand von Paritätsbits eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit der gelieferten Zeitinformationen gesetzt. Beispiel: In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
+In die Codierung ist eine einfache Fehlererkennung, anhand von Paritätsbits, eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit der gelieferten Zeitinformationen gesetzt.
+
+Dazu ein Beispiel:\\
+In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
 
 Eine Fehlerkorrektur ist mit der eingebauten Parität nicht möglich.
 
 \subsubsection{Network Time Protocol}
-Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Analyse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' versehen.
+Wird bei eine NTP-Root-Server (Kapitel \ref{Anaylse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' versehen.
 
 \subsection{GPS}
-Nebst der Zeitsynchronisation über Funk, kann eine genaure Information aus den GPS-Satelliten gewonnen werden. Dies obwhol GPS-Systeme hauptsächlich zur Lokalisierung des Standortes entwickelt wurden.
-Momentan befinden sich sechs solche Satelliten auf ungefähr 200'000km Höhe. Jeder umrundet die Erde zweimal pro Tag. Auf jedem Satellit sind jeweils zwei Atomuhren vorhanden.
-Ein Satellit sendet dauernd seine Bahnposition und die genaue Uhrzeit. Durch Signale mehrere Satelliten, kann der Empfänger seinen genauen Standort ermitteln.
+Nebst der Zeitsynchronisation über Funk, kann eine genauere Information von den GPS-Satelliten gewonnen werden. Dies obwhol GPS-Systeme hauptsächlich zur Lokalisierung des Standortes entwickelt wurden.
+Momentan befinden sich sechs solche Satelliten auf ungefähr 200'000 km Höhe. Jeder umrundet die Erde zweimal pro Tag. Auf jedem Satellit sind jeweils zwei Atomuhren vorhanden.
+Ein Satellit sendet andauernd seine Bahnposition und die genaue Uhrzeit. Durch Signale mehreren Satelliten, kann der Empfänger seinen genauen Standort ermitteln.
 Anschliessend kann die Laufzeit des Signals zurück gerechnet werden und die durchs Versenden verstrichene Zeit, das Delay, approximiert werden.
-Durch dieses Verfahren kann die Uhrzeit, mit einer Genauigkeit unter 1${\mu}sec$, berechnet werden.
+Durch dieses Verfahren kann die Uhrzeit, mit einer Genauigkeit unter 1 ${\mu}sec$, berechnet werden.
 
-Vorteile der Zeit-Synchronisation über GPS sind: weltweilte Abdeckung und hohe sehr hohe Genauigkeit.
+Vorteile der Zeit-Synchronisation über GPS sind eine weltweilte Abdeckung und eine höhere Genauigkeit als der Synchronisation über Funk.
 
-Ein grosser Nachteile der GPS Synchronisation ergibt sich jedoch durch das verwendete Kurzwellen Signal (zwischen 1176,45 bis 1575,42 MHz). Dieses Signal kann nur unter freien Himmel empfangen werden und eignet sich daher nicht für einen typischen Computer.
+Ein grosser Nachteile der GPS Synchronisation ergibt sich jedoch durch das verwendete Kurzwellen Signal (zwischen 1176,45 bis 1575,42 MHz). Dieses Signal kann parktisch nur unter freien Himmel empfangen werden und eignet sich daher nicht für einen typischen Computer.
 
 %GPS: http://www.mono.rgbtechnology.pl/de/faq/gps-zeitsynchronisation.html
 %http://www.stardado.de/1244, http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 %GPS vs DCF77: http://www.hopf.com/de/dcf77-gps_de.html
 \subsection{Internet} \label{Anaylse:Internet}
 
-Will man eine Uhr via Internet synchronisieren, stösst man rasch auf folgendes Problem:
+Will man eine Uhr via Internet synchronisieren, stösst man auf folgendes Problem:
 
 \begin{verse}
-Die genaue Senddauer eines  Datenpaktes, welches die der korreketen Uhrzeit beinhaltet, ist weder vorhersehbar noch kan man die verstrichene Zeit beim Empfänger zurückrechnen.
+Die genaue Sendedauer eines  Datenpaktes, welches die korrekete Uhrzeit beinhaltet, ist weder vorhersehbar, noch kan man die verstrichene Zeit beim Empfänger zurückrechnen.
 \end{verse}
 
-Da keine Aussagen über die Genauigkeit der empfangenen Information möglich ist, verliert sie drastisch an Wert.
+Da keine Aussage über die Genauigkeit der empfangenen Information möglich ist, verliert sie drastisch an Wert.
 
 \section{Zeitprotokoll}
 Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)\cite{ntp_stackoverfow}
 
 \begin{enumerate}
 \item Der Client schickt eine \textbf{Anfrage an den Server} und \textbf{merkt} sich seine aktuelle, lokale Zeit (welche mit grosser Wahrscheinlichkit nicht der korrekten Serverzeit entspricht).
-\item Der Server antwortet mit seiner lokalen, korrekten \textbf{Zeit des Empfangs und der des Rückversandes}.
-\item Der Client merkt sich die Zeit des Empfangs der Antwort. 
+\item Der Server antwortet mit seiner lokalen, korrekten \textbf{Zeit des Empfangs und der des (geplanten) Rückversandes}.
+\item Der Client merkt sich die Empfangszeit der Antwort. 
 \end{enumerate}
 \vspace{1em}
 Nach dem Datenaustausch hat der Client folgende vier verschiedene Zeiten zur Verfügung:
 \begin{enumerate}
-\item Client: lokale Zeit bei der Anfrage - (A)
+\item Client: lokale Zeit der Anfrage - (A)
 \item Server: Empfangszeit - (X)
 \item Server: Versandzeit - (Y)
 \item Client: Empfangszeit - (B)
@@ -234,14 +240,41 @@ Nach dem Datenaustausch hat der Client folgende vier verschiedene Zeiten zur Ver
 \vspace{1em}
 Als Annahme wird vereinfacht angenommen, das der Hinweg des Paketes ungefähr gleich lang wie der Rückweg dauert.
 \vspace{1em}
-Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer Fehlerabschätzung:
+Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern (inkl. der dazugehörigen Fehlerabschätzung):
 \begin{itemize}
 \item Totale Zeit des Prozesses: B-A
 \item Server Bearbeitungszeit: Y-X
 \item Effektive Datentransferzeit: B-A-(Y-X)
-\item Nur Rückweg: [B-A-(Y-X)]/2
-\item Korrekte Zeit Plus dauer des Rückweges: Y+[B-A-(Y-X)]/2
-\item als einfache Fehlerabschätzung kann die \textit{Effektive Datentransferzeit} verwendet werden: B-A-(Y-X)
+\item Datentransferzeit Rückweg: [B-A-(Y-X)]/2
+\item Korrekte Zeit; plus dauer des Rückweges: Y+[(B-A-(Y-X))/2]
+\item als Fehlerabschätzung wird die Hälfte der \textit{Effektive Datentransferzeit} verwendet: B-A-(Y-X)
+\end{itemize}
+
+\subsubsection{Beispiel Synchronisation}
+Ein konkretes Beispiel dazu (vereinfachtes in Milisekunden).\\
+\vspace{0em}
+(Die Clientzeit ist jeweils falsch. Die Serverzeit ist korrekt. Die zwei Zeiten sind nicht synchron und dürfen daher nicht direkt miteinander verrechnet werden.)
+\begin{itemize}
+\item Clientzeit lokal beim Senden: A = 200
+\item Serverzeit des Empfangs: X = 150
+\item Serverzeit Rückversand: Y = 180
+\item Clientzeit Empfang: B = 300
+\end{itemize}
+
+Daraus kann auf folgendes gschlossen werden:
+\begin{itemize}
+\item Totale Zeit des Prozesses: B-A = 300-200 = \textbf{100}
+\item Server Bearbeitungszeit: Y-X = 180-150 = \textbf{30}
+\item Effektive Datentransferzeit: [B-A]-([Y-X]) = 100 - 30 = \textbf{70}
+\item Nur Rückweg: (B-A-(Y-X))/2 = 70/2 = \textbf{35}
+\item Korrekte Zeit, plus dauer des Rückweges: Y+[(B-A-(Y-X)/2)] = 180+35 = \textbf{215}
+\item Feherabschätzung: max. 35\\
+Das Worstcase Szenario ist folgendes:\\
+\begin{itemize}
+\item Client $\Rightarrow$ Server: $\approx$0
+\item Server $\Rightarrow$ Client:$ \approx$70
+\end{itemize}
+$\Rightarrow$ \textbf{Fehler: 35}
 \end{itemize}
 
 % http://stackoverflow.com/questions/1228089/how-does-the-network-time-protocol-work
@@ -249,8 +282,8 @@ Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern inkl. einer
 
 \section{NTP / SNTP}
 NTP (Network Time Protocol) basiert auf dem obengenannten Prinzip, hat aber noch diverse Verbesserungen in sich.
-NTP befindet sich mometan in der Version 4.
-Da das Protokoll sehr komplex ist gibt es auch eine vereinfachte Version, die SNTP (Simple Network Time Protocol) genannt wird.
+NTP befindet sich momentan in der Version 4.
+Da das Protokoll sehr komplex ist, gibt es auch eine vereinfachte Version, die SNTP (Simple Network Time Protocol) genannt wird.
 Die genaue Funktionsweise dieses Protokolles wird in dieser Arbeit nicht erläutert.
 
 % http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf
