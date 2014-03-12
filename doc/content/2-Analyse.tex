@@ -12,13 +12,16 @@ In der heutigen Zeit sind wir es uns gewohnt, dass wir uns darauf verlassen kön
 Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir keine Uhren hätten, bzw. die Uhren nicht synchronisiert werden, oder etwa doch?
 
 \subsubsection{Kurzer Rückblick in die Geschichte}
+%TODO:
 %http://www.astro-siggi.de/tutorial-funkuhr.html
 %http://de.wikipedia.org/wiki/Geschichtliche_Entwicklung_der_Zeit%C3%BCbertragung_per_Funk
 %http://en.wikipedia.org/wiki/Time_signal
 \subsubsection{Was wäre wenn...}
+%TODO:
 %Stichwort: GPS, Börse, ÖV, 
 
 \subsection{Was für Schwierigkeiten können dabei auftreten?}
+%TODO:
 %http://diepresse.com/home/spectrum/zeichenderzeit/695559/Auf-der-Hohe-der-Zeit
 
 \subsection{Atomuhr}
@@ -193,11 +196,24 @@ Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört emp
 \end{wrapfigure}
 
 Die Zeitangabe "`12.03.2014 18:15:30"' (MEZ) wird wie folgt als DCF77-Signal codiert:\\
-\begin{tabular}{r c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c cc c c c c c c}
-Test	&  1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
-Bitnr.	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
-Wert	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
+\begin{tabular}{r c c c c c c c c c c c c c c c c c c c c}
+Test	&  1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20	\\
+Bitnr.	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20	\\
+Wert	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20
 \end{tabular}
+\\
+\begin{tabular}{r c c c c c c c c c c c c c c c c c c c c}
+Test	&  21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40	\\
+Bitnr.	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40	\\
+Wert	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40
+\end{tabular}
+\\
+\begin{tabular}{r c c c c c c c c c c c c c c c c c c c c}
+Test	&   41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
+Bitnr.	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
+Wert	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59
+\end{tabular}
+
 %TODO: Beispiel einer Codierung
 
 \subsubsection{Zusatznutzung}
