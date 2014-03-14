@@ -132,6 +132,12 @@ Das Signal erreicht beim Empfänger bei optimierter Hardware und optimiertem Dec
 \subsubsection{Codierung}
 Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
 
+\begin{itemize}
+\item Wochentag: Beginnend bei Montag (1).
+\item Monat: Beginnend bei Januar (1).
+\item Jahr: Beginnend bei 1900 (0); %TODO: Verifizieren
+\end{itemize}
+
 \begin{longtable}{p{0.5cm} p{13.5cm}}
 \textbf{Bit} & \textbf{Bedeutung} \\ \hline \endhead
 0 & Start einer Minute \\
@@ -142,7 +148,7 @@ Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
 17 & Wenn Wert 0: MEZ, Wenn Wert 1: MESZ \\
 18 & Wenn Wert 0: MESZ, Wenn Wert 1: MEZ \\
 19 & Wenn Wert 1: Schaltsekunde am Ende der Stunde. \\ \hline
-\multicolumn{2}{p{14cm}}{\textit{Zeitinformation der nachfolgenden Minute in BCD-Zahlen (Start mit LSB). Gerade Parität für Fehlererkennung. Erster Wochentag ist der Montag (Tag 1)}}  \\ \hline
+\multicolumn{2}{p{14cm}}{\textit{Zeitinformation der nachfolgenden Minute in BCD-Zahlen (Start mit LSB). Gerade Parität für Fehlererkennung.}}  \\ \hline
 20 & Beginn der Zeitinformation (immer 1) \\
 21 & Minute (Einer) - Bit für 1 \\
 22 & Minute (Einer) - Bit für 2 \\
@@ -195,26 +201,25 @@ Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört emp
   \url{http://endorphino.de/projects/electronics/timemanipulator/index.html})} 
 \end{wrapfigure}
 
-Die Zeitangabe "`12.03.2014 18:15:30"' (MEZ) wird wie folgt als DCF77-Signal codiert:\\
-\begin{tabular}{r c c c c c c c c c c c c c c c c c c c c}
-Test	&  1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20	\\
-Bitnr.	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20	\\
-Wert	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	&	20
+\begin{landscape}
+Die Zeitangabe "`12.03.2014 18:15:30"' (MEZ) wird wie folgt als DCF77-Signal codiert:\\\\
+\begin{tabular}{r | c c c c c c c c c c c c c c c c c c c c}
+\multicolumn{20}{c}{}	\\
+Bitnr.	 &	0	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	\\
+Wert	&	0	&	0	& 	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	1	&	0	\\
+\\\hline \\
+	&  	&\multicolumn{7}{| c |}{\textit{Minute: 30}}	&	\multicolumn{6}{c |}{\textit{Stunde: 18}}	&	\multicolumn{4}{c }{\textit{Kalendertag: 12}}	\\
+Bitnr.	&	20	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	\\
+Wert	&	1	&	0	&	0	&	0	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	0	&	1	&	1	&	0	&	0	&	0	&	1	&	0	&	0	\\
+\\\hline \\
+	&   \multicolumn{2}{ c |}{}	& \multicolumn{3}{ c |}{\textit{Wochentag: MI}}	&	\multicolumn{5}{ c |}{\textit{Monat: März}}	&		\multicolumn{8}{ c |}{\textit{Jahr: 2014}}	&		&		\\
+Bitnr.	&	40	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
+Wert	&	1	&	0	&	1	&	1	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	0	&	1	&	0	&	1	&	1	&	0	&	1	&	0	&	-
 \end{tabular}
-\\
-\begin{tabular}{r c c c c c c c c c c c c c c c c c c c c}
-Test	&  21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40	\\
-Bitnr.	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40	\\
-Wert	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	&	40
-\end{tabular}
-\\
-\begin{tabular}{r c c c c c c c c c c c c c c c c c c c c}
-Test	&   41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
-Bitnr.	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
-Wert	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59
-\end{tabular}
+\end{landscape}
 
-%TODO: Beispiel einer Codierung
+\subsubsection{BCD-Codierung}
+%TODO: BDC-Codierung, wir haben nur BCD-Zahlen verwendet! Nicht explizit BCD-Codierung
 
 \subsubsection{Zusatznutzung}
 Das Signal des Zeitzeichensenders wird zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
