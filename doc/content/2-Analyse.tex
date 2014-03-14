@@ -32,10 +32,10 @@ Für die Seefahrt startete 1904 die erste regelmässige Zeitübermittlung via Fu
 Erst im Jahr 1970 wurde der heutige Zeitübermittlungs-Standard DCF77, in Mainflingen bei Frankfurt in Betrieb genommen.
 Kurz darauf, im Jahr 1978, wurden der Betrieb des ersten GPS-Satelliten, mit einer eigenen Atomuhr an Board gestartet.
 
-% http://www.astro-siggi.de/tutorial-funkuhr.html
-% http://de.wikipedia.org/wiki/Geschichtliche_Entwicklung_der_Zeit%C3%BCbertragung_per_Funk
-% http://en.wikipedia.org/wiki/Time_signal
-% http://de.wikipedia.org/wiki/Sonnenuhr
+% http://www.astro-siggi.de/tutorial-funkuhr.html -> astrosiggiFunk
+% http://de.wikipedia.org/wiki/Geschichtliche_Entwicklung_der_Zeit%C3%BCbertragung_per_Funk -> wikiFunkHistory
+% http://en.wikipedia.org/wiki/Time_signal -> wikiTimeSignal
+% http://de.wikipedia.org/wiki/Sonnenuhr -> wikiSunclock
 
 \subsubsection{Was wäre wenn...}
 %TODO: Dani / Michi
@@ -292,7 +292,9 @@ Die genaue Sendedauer eines  Datenpaktes, welches die korrekete Uhrzeit beinhalt
 Da keine Aussage über die Genauigkeit der empfangenen Information möglich ist, verliert sie drastisch an Wert.
 
 \section{Zeitprotokoll}
-Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)\cite{ntp_stackoverfow}
+Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)\cite{stackoverflowNtp}
+
+
 
 \begin{enumerate}
 \item Der Client schickt eine \textbf{Anfrage an den Server} und \textbf{merkt} sich seine aktuelle, lokale Zeit (welche mit grosser Wahrscheinlichkit nicht der korrekten Serverzeit entspricht).
