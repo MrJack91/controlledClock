@@ -123,11 +123,22 @@ Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite v
 \subsubsection{Das Signal}
 Seit 1973 wird neben der Normalfrequenz (77.5 kHz) ein digitales Signal gesendet. Das digitale Signal wird durch negative Modulation (Absenkung Trägeramplitude auf ~15 \%) auf die Trägerfrequenz aufgebracht und enthält die Informationen zu Datum und Uhrzeit (Mitteleuropäische Zeit, Mitteleuropäische Sommerzeit). Das Signal codiert innerhalb von einer Minute die Zeit- und Datumsinformationen für die darauffolgende Minute.
 
-Der Beginn einer Sekunde (~eines Bits) wird durch die Absenkung der Trägeramplitude markiert. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung statt findet. Je nach der der Amplitudenabsenkung kennzeichnet dies entweder den binären Wert 0 (Absenkung für 100 ms) oder für den Wert 1 (Absenkung für 200 ms).
+Der Beginn einer Sekunde (~eines Bits) wird durch die Absenkung der Trägeramplitude markiert. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung statt findet. Je nach Dauer der Amplitudenabsenkung kennzeichnet dies entweder den binären Wert 0 (Absenkung für 100 ms) oder für den Wert 1 (Absenkung für 200 ms).
 
 Das Signal erreicht beim Empfänger bei optimierter Hardware und optimiertem Decodierungsalgorithmus eine Genauigkeit von 100 ${\mu}sec$. Bei handelsüblichen Geräten wird jedoch in der Regel nur eine Genauigkeit von 0.1 Sekunden erreicht.
 
-%TODO: Beispiel und Grafik
+\begin{figure}
+\ffigbox[][7.8cm]{ %
+\begin{subfloatrow}
+  \ffigbox[\FBwidth][]
+    {\caption{ohne Amplitudenmodulation}}
+    {\includegraphics[width=0.5\textwidth]{images/Analyse/SWP2_Analyse_DCF77_Signal_ohne}}
+  \ffigbox[\FBwidth][]
+    {\caption{mit Amplitudenmodulation}}
+    {\includegraphics[width=0.5\textwidth]{images/Analyse/SWP2_Analyse_DCF77_Signal_mit}}
+\end{subfloatrow}
+}{\caption{Beispielhaftes DCF77 Signal}}
+\end{figure}
 
 \subsubsection{Codierung}
 Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
