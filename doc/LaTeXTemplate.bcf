@@ -32,7 +32,7 @@
   <bcf:options component="biblatex" type="global">
     <bcf:option type="singlevalued">
       <bcf:key>alphaothers</bcf:key>
-      <bcf:value></bcf:value>
+      <bcf:value>+</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>labelalpha</bcf:key>
@@ -95,7 +95,7 @@
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortalphaothers</bcf:key>
-      <bcf:value></bcf:value>
+      <bcf:value>+</bcf:value>
     </bcf:option>
     <bcf:option type="singlevalued">
       <bcf:key>sortlos</bcf:key>
@@ -294,6 +294,7 @@
     <bcf:datasource type="file" datatype="bibtex">bib/BibtexDatabase.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey>ntp_stackoverfow</bcf:citekey>
+    <bcf:citekey>stackoverflowNtp</bcf:citekey>
+    <bcf:citekey>*</bcf:citekey>
   </bcf:section>
 </bcf:controlfile>
