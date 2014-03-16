@@ -252,7 +252,6 @@ Wert	&	1	&	0	&	1	&	1	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	0	&	1	&	0	&	1	&	1	&	0	&	1	&	0
 \subsubsection{BCD-Codierung}
 Kurz zur verwendeten BCD-Codierung (Binary Coded Decimal):\\
 Jede Ziffer einer Zahl wird einzeln mit 4 Bit (8, 4, 2, 1) codiert. Von den $2^4 = 16$ Kombinationsmöglichkeiten werden nur 10 verwendet, darum spricht man oft von einer Speicherverschwendung.
-%TODO: BDC-Codierung, wir haben nur BCD-Zahlen verwendet! Nicht explizit BCD-Codierung, evtl. können wirs weglassen und einchf BCD in das Glossar reinnehmen.
 
 \subsubsection{Zusatznutzung}
 Das Signal des Zeitzeichensenders wird zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
@@ -350,9 +349,6 @@ Das Worstcase Szenario ist folgendes:\\
 $\Rightarrow$ \textbf{Fehler: 35},
 \end{itemize}
 
-% http://stackoverflow.com/questions/1228089/how-does-the-network-time-protocol-work
-
-
 \section{NTP / SNTP}
 NTP (Network Time Protocol) basiert auf dem obengenannten Prinzip, hat aber noch diverse Verbesserungen in sich.
 NTP befindet sich momentan in der Version 4.
@@ -362,8 +358,5 @@ Die genaue Funktionsweise dieses Protokolles wird in dieser Arbeit nicht erläut
 % http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf
 % http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 
-
 \section{Weitere Zeitsignaldienste}
 Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit nicht mehr eine grosse Bedeutung haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
-
-
