@@ -359,6 +359,7 @@ Die genaue Funktionsweise dieses Protokolles wird in dieser Arbeit nicht erläut
 % http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 
 \section{Weitere Zeitsignaldienste}
+<<<<<<< HEAD
 Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit nicht mehr eine grosse Bedeutung haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
 
 \section{Fazit}
@@ -370,3 +371,7 @@ Da "`nur"' jede Minute die Zeitinformationen übermittelt werden muss eine Uhr i
 \subsection{Fehlererkennung und Fehlerkorrektur}
 Die Wellen, bzw. das Signal des DCF77 können aufgrund ihrer Eigenschaften relativ leicht gestört werden. Aufgrund dessen muss unsere Implementation in der Lage sein fehlerhafte Informationen zu erkennen und zu korrigieren. Dafür muss das "`Langzeitverhalten"' gespeichert und analysiert werden.
 
+
+=======
+Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit nicht mehr eine grosse Bedeutung haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
+>>>>>>> 62ca5b7137b8f4b47dcf0d83739b29eda82910b8
