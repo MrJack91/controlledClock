@@ -5,3 +5,7 @@ Java / USB:
 https://today.java.net/pub/a/today/2006/07/06/java-and-usb.html
 http://javausbapi.blogspot.ch/2010/05/java-usb-api.html
 http://jusb.sourceforge.net/apidoc/usb/core/package-summary.html
+
+
+Java Treiber Bridge:
+http://bleyer.org/jd2xx/
