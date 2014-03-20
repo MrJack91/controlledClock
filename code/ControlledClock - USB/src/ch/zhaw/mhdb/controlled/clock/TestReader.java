@@ -5,9 +5,13 @@ package ch.zhaw.mhdb.controlled.clock;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.TooManyListenersException;
 
 import jd2xx.JD2XX;
 import jd2xx.JD2XX.ProgramData;
+import jd2xx.JD2XXEvent;
+import jd2xx.JD2XXEventListener;
 import jd2xx.JD2XXInputStream;
 import jd2xx.JD2XXOutputStream;
 
@@ -15,7 +19,7 @@ import jd2xx.JD2XXOutputStream;
  * @author Daniel Brun
  * 
  */
-public class TestReader {
+public class TestReader implements JD2XXEventListener {
 
 	public TestReader() {
 		JD2XX jd = new JD2XX();
@@ -39,16 +43,17 @@ public class TestReader {
 			    Integer.toHexString((Integer)devs[i])
 			  );
 			
+			jd.addEventListener(this);
 			jd.open(0);
 			jd.setBaudRate(6000);
-			jd.setLatencyTimer(465);
+			//jd.setLatencyTimer(465);
 			jd.setDataCharacteristics(
 			  JD2XX.BITS_8, JD2XX.STOP_BITS_1, JD2XX.PARITY_NONE
 			);
 //			jd.setFlowControl(
 //			  JD2XX.FLOW_NONE, 0, 0
 //			);
-			jd.setTimeouts(500, 500);
+			//jd.setTimeouts(500, 500);
 			
 			byte[] rd = jd.read(10);
 			System.out.println(new String(rd));
@@ -68,16 +73,16 @@ public class TestReader {
 					
 					case -128:
 					case 0:
-						System.out.println("Bit-Code: 1 (" + data[0] + ")");
+						System.out.println("Bit-Code: 1 (" + data[0] + ", " + new Date() + ")");
 						break;
 						
-					case 8:
-					case 16:
-					case 32:
-						System.out.println("Bit-Code: 0 (" + data[0] + ")");
+					case -8:
+					case -16:
+					case -32:
+						System.out.println("Bit-Code: 0 (" + data[0] + ", " + new Date() + ")");
 						break;
 					default: {
-						System.out.println("Undefinied: " + data[0]);
+						System.out.println("Undefinied: " + data[0] + " (" + new Date() + ")");
 					}
 					}
 				}
@@ -97,6 +102,9 @@ public class TestReader {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (TooManyListenersException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}finally{
 			
 		}
@@ -109,6 +117,11 @@ public class TestReader {
 	public static void main(String[] args) {
 		new TestReader();
 
+	}
+
+	@Override
+	public void jd2xxEvent(JD2XXEvent event) {
+		System.out.println("Got Event " + event.getEventType());
 	}
 
 }
