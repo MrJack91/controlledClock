@@ -90,81 +90,80 @@ Die Bestimmung der Weltzeit wird durch das Internationale Büro für Mass und Ge
 
 \subsection{Zeitzeichensender - Allgemein}
 
-Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen muss dass Signal eine gewisse Zeit empfangen werden. Vielfach liegt dem Signal mit den Zeitinformationen eine Normalfrequenz zu Grunde.
+Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen muss dass Signal über eine gewisse Zeit empfangen werden. Vielfach liegt dem Signal mit den Zeitinformationen eine Normalfrequenz (Siehe Kapitel \ref{subsubsec:Analyse:Frequenznormale} - \nameref{subsubsec:Analyse:Frequenznormale}) zu Grunde.
 
 \subsection{Sendeanlage}
-Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, vielfach werden die Signale über einen normalen Rundfunksender übermittelt. Jede Sendeanlage verfügt über eine eindeutige Identifikation um eine Zuordnung des Signals zu ermöglichen. Vielfach ist das Signal an sich bereits eindeutig und kann einer Sendeanlage zugeordnet werden.
+Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, vielfach werden die Signale über einen normalen Rundfunksender übermittelt. Jede Sendeanlage verfügt über eine eindeutige Identifikation um eine Zuordnung des Signals zu ermöglichen. Meistens ist das Signal an sich bereits eindeutig und kann einer Sendeanlage zugeordnet werden.
 
 \subsubsection{Codierung \& Übermittlung}
-Das Signal wird entweder als Langwelle, Mittelwelle oder als Kurzwelle ausgesendet. An einigen Standorten wird sogar auf Längstwellen oder Ultrakurzwellen gesendet. Dies ist primär vom Einsatzort und -zweck abhängig. Vorwiegend werden aufgrund der Reichweite Langwellen eingesetzt.
+Das Signal wird entweder als Langwelle, Mittelwelle oder als Kurzwelle ausgesendet. An einigen Standorten werden sogar Längstwellen oder Ultrakurzwellen gesendet. Dies ist primär vom Einsatzort und -zweck abhängig. Aufgrund der Reichweite werden vorwiegend Langwellen eingesetzt.
 
-Die Codierung des Signals ist nicht einheitlich, ist jedoch in den meisten Fällen ähnlich. Das Grundprinzip sieht vor, dass in einer laufenden Minute die Zeitinformationen für die nächste Minute übermittelt werden. Da das Signal in den meisten Fällen im Sekundentakt (Russische Sender senden zum Teil im Zehntelsekundentakt) ausgestrahlt wird, stehen innerhalb einer Minute 60-Bit für die Übermittlung der Informationen zur Verfügung. Der Beginn einer Minute wird in der Regel bei Sekunde 0 / 59 durch eine Minutenkennung markiert. Die Codierung ist so ausgelegt, dass die Signale maschinell einfach und effizient verarbeitet werden können.
+Die Codierung des Signals ist nicht einheitlich, jedoch in den meisten Fällen ähnlich. Das Grundprinzip sieht vor, dass in einer laufenden Minute die Zeitinformationen für die nachfolgende Minute übermittelt werden. Da das Signal in den meisten Fällen im Sekundentakt (Russische Sender senden zum Teil im Zehntelsekundentakt) ausgestrahlt wird, stehen innerhalb einer Minute 60-Bit für die Übermittlung der Informationen zur Verfügung. Der Beginn einer Minute wird in der Regel bei Sekunde 0 / 59 durch eine spezielle Kennung markiert. Die Codierung ist so ausgelegt, dass die Signale maschinell einfach und effizient verarbeitet werden können.
 
 \subsubsection{Ausgangssignal}
-Das Signal wird am Sendestandort oder in der unmittelbaren Nähe von mehreren Atomuhren generiert und miteinander abgeglichen. Dadurch wird eine sehr hohe Genauigkeit erreicht. Wird die Distanz und die Signallaufzeit zwischen Sender und Empfänger berücksichtigt, ist die Genauigkeit im Nanosekundenbereich angesiedelt. Pro 300 km beträgt die Verzögerung ca. 1 ms.
+Das Signal wird am Sendestandort oder in der unmittelbaren Nähe von mehreren Atomuhren generiert und abgeglichen. Dadurch wird eine sehr hohe Genauigkeit erreicht. Wird die Distanz und die Signallaufzeit zwischen Sender und Empfänger berücksichtigt, ist die Genauigkeit im Nanosekundenbereich angesiedelt. Pro 300 km beträgt die Verzögerung ca. 1 ms.
 
-\subsubsection{Frequenznormale}
-Bis in die 70er Jahre wurde oft das Signal von Radiostationen als Frequenznormale ausgewertet. Die Frequenznormale war eine Vorstufe der heutigen Zeitzeichensenders (bzw. des heutigen Signals). Es wurde eine hochgenaue Schwingungsfrequenz eingesetzt (z.B. 150 kHz bei Langwellensendern oder 50 / 60 Hz im Stromnetz). Das Empfangsgerät musste dann einmal manuell auf die aktuelle Zeit eingestellt werden, anschliessend zählte dieses die Schwingungen des Signals, was jeweils einer Sekunde entsprach. Auch heute noch ist die Frequenznormale in Gebrauch, vorwiegend als Grundlage für digitalen Zeitsignale. Häufig wurde und wird bei Rundfunksendern eine solche Normalfrequenz als Trägerfrequenz verwendet.
+\subsubsection{Frequenznormale} \label{subsubsec:Analyse:Frequenznormale}
+Bis heute wird oft das Signal von Rundfunksendern (z.B. Radiostationen) als Frequenznormale ausgewertet. Vorallem in den 70er Jahren war der Einsatz der Frequenznormale weit verbreitet, da dies die einzige Möglichkeit für eine "`Zeitsynchronisation"' war. Die Frequenznormale ist eine Vorstufe der heutigen Zeitzeichensenders (bzw. dem heutigen Signal). Es wird eine hochgenaue Schwingungsfrequenz eingesetzt (z.B. 150 kHz bei Langwellensendern oder 50 / 60 Hz im Stromnetz). Das Empfangsgerät musste einmal manuell auf die aktuelle Zeit eingestellt werden, anschliessend zählte dieses die Schwingungen des Signals, was jeweils einer Sekunde entsprach. Heute wird die Frequenznormale häufig als Grundlage für digitale Signale verwendet. 
 
-\subsubsection{Zeitzeichensender in der Schweiz}
-
-\begin{wrapfigure}{r}{0.6\textwidth}
-  \begin{center}
-    \includegraphics[width=0.6\textwidth]{./images/Analyse/Prangings_VD_CH.jpg}
-  \end{center}
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \vspace{-20pt}
+  \centering
+    \includegraphics[width=0.8\textwidth]{./images/Analyse/Prangings_VD_CH.jpg}
   \caption[Zeitzeichensender in Prangins (VD)]{Zeitzeichensender in Prangins (VD) (Quelle: Eigenössisches Institut für Metrologie (METAS); \url{http://www.metas.ch/root_legnet/Web/Fachbereiche/Zeit_Frequenz/dissemination/HBG})} 
 \end{wrapfigure}
 
+\subsubsection{Zeitzeichensender in der Schweiz}
+
 In der Schweiz war zwischen 1966 und 2011 der Zeitzeichensender HBG in Prangins (VD) in Betrieb. Aufgrund mangelnder Nachfrage wurde der Sendebetrieb Ende 2011 eingestellt und die Sendeanlage gesprengt und abgebaut. Der Sender wurde vom Eigenössischen Institut für Metrologie betrieben und sendete mit einer Frequenz von 75 kHz.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \centering
+    \includegraphics[width=0.7\textwidth]{./images/Analyse/DCF77_Mainflingen.jpg}
+  \caption[DCF77 in Mainflingen (Mainhausen, DE)]{DCF77 in Mainflingen (Mainhausen, DE) (Quelle: Wikipedia, Patrick Kempf; \url{http://de.wikipedia.org/wiki/DCF77})} 
+\end{wrapfigure}
 
 \subsection{Zeitzeichensender - DCF77}
 DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhausen) der von der Physikalisch-Technischen Bundesanstalt in Braunschweig (PTB) entwickelt wurde. Der Betrieb erfolgt durch die T-Systems Media Broadcast GmbH, einer Tochtergesellschaft der Deutschen Telekom AG.
 
-\begin{wrapfigure}{r}{0.6\textwidth}
-  \begin{center}
-    \includegraphics[width=0.7\textwidth]{./images/Analyse/DCF77_Mainflingen.jpg}
-  \end{center}
-  \caption[DCF77 in Mainflingen (Mainhausen, DE)]{DCF77 in Mainflingen (Mainhausen, DE) (Quelle: Wikipedia, Patrick Kempf; \url{http://de.wikipedia.org/wiki/DCF77})} 
-\end{wrapfigure}
-
 \subsubsection{Das Rufzeichen}
-Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz). Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 gesendet. Es wurde aber festgestellt, dass dies eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Seither wird das Signal ohne Rufzeichen ausgesendet. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
+Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz). Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 mitgesendet. Es wurde aber festgestellt, dass dies eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Seither wird das Signal ohne Rufzeichen ausgesendet. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
 
-\begin{wrapfigure}{r}{0.6\textwidth}
-  \begin{center}
-    \includegraphics[width=0.7\textwidth]{./images/Analyse/DCF77_Mainflingen_Nah.jpg}
-  \end{center}
+\begin{wrapfigure}{l}{0.6\textwidth}
+  \centering
+    \includegraphics[width=0.6\textwidth]{./images/Analyse/DCF77_Mainflingen_Nah.jpg}
   \caption[Sendemast der Sendeanlage in Mainflingen]{Sendemast der Sendeanlage in Mainflingen (Quelle: Physikalisch-Technische Bundesanstalt; \url{http://www.ptb.de/de/aktuelles/archiv/presseinfos/pi2011/pitext/pi111107.htm})} 
 \end{wrapfigure}
 
 \subsubsection{Signalerzeugung}
-Das Signal wird von drei unabhängigen Steuereinheiten mit je einer Caesium-Atomuhr erzeugt (1 Hauptkanal, 2 Reservekanäle). Weicht das Signal des Hauptkanals von den Signalen der Reservekanäle ab findet automatische eine Umschaltung auf einen Reservekanal statt. Sind auch diese beiden Signale nicht mehr identisch wird der Vorgang unterbrochen und es wird kein Signal ausgesendet. Jede der drei Einheiten verfügt über eine separate Stromversorgung. Zusätzlich zu den drei Caesium-Atomuhren steht eine Rubidium-Atomuhr als Ersatz zur Verfügung. Alle Steuereinheiten befinden sich in einem speziellen Raum am Sendestandort. Die PTB hat die Möglichkeit Wartungs- und Korrekturarbeiten aus der Ferne durchzuführen.
-%TODO: Abweichung, 10^-12 ? -> ca. ein Fehler von ungefähr einer Sekunde in 30'000 Jahre
+Das Signal wird von drei unabhängigen Steuereinheiten mit je einer Caesium-Atomuhr erzeugt (1 Hauptkanal, 2 Reservekanäle). Weicht das Signal des Hauptkanals von den Signalen der Reservekanäle ab findet automatische eine Umschaltung auf einen Reservekanal statt. Sind auch diese beiden Signale nicht mehr identisch wird der Vorgang unterbrochen und es wird kein Signal ausgesendet. Jede der drei Einheiten verfügt über eine separate Stromversorgung. Die drei Steuereinheiten sind in einem Speziellen Raum am Sendestandort untergebracht. Darin enthalten ist auch eine weitere Rubidium-Atomuhr, welche als Ersatz und Referenz zur Verfügung steht. Die gesamte Anlage kann via Fernzugriff gesteuert und gewartet werden. 
+ 
 %http://www.hopf.com/de/dcf77-gps_de.html
 
-\subsubsection{Signalreichweite}
-Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite von 2'000 km. Da der Zeitcode durch Amplitudenmodulation erfolgt kann das Signal leicht gestört werden, z.B. durch Gewitter. Bei Gewitter, Sturm oder starken Winden wird die Antenne vorübergehend ausser Betrieb genommen, da durch die Schwingung der Antenne eine messbare Phasenmodulation bei den Empfängern entsteht.
-
-\subsubsection{Fehleranfälligkeit}
-%TODO:
-
-\subsubsection{Genauigkeit}
-%TODO:
-
 \begin{wrapfigure}{r}{0.6\textwidth}
-  \begin{center}
+  \centering
     \includegraphics[width=0.7\textwidth]{./images/Analyse/DCF77_Reichweite.png}
-  \end{center}
   \caption[Reichweite des Signals]{Reichweite des Signals (Quelle: Compuphase; 
   \url{http://www.compuphase.com/mp3/h0420_timecode.htm})} 
 \end{wrapfigure}
+
+\subsubsection{Signalreichweite}
+Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite von 2'000 km. 
+%TODO: Lang- und Raumwellen (Anteil, etc.)
+
+\subsubsection{Fehleranfälligkeit}
+%TODO:
+Da der Zeitcode durch Amplitudenmodulation erfolgt kann das Signal leicht gestört werden, z.B. durch Gewitter. Bei Gewitter, Sturm oder starken Winden wird die Antenne vorübergehend ausser Betrieb genommen, da durch die Schwingung der Antenne eine messbare Phasenmodulation bei den Empfängern entsteht.
+
+\subsubsection{Genauigkeit}
+Das Signal erreicht beim Empfänger bei optimierter Hardware und optimiertem Decodierungsalgorithmus eine Genauigkeit von 100 ${\mu}sec$. Bei handelsüblichen Geräten wird jedoch in der Regel nur eine Genauigkeit von 0.1 Sekunden erreicht.
+%TODO: Zum einen Signalerzeugung und zum anderen bei Empfang
+%TODO: Abweichung, 10^-12 ? -> ca. ein Fehler von ungefähr einer Sekunde in 30'000 Jahre
 
 \subsubsection{Das Signal}
 Seit 1973 wird neben der Normalfrequenz (77.5 kHz) ein digitales Signal gesendet. Das digitale Signal wird durch negative Modulation (Absenkung Trägeramplitude auf ~15 \%) auf die Trägerfrequenz aufgebracht und enthält die Informationen zu Datum und Uhrzeit (Mitteleuropäische Zeit, Mitteleuropäische Sommerzeit). Das Signal codiert innerhalb von einer Minute die Zeit- und Datumsinformationen für die darauffolgende Minute.
 
 Der Beginn einer Sekunde (~eines Bits) wird durch die Absenkung der Trägeramplitude markiert. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung statt findet. Je nach Dauer der Amplitudenabsenkung kennzeichnet dies entweder den binären Wert 0 (Absenkung für 100 ms) oder für den Wert 1 (Absenkung für 200 ms).
-
-Das Signal erreicht beim Empfänger bei optimierter Hardware und optimiertem Decodierungsalgorithmus eine Genauigkeit von 100 ${\mu}sec$. Bei handelsüblichen Geräten wird jedoch in der Regel nur eine Genauigkeit von 0.1 Sekunden erreicht.
 
 \begin{figure}
 \ffigbox[][7.8cm]{ %
@@ -185,7 +184,7 @@ Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
 \begin{itemize}
 \item Wochentag: Beginnend bei Montag (1).
 \item Monat: Beginnend bei Januar (1).
-\item Jahr: Beginnend bei 1900 (0); %TODO: Verifizieren
+\item Jahr: Es werden nur die letzten beiden Stellen der Jahreszahl übermittelt (Bsp: 2014, Es wird nur 14 codiert).
 \end{itemize}
 
 \begin{longtable}{p{0.5cm} p{13.5cm}}
@@ -264,8 +263,11 @@ Wert	&	1	&	0	&	0	&	0	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	0	&	1	&	1	&	0	&	0	&	0	&	1	&	0
 \\\hline \\
 	&   \multicolumn{2}{ c |}{}	& \multicolumn{3}{ c |}{\textit{Wochentag: MI}}	&	\multicolumn{5}{ c |}{\textit{Monat: März}}	&		\multicolumn{8}{ c |}{\textit{Jahr: 2014}}	&		&		\\
 Bitnr.	&	40	&	41	&	42	&	43	&	44	&	45	&	46	&	47	&	48	&	49	&	50	&	51	&	52	&	53	&	54	&	55	&	56	&	57	&	58	&	59	\\
-Wert	&	1	&	0	&	1	&	1	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	0	&	1	&	0	&	1	&	1	&	0	&	1	&	0	&	-
+Wert	&	1	&	0	&	1	&	1	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	1	&	1	&	1	&	0	&	0	&	0	&	0	&	0	&	-
 \end{tabular}
+
+%TODO: zweites Beispiel (Evtl. Wechsel Sommerzeit)
+%TODO: Evtl. Zeile mit BCD-Wertigkeit?
 \end{landscape}
 
 \subsubsection{BCD-Codierung}
@@ -273,27 +275,27 @@ Kurz zur verwendeten BCD-Codierung (Binary Coded Decimal):\\
 Jede Ziffer einer Zahl wird einzeln mit 4 Bit (8, 4, 2, 1) codiert. Von den $2^4 = 16$ Kombinationsmöglichkeiten werden nur 10 verwendet, darum spricht man oft von einer Speicherverschwendung.
 
 \subsubsection{Zusatznutzung}
-Das Signal des Zeitzeichensenders wird zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
+Das Signal des Zeitzeichensenders wird seit Ende 2006 zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
 
 \subsection{Fehlererkennung}
-In die Codierung ist eine einfache Fehlererkennung, anhand von Paritätsbits, eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit der gelieferten Zeitinformationen gesetzt.
+In die Codierung ist eine einfache Fehlererkennung, anhand einer einfachen Parität, eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit und Kontinuität der gelieferten Zeitinformationen gesetzt.
 
 Dazu ein Beispiel:\\
 In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
 
-Eine Fehlerkorrektur ist mit der eingebauten Parität nicht möglich.
+Eine Fehlerkorrektur ist mit einer einfachen Parität nicht möglich. Werden jedoch die Daten der letzten Minute / Stunde / Tag hinzugezogen kann basierend auf dem Inhalt eine Fehlerkorrektur durchgeführt werden.
 
 \subsubsection{Network Time Protocol}
-Wird bei eine NTP-Root-Server (Kapitel \ref{Anaylse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' versehen.
+Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Anaylse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' gekennzeichnet.
 
 \subsection{GPS}
 Nebst der Zeitsynchronisation über Funk, kann eine genauere Information von den GPS-Satelliten gewonnen werden. Dies obwhol GPS-Systeme hauptsächlich zur Lokalisierung des Standortes entwickelt wurden.
 Momentan befinden sich sechs solche Satelliten auf ungefähr 200'000 km Höhe. Jeder umrundet die Erde zweimal pro Tag. Auf jedem Satellit sind jeweils zwei Atomuhren vorhanden.
-Ein Satellit sendet andauernd seine Bahnposition und die genaue Uhrzeit. Durch Signale mehreren Satelliten, kann der Empfänger seinen genauen Standort ermitteln.
-Anschliessend kann die Laufzeit des Signals zurück gerechnet werden und die durchs Versenden verstrichene Zeit, das Delay, approximiert werden.
-Durch dieses Verfahren kann die Uhrzeit, mit einer Genauigkeit unter 1 ${\mu}sec$, berechnet werden.
+Ein Satellit sendet andauernd seine Bahnposition und die genaue Uhrzeit. Durch Signale mehrerer Satelliten, kann der Empfänger seinen genauen Standort berechnen.
+Anschliessend kann die Laufzeit des Signals zurück gerechnet und die durchs Versenden verstrichene Zeit, der Delay, approximiert werden.
+Durch dieses Verfahren kann die Uhrzeit mit einer Genauigkeit unter 1 ${\mu}sec$ berechnet werden.
 
-Vorteile der Zeit-Synchronisation über GPS sind eine weltweilte Abdeckung und eine höhere Genauigkeit als der Synchronisation über Funk.
+Vorteile der Zeit-Synchronisation über GPS sind die weltweite Abdeckung und eine höhere Genauigkeit als die Synchronisation über Zeitzeichensender.
 
 Ein grosser Nachteile der GPS Synchronisation ergibt sich jedoch durch das verwendete Kurzwellen Signal (zwischen 1176,45 bis 1575,42 MHz). Dieses Signal kann parktisch nur unter freien Himmel empfangen werden und eignet sich daher nicht für einen typischen Computer.
 
@@ -310,6 +312,7 @@ Die genaue Sendedauer eines  Datenpaktes, welches die korrekete Uhrzeit beinhalt
 
 Da keine Aussage über die Genauigkeit der empfangenen Information möglich ist, verliert sie drastisch an Wert.
 
+%TODO: Evtl. Kapitel NTP vorziehen -> Verständnis
 \section{Zeitprotokoll}
 Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)\cite{stackoverflowNtp}
 
@@ -342,7 +345,7 @@ Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern (inkl. der 
 \end{itemize}
 
 \subsubsection{Beispiel Synchronisation}
-Ein konkretes Beispiel dazu (vereinfachtes in Milisekunden).\\
+Ein konkretes Beispiel dazu (Zur Vereinfachung in Milisekunden).\\
 \vspace{0em}
 (Die Clientzeit ist jeweils falsch. Die Serverzeit ist korrekt. Die zwei Zeiten sind nicht synchron und dürfen daher nicht direkt miteinander verrechnet werden.)
 \begin{itemize}
@@ -369,20 +372,22 @@ $\Rightarrow$ \textbf{Fehler: 35},
 \end{itemize}
 
 \section{NTP / SNTP}
-NTP (Network Time Protocol) basiert auf dem obengenannten Prinzip, hat aber noch diverse Verbesserungen in sich.
+NTP (Network Time Protocol) basiert auf dem oben beschriebenen Prinzip, hat aber noch diverse Verbesserungen in sich.
 NTP befindet sich momentan in der Version 4.
 Da das Protokoll sehr komplex ist, gibt es auch eine vereinfachte Version, die SNTP (Simple Network Time Protocol) genannt wird.
 Die genaue Funktionsweise dieses Protokolles wird in dieser Arbeit nicht erläutert.
 
+%TODO: Isch etzte s Bispiel obe SNTP oder no e witer Vereifachti Form?
 % http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf
 % http://www.emsec.rub.de/media/crypto/attachments/files/2010/04/ms_michael_ziaja.pdf
 
 \section{Weitere Zeitsignaldienste}
-Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit nicht mehr eine grosse Bedeutung haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
+Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit keine grosse Bedeutung mehr haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
 
 \section{Fazit}
 Mit Hilfe der Analyse konnten nachfolgend im Detail beschriebene Schwerpunkte und Herausforderungen für die Umsetzung des Projektes identifiziert werden.
 
+%TODO: Fazit abschliessen
 \subsection{Codierung der Zeitinformationen einer Minute}
 Da "`nur"' jede Minute die Zeitinformationen übermittelt werden muss eine Uhr implementiert werden, welche selbstständig im Takt der Frequenznormale weiterläuft. Die Uhr muss auch weiterlaufen, wenn das Signal nicht verfügbar ist.
 
