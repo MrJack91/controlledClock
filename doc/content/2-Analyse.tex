@@ -117,36 +117,26 @@ Bis heute wird oft das Signal von Rundfunksendern (z.B. Radiostationen) als Freq
 
 In der Schweiz war zwischen 1966 und 2011 der Zeitzeichensender HBG in Prangins (VD) in Betrieb. Aufgrund mangelnder Nachfrage wurde der Sendebetrieb Ende 2011 eingestellt und die Sendeanlage gesprengt und abgebaut. Der Sender wurde vom Eigenössischen Institut für Metrologie betrieben und sendete mit einer Frequenz von 75 kHz.
 
-\begin{wrapfigure}{r}{0.5\textwidth}
-  \centering
-    \includegraphics[width=0.8\textwidth]{./images/Analyse/DCF77_Mainflingen.jpg}
-  \caption[DCF77 in Mainflingen (Mainhausen, DE)]{DCF77 in Mainflingen (Mainhausen, DE) (Quelle: Wikipedia, Patrick Kempf; \url{http://de.wikipedia.org/wiki/DCF77})} 
-\end{wrapfigure}
-
-\begin{figure}
-\ffigbox[][7.8cm]{ %
-\begin{subfloatrow}
-  \ffigbox[\FBwidth][]
-    { \caption[DCF77 in Mainflingen (Mainhausen, DE)]{DCF77 in Mainflingen (Mainhausen, DE) (Quelle: Wikipedia, Patrick Kempf; \url{http://de.wikipedia.org/wiki/DCF77})}}
-    {\includegraphics[width=0.5\textwidth]{./images/Analyse/DCF77_Mainflingen.jpg}}
-  \ffigbox[\FBwidth][]
-    {\caption[Sendemast der Sendeanlage in Mainflingen]{Sendemast der Sendeanlage in Mainflingen (Quelle: Physikalisch-Technische Bundesanstalt; \url{http://www.ptb.de/de/aktuelles/archiv/presseinfos/pi2011/pitext/pi111107.htm})} }
-    {\includegraphics[width=0.5\textwidth]{./images/Analyse/DCF77_Mainflingen_Nah.jpg}}
-\end{subfloatrow}
-}{\caption{Beispielhaftes DCF77 Signal}}
-\end{figure}
+\newpage
 
 \subsection{Zeitzeichensender - DCF77}
 DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhausen) der von der Physikalisch-Technischen Bundesanstalt in Braunschweig (PTB) entwickelt wurde. Der Betrieb erfolgt durch die T-Systems Media Broadcast GmbH, einer Tochtergesellschaft der Deutschen Telekom AG.
 
+\begin{figure}[H]
+\ffigbox[][7.8cm]{ %
+\begin{subfloatrow}
+  \ffigbox[\FBwidth][]
+    { \caption[Antennenfeld]{Antennenfeld (Quelle: Wikipedia, Patrick Kempf; \url{http://de.wikipedia.org/wiki/DCF77})}}
+    {\includegraphics[width=0.5\textwidth]{./images/Analyse/DCF77_Mainflingen.jpg}}
+  \ffigbox[\FBwidth][]
+    {\caption[Sendemast]{Sendemast (Quelle: Physikalisch-Technische Bundesanstalt; \url{http://www.ptb.de/de/aktuelles/archiv/presseinfos/pi2011/pitext/pi111107.htm})} }
+    {\includegraphics[width=0.5\textwidth]{./images/Analyse/DCF77_Mainflingen_Nah.jpg}}
+\end{subfloatrow}
+}{\caption{Sendeanlage in Mainflingen (Mainhausen, DE)}}
+\end{figure}
+
 \subsubsection{Das Rufzeichen}
 Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz). Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 mitgesendet. Es wurde aber festgestellt, dass dies eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Seither wird das Signal ohne Rufzeichen ausgesendet. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
-
-\begin{wrapfigure}{l}{0.6\textwidth}
-  \centering
-    \includegraphics[width=0.6\textwidth]{./images/Analyse/DCF77_Mainflingen_Nah.jpg}
-  \caption[Sendemast der Sendeanlage in Mainflingen]{Sendemast der Sendeanlage in Mainflingen (Quelle: Physikalisch-Technische Bundesanstalt; \url{http://www.ptb.de/de/aktuelles/archiv/presseinfos/pi2011/pitext/pi111107.htm})} 
-\end{wrapfigure}
 
 \subsubsection{Signalerzeugung}
 Das Signal wird von drei unabhängigen Steuereinheiten mit je einer Caesium-Atomuhr erzeugt (1 Hauptkanal, 2 Reservekanäle). Weicht das Signal des Hauptkanals von den Signalen der Reservekanäle ab findet automatische eine Umschaltung auf einen Reservekanal statt. Sind auch diese beiden Signale nicht mehr identisch wird der Vorgang unterbrochen und es wird kein Signal ausgesendet. Jede der drei Einheiten verfügt über eine separate Stromversorgung. Die drei Steuereinheiten sind in einem Speziellen Raum am Sendestandort untergebracht. Darin enthalten ist auch eine weitere Rubidium-Atomuhr, welche als Ersatz und Referenz zur Verfügung steht. Die gesamte Anlage kann via Fernzugriff gesteuert und gewartet werden. 
