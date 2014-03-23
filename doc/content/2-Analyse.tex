@@ -4,6 +4,9 @@
 \chapter{Analyse}
 %TODO: Abgleich mit: http://www.ptb.de/cms/fileadmin/internet/fachabteilungen/abteilung_4/4.4_zeit_und_frequenz/4.42/dcf77.pdf
 
+%TODO: PTB-Doku: Kapitel 4.3 (Phasenmodulation)? / 6.1 / 7.3.3?
+
+
 \section{Allgemein}
 Wieso braucht es Zeitsynchronisation? Was für Probleme und Schwierigkeiten können dabei auftreten? Diese Fragen aus der Aufgabenstellung werden in den nachfolgenden Kapiteln detailliert beantwortet.
 
@@ -175,6 +178,8 @@ Seit 1973 wird neben der Normalfrequenz (77.5 kHz) ein digitales Signal gesendet
 
 Der Beginn einer Sekunde (~eines Bits) wird durch die Absenkung der Trägeramplitude markiert. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung statt findet. Je nach Dauer der Amplitudenabsenkung kennzeichnet dies entweder den binären Wert 0 (Absenkung für 100 ms) oder für den Wert 1 (Absenkung für 200 ms).
 
+Das Signal wird anschliessend über einen 50-kW-Halbleitersender ausgesendet. Seit im Jahr 1998 der Halbleitersender in Betrieb genommen wurde dient der vorher verwendete 50-kW-Röhrensender als Ersatz.
+
 \begin{figure}
 \ffigbox[][7.8cm]{ %
 \begin{subfloatrow}
@@ -287,13 +292,16 @@ Jede Ziffer einer Zahl wird einzeln mit 4 Bit (8, 4, 2, 1) codiert. Von den $2^4
 \subsubsection{Zusatznutzung}
 Das Signal des Zeitzeichensenders wird seit Ende 2006 zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
 
-\subsection{Fehlererkennung}
+\subsection{Fehlererkennung beim Empfänger}
 In die Codierung ist eine einfache Fehlererkennung, anhand einer einfachen Parität, eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit und Kontinuität der gelieferten Zeitinformationen gesetzt.
 
 Dazu ein Beispiel:\\
 In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
 
 Eine Fehlerkorrektur ist mit einer einfachen Parität nicht möglich. Werden jedoch die Daten der letzten Minute / Stunde / Tag hinzugezogen kann basierend auf dem Inhalt eine Fehlerkorrektur durchgeführt werden.
+
+\subsection{Fehlererkennung beim Sender}
+Das in Mainflingen ausgesendete Signal wird an Braunschweig ausgewertet, analysiert und bei Bedarf ein Alarm ausgelöst. Der Alarm wird ausgelöst, wenn während mehrerer Minuten die gleichen logischen Fehler im Signal erkannt wurden oder wenn auf technischer Ebene eine Unregelmässigkeit festgestellt wurde (z.B. zu kleines Signal über eine längere Zeitdauer).
 
 \subsubsection{Network Time Protocol}
 Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Anaylse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' gekennzeichnet.
