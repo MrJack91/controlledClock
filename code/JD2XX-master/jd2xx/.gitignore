@@ -1,0 +1,5 @@
+/*.so
+/*.dll
+*.o
+
+src/jd2xx_JD2XX*.h
