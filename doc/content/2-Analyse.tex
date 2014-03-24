@@ -421,24 +421,24 @@ Mit Hilfe der Analyse konnten folgenden Schwerpunkte und Herausforderungen, für
 
 \subsection{Codierung der Zeitinformationen einer Minute}
 Pro Minute wird jeweils die Zeitinformation der nächsten Minute empfangen.
-Einfachkeitshalber wird vorausgesetzt, dass wir mindestens eine vollständige Minute decodieren können.
-Dabei müssen die Sekundenkennungen gezählt werden, so dass man daraus auf die Zeit rückschliessen kann.
+Einfachheitshalber wird vorausgesetzt, dass wir mindestens eine vollständige Minute decodieren können.
+Dabei müssen die Sekundenkennungen gezählt werden, so dass man daraus Rückschlüsse auf die Zeit machen kann.
 Da der Signal Takt der Sekunde entspricht (1 Hz), sollte daraus die exakte Sekundendauer angenähert werden.
 Es muss also eine eigenständige Uhr implementiert werden, die mit diesen Gegebenheiten umgehen kann.
-Die Uhr muss komplett ohne Signal auskommen und akkurat weiterlaufen. Weiter muss bei erfolgreichem Empfang der Zeit entsprechend reagiert werden und die Uhr neu justiert werden.
+Die Uhr muss komplett ohne Signal auskommen und dabei akkurat weiterlaufen. Weiter muss bei erfolgreichem Empfang der Zeit entsprechend reagiert und die Uhr neu justiert werden.
 
-Die Implementation dieser Uhr wird nicht einfach werden, da das Projekt auf einem multiprozessfähigen Rechner umgesetzt wird. Das heisst es gibt keine Echtzeit Ausführungen.
+Die Implementation dieser Uhr wird nicht einfach werden, da das Projekt auf einem Multi-Threading-fähigen Rechner umgesetzt wird. Das heisst es gibt keine Echtzeit Ausführungen.
 Das Zusammenspiel von Soft- und Hardware gilt als gegeben.
 Wenn z.B. eine Sekunde mit einer gewissen Anzahl Durchläufe in einer Schleife angenähert wird, so ist nicht garantiert, dass diese Schleife immer die gleiche Ausführungszeit benötigt.
-Grund dafür ist, das die verfügbaren Systemressourcen mit anderen Prozessen geteilt werden.
-Als vorbeugende Massnahe sollte die Implementation so systemnah wie möglich umgesetzt werden, so dass unnötige Verarbeitungszeiten und daraus resultierende Ungenauigkeit vermieden werden können.
+Grund dafür ist, das die verfügbaren Systemressourcen mit anderen Prozessen geteilt werden müssen.
+Als vorbeugende Massnahme sollte die Implementation so systemnah wie möglich umgesetzt werden, so dass unnötige Verarbeitungszeiten und daraus resultierende Ungenauigkeit vermieden werden können.
 
 \subsection{Fehlererkennung und Fehlerkorrektur}
 Das Signal, bzw. die Funk-Wellen des DCF77 können aufgrund ihrer Eigenschaften relativ leicht gestört werden.
 Deswegen muss unsere Implementation in der Lage sein, fehlerhafte Informationen zu erkennen und zu korrigieren.
-Dafür muss das "`Langzeitverhalten"' gespeichert, analysiert und entsprechend reagiert werden.
+Dafür muss das "`Langzeitverhalten"' gespeichert, analysiert und darauf entsprechend reagiert werden.
 Dies kann im Besonderen bei der Umstellung zwischen Winter- und Sommerzeit zu Problemen führen.
 Eine Zeitverschiebung muss korrekt und rasch übernommen werden.
-Allgemein gilt: wenn eine Information über längere Zeit gleichbleibend übermittelt wird, muss diese in absehbarer Zeit übernommen werden.
+Allgemein gilt: Wenn eine Information über längere Zeit gleichbleibend übermittelt wird, muss diese in absehbarer Zeit übernommen werden.
 
 
