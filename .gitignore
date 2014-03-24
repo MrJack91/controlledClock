@@ -68,6 +68,10 @@
 *.pdf
 *.bit
 
+# test mh
+*.mw
+*.run.xml
+
 # Mac
 .DS_Store
 
