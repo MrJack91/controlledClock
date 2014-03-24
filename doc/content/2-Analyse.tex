@@ -172,9 +172,11 @@ Das Signal erreicht beim Empfänger, bei optimierter Hardware und optimiertem De
 In der Industrie ist diese Genauigkeit häufig nicht tragbar.
 Durch eine Erhöhung der Bandbreite des Empfängers kann die Abweichung reduziert werden. Dabei wird jedoch auch der Anteil an empfangenen Störsignale grösser. Diese müssen von der Elektronik verarbeitet und ausgefiltert werden.
 
-Die für die Erzeugung des Signals zuständigen Atomuhren bestimmen die Zeit im Mittel mit einem relativen Fehler von weniger als $2*10^{-12}$. Als Referenz dienen dabei die Primären Atomuhren der PTB.
-Diese bestimmen die aktuelle Uhrzeit mit einem Fehler zwischen $0.7 - 1.2 * 10^{-14}$. Ein Fehler von $10^{-14}$ entspricht ca. einer Milliardstel Sekunde pro Tag ($10^-14$) oder einer Sekunde in 2.7 Mio. Jahren.
-%TODO: Review Abweichung, Berechnung ok?
+Für die Bestimmung der Zeit, erreichen die Atomuhren einen relativen Fehler von weniger als $2*10^{-12}$ Sekunden.
+Als Referenz dienen dabei die Primären Atomuhren der PTB.
+Diese bestimmen die aktuelle Uhrzeit mit einem Fehler zwischen $0.7$ bis $1.2 * 10^{-14}$ Sekunden.
+\footnote{Ein Fehler von $10^{-14}$ entspricht ca. einer Milliardstel Sekunde pro Tag ($10^{-14} $) oder einer Sekunde in 2.7 Mio. Jahren.}
+%TODO: Review Abweichung, Berechnung ok? - zwar nur halb verstanden aber: SOLVED ;)
 
 \subsubsection{Das Signal}
 Seit 1973 wird neben der Normalfrequenz (77.5 kHz) ein digitales Signal gesendet. Das digitale Signal wird durch negative Modulation (Absenkung Trägeramplitude auf 25 \%) auf die Trägerfrequenz aufgebracht und enthält die Informationen zu Datum und Uhrzeit (Mitteleuropäische Zeit, Mitteleuropäische Sommerzeit). Das Signal codiert innerhalb von einer Minute die Zeit- und Datumsinformationen für die darauffolgende Minute.
@@ -205,7 +207,9 @@ Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
 \item Jahr: Es werden nur die Einer- und Zehnerstellen der Jahreszahl übermittelt (Bsp: 2014, Es wird nur 14 codiert).
 \end{itemize}
 
-\begin{longtable}{p{0.5cm} p{13.5cm}}
+\newpage
+
+\begin{longtable}{p{1cm} p{13cm}}
 \textbf{Bit} & \textbf{Bedeutung} \\ \hline \endhead
 0 & Start einer Minute \\
 1-14 & Wetterinformationen und Katastrophenschutz \\ \hline
@@ -258,11 +262,15 @@ Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
 59 & Keine Sekundenmarke
 \end{longtable}
 
+\newpage
+
 Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört empfangen können um die Zeit eindeutig einzustellen. Auf jeden Fall werden die ersten 36 Sekunden und anschliessend ein Minutenübergang (Sekunden 58 und 59) benötigt.
 
-\begin{wrapfigure}{r}{0.6\textwidth}
+\newpage
+
+\begin{wrapfigure}{r}{\textwidth}
   \begin{center}
-    \includegraphics[width=0.7\textwidth]{./images/Analyse/DCF77_Codierscheibe.png}
+    \includegraphics[width=\textwidth]{./images/Analyse/DCF77_Codierscheibe.png}
   \end{center}
   \caption[DCF77-Codierung als Codierscheibe]{DCF77-Codierung als Codierscheibe (Quelle: Endorphino; 
   \url{http://endorphino.de/projects/electronics/timemanipulator/index.html})} 
