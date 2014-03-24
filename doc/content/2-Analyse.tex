@@ -408,10 +408,12 @@ Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit kei
 \section{Fazit}
 Mit Hilfe der Analyse konnten nachfolgend im Detail beschriebene Schwerpunkte und Herausforderungen für die Umsetzung des Projektes identifiziert werden.
 
-%TODO: Fazit abschliessen
 \subsection{Codierung der Zeitinformationen einer Minute}
-Da "`nur"' jede Minute die Zeitinformationen übermittelt werden muss eine Uhr implementiert werden, welche selbstständig im Takt der Frequenznormale weiterläuft. Die Uhr muss auch weiterlaufen, wenn das Signal nicht verfügbar ist.
+Da während einer Minute die Zeitinformationen der nächsten Minute codiert wird stehen jeweils nur zum Minutenübergang zur Verfügung. Während der Minute müssen die Sekunden, bzw. die Sekundenkennungen, gezählt werden um die aktuelle Zeit zu ermitteln. Daraus folgt, dass eine eigenständige Uhr implementiert werden muss die mit diesen Gegebenheiten umgehen kann. Zum einen muss die Uhr komplett ohne das Signal auskommen und akkurat weiterlaufen und zum anderen muss bei Empfang der Sekunden- und Minutenkennungen entsprechend reagiert und die Uhr justiert werden. 
+
+Die Implementation dieser Uhr wird nicht einfach werden, da wir uns nur auf Informationen verlassen können, die direkt von der Hardware kommen. Wenn z.B. eine Sekunde mit einer gewissen Anzahl Durchläufe in einer Schleife angenähert wird, ist nicht garantiert, dass diese immer gleich lange dauert. Grund dafür ist, dass auch andere Prozesse und Threads CPU-Zeit erhalten. Eine weitere Herausforderung wird es sein, die Implementation so Systemnah wie möglich zu halten um die Verarbeitungszeit und die resultierende Ungenauigkeit zu minimieren.
 
 \subsection{Fehlererkennung und Fehlerkorrektur}
-Die Wellen, bzw. das Signal des DCF77 können aufgrund ihrer Eigenschaften relativ leicht gestört werden. Aufgrund dessen muss unsere Implementation in der Lage sein fehlerhafte Informationen zu erkennen und zu korrigieren. Dafür muss das "`Langzeitverhalten"' gespeichert und analysiert werden.
+Die Wellen, bzw. das Signal des DCF77 können aufgrund ihrer Eigenschaften relativ leicht gestört werden. Aufgrund dessen muss unsere Implementation in der Lage sein fehlerhafte Informationen zu erkennen und zu korrigieren. Dafür muss das "`Langzeitverhalten"' gespeichert, analysiert und entsprechend reagiert werden. Dabei muss beachtet werden, dass zunächst als Fehler erkannte Informationen auch keine Fehler sein können. Wird z.B. bei der Umstellung Winter- / Sommerzeit eine Stunde im Voraus das entsprechende Bit gesetzt muss dieses korrekt interpretiert werden und darf nicht über die gesamte Stunde als Fehler herausgefiltert werden. Wird eine Information über längere Zeit übermittelt ist muss diese nach einer gewissen Zeit als richtig erkannt werden.
+
 
