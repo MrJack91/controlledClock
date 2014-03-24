@@ -66,6 +66,7 @@
 *.tdo
 *.bak
 *.pdf
+*.bit
 
 # Mac
 .DS_Store
