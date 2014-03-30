@@ -23,6 +23,8 @@ public class TestReader implements JD2XXEventListener {
 
 	public TestReader() {
 		JD2XX jd = new JD2XX();
+		
+		jd.reload(0x0403, 0xe88a);
 
 		Object[] devs;
 		try {

@@ -12,3 +12,7 @@ http://bleyer.org/jd2xx/
 
 OSX:
 https://github.com/0x6a77/JD2XX
+
+C WEB-Server
+http://rosettacode.org/wiki/Hello_world/Web_server#C
+http://www.binarytides.com/server-client-example-c-sockets-linux/

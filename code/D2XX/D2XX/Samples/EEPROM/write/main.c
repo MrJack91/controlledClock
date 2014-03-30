@@ -1,5 +1,5 @@
 /*
-	To build use the following gcc statement 
+	To build use the following gcc statement
 	(assuming you have the d2xx library in the /usr/local/lib directory).
 	gcc -o write main.c -L. -lftd2xx -Wl,-rpath,/usr/local/lib
 */
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 	FT_HANDLE	ftHandle0;
 	int iport;
 	FT_PROGRAM_DATA Data;
-	
+
 	if(argc > 1) {
 		sscanf(argv[1], "%d", &iport);
 	}
@@ -24,9 +24,9 @@ int main(int argc, char *argv[])
 	printf("opening port %d\n", iport);
 	FT_SetVIDPID(0x0403, 0x6011);
 	ftStatus = FT_Open(iport, &ftHandle0);
-	
+
 	if(ftStatus != FT_OK) {
-		/* 
+		/*
 			This can fail if the ftdi_sio driver is loaded
 		 	use lsmod to check this and rmmod ftdi_sio to remove
 			also rmmod usbserial
@@ -40,13 +40,14 @@ int main(int argc, char *argv[])
 #ifndef BM_DEVICE
 	Data.Signature1 = 0x00000000;
 	Data.Signature2 = 0xffffffff;
-	Data.VendorId = 0x0403;				
+	Data.VendorId = 0x0403;
 	Data.ProductId = 0x6001;
+	//Data.ProductId = 0xe88a;
 	Data.Manufacturer =  "FTDI";
 	Data.ManufacturerId = "FT";
 	Data.Description = "USB <-> Serial";
 	Data.SerialNumber = "FT000001";		// if fixed, or NULL
-	
+
 	Data.MaxPower = 44;
 	Data.PnP = 1;
 	Data.SelfPowered = 0;
@@ -58,17 +59,17 @@ int main(int argc, char *argv[])
 	Data.SerNumEnable = 1;
 	Data.USBVersionEnable = 0;
 	Data.USBVersion = 0x110;
-#else // If 2232C	
+#else // If 2232C
 
 	Data.Signature1 = 0x00000000;
 	Data.Signature2 = 0xffffffff;
-	Data.VendorId = 0x0403;				
+	Data.VendorId = 0x0403;
 	Data.ProductId = 0x6010;
 	Data.Manufacturer =  "FTDI";
 	Data.ManufacturerId = "FT";
 	Data.Description = "SPI";
 	Data.SerialNumber = "FT123452";		// if fixed, or NULL
-	
+
 	Data.MaxPower = 200;
 	Data.PnP = 1;
 	Data.SelfPowered = 0;
@@ -101,7 +102,7 @@ int main(int argc, char *argv[])
 	Data.IFBIsFastSer = 0;			// non-zero if interface is Fast serial
 	Data.BIsVCP = 0;				// non-zero if interface is to use VCP drivers
 
-#endif								
+#endif
 
 	ftStatus = FT_EE_Program(ftHandle0, &Data);
 	if(ftStatus != FT_OK) {
