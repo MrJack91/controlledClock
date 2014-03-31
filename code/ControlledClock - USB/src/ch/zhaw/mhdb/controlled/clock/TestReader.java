@@ -4,7 +4,6 @@
 package ch.zhaw.mhdb.controlled.clock;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.TooManyListenersException;
 
@@ -13,7 +12,6 @@ import jd2xx.JD2XX.ProgramData;
 import jd2xx.JD2XXEvent;
 import jd2xx.JD2XXEventListener;
 import jd2xx.JD2XXInputStream;
-import jd2xx.JD2XXOutputStream;
 
 /**
  * @author Daniel Brun
@@ -23,7 +21,7 @@ public class TestReader implements JD2XXEventListener {
 
 	public TestReader() {
 		JD2XX jd = new JD2XX();
-
+		jd.reload(1027,59530);
 		Object[] devs;
 		try {
 			devs = jd.listDevicesBySerialNumber();
@@ -42,6 +40,7 @@ public class TestReader implements JD2XXEventListener {
 			  System.out.println(
 			    Integer.toHexString((Integer)devs[i])
 			  );
+			
 			
 			jd.addEventListener(this);
 			jd.open(0);
