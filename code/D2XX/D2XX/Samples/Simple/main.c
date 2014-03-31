@@ -3,7 +3,7 @@
 	Shows one method of using list devices also.
 	Assumes the devices have a loopback connector on them and they also have a serial number
 
-	To build use the following gcc statement 
+	To build use the following gcc statement
 	(assuming you have the d2xx library in the /usr/local/lib directory).
 	gcc -o simple main.c -L. -lftd2xx -Wl,-rpath /usr/local/lib
 */
@@ -49,14 +49,18 @@ int main()
 	int	iNumDevs = 0;
 	int	i, j;
 	int	iDevicesOpen = 0;
-	
+
+    printf("Program start.\n");
+
+
 	for(i = 0; i < MAX_DEVICES; i++) {
 		pcBufLD[i] = cBufLD[i];
 	}
 	pcBufLD[MAX_DEVICES] = NULL;
-	
+
+	FT_SetVIDPID(1027, 59530); // use our VID and PID
 	ftStatus = FT_ListDevices(pcBufLD, &iNumDevs, FT_LIST_ALL | FT_OPEN_BY_SERIAL_NUMBER);
-	
+
 	if(ftStatus != FT_OK) {
 		printf("Error: FT_ListDevices(%d)\n", (int)ftStatus);
 		return 1;
@@ -69,11 +73,14 @@ int main()
 	for(j = 0; j < BUF_SIZE; j++) {
 		cBufWrite[j] = j;
 	}
-	
+
+    printf("Number of devices: %d.\n", iNumDevs);
+
+
 	for(i = 0; ( (i <MAX_DEVICES) && (i < iNumDevs) ) ; i++) {
 		/* Setup */
 		if((ftStatus = FT_OpenEx(cBufLD[i], FT_OPEN_BY_SERIAL_NUMBER, &ftHandle[i])) != FT_OK){
-			/* 
+			/*
 				This can fail if the ftdi_sio driver is loaded
 		 		use lsmod to check this and rmmod ftdi_sio to remove
 				also rmmod usbserial
@@ -83,7 +90,7 @@ int main()
 			printf("If so, unload them using rmmod, as they conflict with ftd2xx.\n");
 			return 1;
 		}
-	
+
 		printf("Opened device %s\n", cBufLD[i]);
 
 		iDevicesOpen++;
@@ -94,7 +101,7 @@ int main()
 
 		printf("Calling FT_Write with this write-buffer:\n");
 		dumpBuffer(cBufWrite, BUF_SIZE);
-		
+
 		/* Write */
 		ftStatus = FT_Write(ftHandle[i], cBufWrite, BUF_SIZE, &dwBytesWritten);
 		if (ftStatus != FT_OK) {
@@ -102,15 +109,15 @@ int main()
 			break;
 		}
 		if (dwBytesWritten != (DWORD)BUF_SIZE) {
-			printf("FT_Write only wrote %d (of %d) bytes\n", 
-			       (int)dwBytesWritten, 
+			printf("FT_Write only wrote %d (of %d) bytes\n",
+			       (int)dwBytesWritten,
 			       BUF_SIZE);
 			break;
 		}
 		sleep(1);
-		
+
 		/* Read */
-		dwRxSize = 0;			
+		dwRxSize = 0;
 		while ((dwRxSize < BUF_SIZE) && (ftStatus == FT_OK)) {
 			ftStatus = FT_GetQueueStatus(ftHandle[i], &dwRxSize);
 		}
@@ -140,7 +147,7 @@ int main()
 			printf("%s test passed.\n", cBufLD[i]);
 		}
 		else {
-			printf("Error FT_GetQueueStatus(%d)\n", (int)ftStatus);	
+			printf("Error FT_GetQueueStatus(%d)\n", (int)ftStatus);
 		}
 
 	}
@@ -154,5 +161,9 @@ int main()
 
 	if(pcBufRead)
 		free(pcBufRead);
+
+
+    printf("Program end.\n");
+
 	return 0;
 }
