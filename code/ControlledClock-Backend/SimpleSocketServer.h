@@ -14,6 +14,8 @@ extern "C" {
 
 void Hello();
 
+void runServer( void(*handle)(int));
+
 
 #ifdef	__cplusplus
 }
