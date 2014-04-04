@@ -83,6 +83,9 @@ int main(int argc, char *argv[]) {
     exit(0);
 
     
+    //Interrupt Timer: http://www.osdever.net/bkerndev/Docs/pit.htm
+    //http://www.inversereality.org/tutorials/interrupt%20programming/timerinterrupt.html
+    
     //Interrupts from keyboard:
     //http://www.fysnet.net/demoisr.htm
     //High precision system clock: http://www.delorie.com/gnu/docs/glibc/libc_436.html
