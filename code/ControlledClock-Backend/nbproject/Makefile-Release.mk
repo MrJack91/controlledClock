@@ -36,7 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/SimpleSocketServer.o \
-	${OBJECTDIR}/main.o
+	${OBJECTDIR}/main2.o
 
 
 # C Compiler Flags
@@ -68,10 +68,10 @@ ${OBJECTDIR}/SimpleSocketServer.o: SimpleSocketServer.c
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/SimpleSocketServer.o SimpleSocketServer.c
 
-${OBJECTDIR}/main.o: main.c 
+${OBJECTDIR}/main2.o: main2.c 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.c
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main2.o main2.c
 
 # Subprojects
 .build-subprojects:

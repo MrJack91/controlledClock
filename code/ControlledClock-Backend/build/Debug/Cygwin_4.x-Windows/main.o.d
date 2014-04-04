@@ -1,3 +1,1 @@
-build/Debug/Cygwin_4.x-Windows/main.o: main.c SimpleSocketServer.h
-
-SimpleSocketServer.h:
+build/Debug/Cygwin_4.x-Windows/main.o: main.c
