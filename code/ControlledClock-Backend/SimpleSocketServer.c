@@ -17,13 +17,15 @@ void Hello() {
 #define RCVBUFSIZE 32
 #define MAX_QUEUE 5
 
-char response[] = "HTTP/1.1 200 OK\r\n"
-"Content-Type: text/html; charset=UTF-8\r\n\r\n"
-"<doctype !html><html><head><title>Bye-bye baby bye-bye</title>"
+#define CHAR_SIZE ((8 * sizeof(int) - 1) / 3 + 2)
+
+char header[] = "HTTP/1.0 200 Ok\nConnection: close\nContent-type: text/html; charset=UTF-8\nstatus:200 OK\nContent-length: ";
+char headerEnd[] = "\n\n";
+char response[] = "<doctype !html><html><head><title>Bye-bye baby bye-bye</title>"
 "<style>body { background-color: #111 }"
 "h1 { font-size:4cm; text-align: center; color: black;"
 " text-shadow: 0 0 2mm red}</style></head>"
-"<body><h1>Goodbye, world!</h1></body></html>\r\n";
+"<body><h1>Goodbye, world!</h1></body></html>\n\n";
 
 void runServer(void(*handle)(int)) {
 
@@ -45,7 +47,7 @@ void runServer(void(*handle)(int)) {
     memset(&serverAddr, 0, sizeof(serverAddr));
     memset (&(serverAddr.sin_zero), '\0', 8);
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(9999);
+    serverAddr.sin_port = htons(9998);
     serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     //Bind server socket
@@ -85,11 +87,21 @@ void runServer(void(*handle)(int)) {
             printf("Reding input 2...%d\n",recvMsgSize);
             printf("Read: %s\n",echoBuffer);
         }*/
-        //char response[] = "MY Clock";
-        int length = strlen(response);
-        if(send(clientSocket,response,length,0) <= (length-1)){
+        char resp_len[CHAR_SIZE];
+        sprintf(resp_len, "%d", strlen(response));
+        size_t message_len = strlen(header) + strlen(response) + strlen(resp_len + strlen(headerEnd)) + 1;
+        char *deffResp = (char*) malloc(message_len);
+        strncat(deffResp,header,message_len);
+        strncat(deffResp,resp_len,message_len);
+        strncat(deffResp,headerEnd,message_len);
+        strncat(deffResp,response,message_len);
+        puts(deffResp);
+        int length = strlen(deffResp);
+        if(send(clientSocket,deffResp,length,0) <= (length-1)){
             fprintf(stderr,"Sending failed\n");
         }
+        
+        free(deffResp);
         puts("Finished processing");
         close(clientSocket);
         puts("Closed client socket");

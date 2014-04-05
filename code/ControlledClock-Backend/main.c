@@ -11,7 +11,6 @@
 #include <pthread.h>
 
 #include <signal.h>
-#include <unistd.h>
 
 /*
  * 
@@ -24,7 +23,10 @@ void handle(int aNumber);
 
 void InterruptSignalHandler(int signalType);
 
+void cleanUp();
+
 int main(int argc, char *argv[]) {
+
     //TODO: use log4c
 
 
@@ -64,25 +66,13 @@ int main(int argc, char *argv[]) {
             (void *) Hello,
             (void *) NULL);
 
-    //pthread_join(serverThread, NULL);
+    pthread_join(serverThread, NULL);
     //pthread_join(inlineThread, NULL);
 
-    struct sigaction handler;
-    /* Signal handler specification structure */
-    handler.sa_handler =  InterruptSignalHandler;
-    /* Set handler function */
-    if (sigfillset(&handler.sa_mask) < 0)
-        /* Create mask that masks all signals */
-        printf("sigfillset() failed");
-        handler.sa_flags = 0;
-    if (sigaction(12, &handler, 0) < 0)
-        /* Set signal handling for interrupt signals */
-        printf("sigaction() failed");
-    for (;;) pause();
-    /* Suspend program until signal received */
+    atexit(cleanUp);
     exit(0);
 
-    irq_install_handler();
+    
     //Interrupt Timer: http://www.osdever.net/bkerndev/Docs/pit.htm
     //http://www.inversereality.org/tutorials/interrupt%20programming/timerinterrupt.html
     
@@ -90,6 +80,8 @@ int main(int argc, char *argv[]) {
     //http://www.fysnet.net/demoisr.htm
     //High precision system clock: http://www.delorie.com/gnu/docs/glibc/libc_436.html
     //Hello();
+    
+    //Assembler wrapper: http://www.techrepublic.com/article/writing-complex-interrupt-handlers-in-c/#.
     return (EXIT_SUCCESS);
 }
 
@@ -101,4 +93,8 @@ void handle(int aNumber) {
 void InterruptSignalHandler (int signalType) {
 printf ("Interrupt received. Exiting program.\n");
 exit(1);
+}
+
+void cleanUp(){
+    printf("Clean up before shutdown....");
 }
