@@ -93,6 +93,9 @@ gen/
 # Local configuration file (sdk path, etc)
 local.properties
 
+# netbeans
+nbproject/
+
 # Eclipse project files
 .classpath
 .project
@@ -105,11 +108,7 @@ local.properties
 *.iws
 *.ipr
 
-# Mac
-.DS_Store
-
-# Maven
+# build
 log/
-target/
 /code/server/dist/
 /code/server/build/
