@@ -82,7 +82,7 @@ int main(int argc, char *argv[]) {
     /* Suspend program until signal received */
     exit(0);
 
-    
+    irq_install_handler();
     //Interrupt Timer: http://www.osdever.net/bkerndev/Docs/pit.htm
     //http://www.inversereality.org/tutorials/interrupt%20programming/timerinterrupt.html
     

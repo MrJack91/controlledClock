@@ -31,6 +31,9 @@ void runServer(void(*handle)(int)) {
     //http://www.paulgriffiths.net/program/c/webserv.php
     //http://www.csd.uoc.gr/~hy556/material/tutorials/cs556-3rd-tutorial.pdf
     
+    //HTTP:Header:
+    //http://stackoverflow.com/questions/5136165/web-server-problem-in-c
+    
     //Create server socket
     int serverSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
