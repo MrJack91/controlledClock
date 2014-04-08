@@ -2,8 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <sys/socket.h>
-#include <arpa/inet.h>
+#ifdef WIN32
+   #include <winsock.h>
+#else
+   #include <sys/socket.h>
+   #include <sys/un.h>
+    #include <arpa/inet.h>
+#endif
+
 #include <unistd.h>
 
 #include <string.h>

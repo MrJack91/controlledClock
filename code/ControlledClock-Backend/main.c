@@ -8,9 +8,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "SimpleSocketServer.h"
+#include "Clock.h"
 #include <pthread.h>
 
 #include <signal.h>
+
 
 /*
  * 
@@ -50,7 +52,7 @@ int main(int argc, char *argv[]) {
 
     //http://www.chemie.fu-berlin.de/chemnet/use/info/libc/libc_21.html
 
-
+ initializeClock();
     //Thread exmplae
     int serverParam = 1;
     pthread_t serverThread;
@@ -68,10 +70,11 @@ int main(int argc, char *argv[]) {
 
     pthread_join(serverThread, NULL);
     //pthread_join(inlineThread, NULL);
-
+   
     atexit(cleanUp);
     exit(0);
-
+   
+    //!!!!http://www.intel-assembler.it/portale/5/high-precision-timer-clock/source-code-fast-timer-8259-c-asm.asp
     
     //Interrupt Timer: http://www.osdever.net/bkerndev/Docs/pit.htm
     //http://www.inversereality.org/tutorials/interrupt%20programming/timerinterrupt.html

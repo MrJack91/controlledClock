@@ -15,13 +15,13 @@ CND_PACKAGE_DIR_Debug=dist/Debug/Cygwin_4.x-Windows/package
 CND_PACKAGE_NAME_Debug=controlledclock-backend.tar
 CND_PACKAGE_PATH_Debug=dist/Debug/Cygwin_4.x-Windows/package/controlledclock-backend.tar
 # Release configuration
-CND_PLATFORM_Release=Cygwin_4.x-Windows
-CND_ARTIFACT_DIR_Release=dist/Release/Cygwin_4.x-Windows
+CND_PLATFORM_Release=MinGW-Windows
+CND_ARTIFACT_DIR_Release=dist/Release/MinGW-Windows
 CND_ARTIFACT_NAME_Release=controlledclock-backend
-CND_ARTIFACT_PATH_Release=dist/Release/Cygwin_4.x-Windows/controlledclock-backend
-CND_PACKAGE_DIR_Release=dist/Release/Cygwin_4.x-Windows/package
+CND_ARTIFACT_PATH_Release=dist/Release/MinGW-Windows/controlledclock-backend
+CND_PACKAGE_DIR_Release=dist/Release/MinGW-Windows/package
 CND_PACKAGE_NAME_Release=controlledclock-backend.tar
-CND_PACKAGE_PATH_Release=dist/Release/Cygwin_4.x-Windows/package/controlledclock-backend.tar
+CND_PACKAGE_PATH_Release=dist/Release/MinGW-Windows/package/controlledclock-backend.tar
 #
 # include compiler specific variables
 #
