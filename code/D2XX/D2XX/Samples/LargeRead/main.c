@@ -1,10 +1,12 @@
 /*
 	Simple example to read a large amount of data from a BM device.
-	Device must have bitbang capabilities to enable this to work	
+	Device must have bitbang capabilities to enable this to work
 
-	To build use the following gcc statement 
+	To build use the following gcc statement
 	(assuming you have the d2xx library in the /usr/local/lib directory).
-	gcc -o largeread main.c -L. -lftd2xx -Wl,-rpath /usr/local/lib
+	clear && gcc -o largeread main.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX/ && ./largeread
+
+	gcc -o largeread main.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX/
 */
 
 #include <stdio.h>
@@ -21,23 +23,24 @@ int main(int argc, char *argv[])
 	FT_HANDLE ftHandle;
 	FT_STATUS ftStatus;
 	int iport;
-	
+
 	if(argc > 1) {
 		sscanf(argv[1], "%d", &iport);
 	}
 	else {
 		iport = 0;
 	}
-	
+
 	fh = fopen("target.bin", "wb+");
 	if(fh == NULL) {
 		printf("Cant open source file\n");
 		return 1;
 	}
-		
+
+	FT_SetVIDPID(1027, 59530); // use our VID and PID
 	ftStatus = FT_Open(iport, &ftHandle);
 	if(ftStatus != FT_OK) {
-		/* 
+		/*
 			This can fail if the ftdi_sio driver is loaded
 		 	use lsmod to check this and rmmod ftdi_sio to remove
 			also rmmod usbserial
@@ -48,18 +51,19 @@ int main(int argc, char *argv[])
 
 	pcBufRead = (char *)malloc(BUF_SIZE);
 	FT_ResetDevice(ftHandle);
-	FT_SetBaudRate(ftHandle, 115200);
+	// FT_SetBaudRate(ftHandle, 115200);
+	FT_SetBaudRate(ftHandle, 6000);
 	FT_SetDtr(ftHandle);
 	FT_SetRts(ftHandle);
 	FT_SetFlowControl(ftHandle, FT_FLOW_RTS_CTS, 0, 0);
-	FT_SetTimeouts(ftHandle, 0, 0);				// infinite timeouts	
-	FT_SetBitMode(ftHandle, 0xFF, 0x01);
+	FT_SetTimeouts(ftHandle, 0, 0);				// infinite timeouts
+	FT_SetBitMode(ftHandle, 0xFF, 0x04);
 	FT_Read(ftHandle, pcBufRead, BUF_SIZE, &dwBytesRead);
 
 	fwrite(pcBufRead, 1, dwBytesRead, fh);
 	fclose(fh);
 	free(pcBufRead);
 	FT_Close(ftHandle);
-	
+
 	return 0;
 }

@@ -1,10 +1,11 @@
 /*
  * Assuming libftd2xx.so is in /usr/local/lib, build with:
- * 
- *     gcc -o bitmode main.c -L. -lftd2xx -Wl,-rpath /usr/local/lib
- * 
+ *
+ *		gcc -o bitmode main.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX/
+ *     	clear && gcc -o bitmode main.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX/ && ./bitmode
+ *
  * and run with:
- * 
+ *
  *     sudo ./bitmode [port number]
  */
 #include <stdio.h>
@@ -15,24 +16,26 @@
 int main(int argc, char *argv[])
 {
 	DWORD       bytesWritten = 0;
-	DWORD       baudRate = 9600;
+	// DWORD       baudRate = 9600;
+	DWORD       baudRate = 6000;
 	FT_STATUS	ftStatus = FT_OK;
 	FT_HANDLE	ftHandle;
 	UCHAR       outputData;
 	UCHAR       pinStatus;
 	int         portNumber;
-	
-	if (argc > 1) 
+
+	if (argc > 1)
 	{
 		sscanf(argv[1], "%d", &portNumber);
 	}
-	else 
+	else
 	{
 		portNumber = 0;
 	}
-	
+
+	FT_SetVIDPID(1027, 59530); // use our VID and PID
 	ftStatus = FT_Open(portNumber, &ftHandle);
-	if (ftStatus != FT_OK) 
+	if (ftStatus != FT_OK)
 	{
 		/* FT_Open can fail if the ftdi_sio module is already loaded. */
 		printf("FT_Open(%d) failed (error %d).\n", portNumber, (int)ftStatus);
@@ -44,11 +47,11 @@ int main(int argc, char *argv[])
 	/* Enable bit-bang mode, where 8 UART pins (RX, TX, RTS etc.) become
 	 * general-purpose I/O pins.
 	 */
-	printf("Selecting asynchronous bit-bang mode.\n");	
-	ftStatus = FT_SetBitMode(ftHandle, 
+	printf("Selecting asynchronous bit-bang mode.\n");
+	ftStatus = FT_SetBitMode(ftHandle,
 	                         0xFF, /* sets all 8 pins as outputs */
-	                         FT_BITMODE_ASYNC_BITBANG);
-	if (ftStatus != FT_OK) 
+	                         FT_BITMODE_SYNC_BITBANG);
+	if (ftStatus != FT_OK)
 	{
 		printf("FT_SetBitMode failed (error %d).\n", (int)ftStatus);
 		goto exit;
@@ -59,15 +62,27 @@ int main(int argc, char *argv[])
 	 */
 	printf("Setting clock rate to %d\n", baudRate * 16);
 	ftStatus = FT_SetBaudRate(ftHandle, baudRate);
-	if (ftStatus != FT_OK) 
+	if (ftStatus != FT_OK)
 	{
 		printf("FT_SetBaudRate failed (error %d).\n", (int)ftStatus);
 		goto exit;
 	}
-	
+
+	// read data (mh)
+	while (1) {
+		ftStatus = FT_GetBitMode(ftHandle, &pinStatus);
+		if (ftStatus != FT_OK) {
+			printf("FT_Write failed (error %d).\n", (int)ftStatus);
+		} else {
+			printf("Read: %02X\n", (unsigned int)pinStatus);
+		}
+
+	}
+
 	/* Use FT_Write to set values of output pins.  Here we set
 	 * them to alternate low and high (0xAA == 10101010).
 	 */
+	 /*
 	outputData = 0xAA;
 	ftStatus = FT_Write(ftHandle, &outputData, 1, &bytesWritten);
 	if (ftStatus != FT_OK)
@@ -75,30 +90,32 @@ int main(int argc, char *argv[])
 		printf("FT_Write failed (error %d).\n", (int)ftStatus);
 		goto exit;
 	}
+	*/
 
 	/* Despite its name, GetBitMode samples the values of the data pins. */
+	/*
 	ftStatus = FT_GetBitMode(ftHandle, &pinStatus);
-	if (ftStatus != FT_OK) 
+	if (ftStatus != FT_OK)
 	{
 		printf("FT_GetBitMode failed (error %d).\n", (int)ftStatus);
 		goto exit;
 	}
 
-	if (pinStatus != outputData) 
+	if (pinStatus != outputData)
 	{
-		printf("Failure: pin data is %02X, but expected %02X\n", 
+		printf("Failure: pin data is %02X, but expected %02X\n",
 		       (unsigned int)pinStatus,
 		       (unsigned int)outputData);
 		goto exit;
 	}
 
-	printf("Success: pin data is %02X, as expected.\n", 
+	printf("Success: pin data is %02X, as expected.\n",
 		   (unsigned int)pinStatus);
 
-
+	*/
 exit:
 	/* Return chip to default (UART) mode. */
-	(void)FT_SetBitMode(ftHandle, 
+	(void)FT_SetBitMode(ftHandle,
 	                    0, /* ignored with FT_BITMODE_RESET */
 	                    FT_BITMODE_RESET);
 
