@@ -7,12 +7,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "SimpleSocketServer.h"
-#include "Clock.h"
+
 #include <pthread.h>
 
-#include <signal.h>
-
+#include "SimpleSocketServer.h"
 
 /*
  * 
@@ -22,9 +20,6 @@ typedef enum {
 } bool;
 
 void handle(int aNumber);
-
-void InterruptSignalHandler(int signalType);
-
 void cleanUp();
 
 int main(int argc, char *argv[]) {
@@ -52,21 +47,16 @@ int main(int argc, char *argv[]) {
 
     //http://www.chemie.fu-berlin.de/chemnet/use/info/libc/libc_21.html
 
- initializeClock();
+ //initializeClock();
     //Thread exmplae
     int serverParam = 1;
     pthread_t serverThread;
-    pthread_t inlineThread;
+   
 
     pthread_create(&serverThread,
             NULL,
             (void *) runServer,
             (void *) handle);
-
-    pthread_create(&inlineThread,
-            NULL,
-            (void *) Hello,
-            (void *) NULL);
 
     pthread_join(serverThread, NULL);
     //pthread_join(inlineThread, NULL);
@@ -91,11 +81,6 @@ int main(int argc, char *argv[]) {
 void handle(int aNumber) {
 
     printf("Handle was %d\n", aNumber);
-}
-
-void InterruptSignalHandler (int signalType) {
-printf ("Interrupt received. Exiting program.\n");
-exit(1);
 }
 
 void cleanUp(){

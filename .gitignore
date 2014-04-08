@@ -68,6 +68,8 @@
 *.pdf
 *.bit
 
+*.o
+
 # test mh
 *.mw
 *.run.xml
@@ -95,6 +97,7 @@ local.properties
 
 # netbeans
 nbproject/
+nbproject/*
 
 # Eclipse project files
 .classpath

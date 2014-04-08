@@ -7,7 +7,7 @@
 #else
    #include <sys/socket.h>
    #include <sys/un.h>
-    #include <arpa/inet.h>
+   #include <arpa/inet.h>
 #endif
 
 #include <unistd.h>
@@ -33,8 +33,10 @@ char response[] = "<doctype !html><html><head><title>Bye-bye baby bye-bye</title
 " text-shadow: 0 0 2mm red}</style></head>"
 "<body><h1>Goodbye, world!</h1></body></html>\n\n";
 
-void runServer(void(*handle)(int)) {
+int serverSocket = -1;
 
+void runServer(void(*handle)(int)) {
+	atexit(shutdownServer);
     //Look at this for Webservers:
     //http://www.paulgriffiths.net/program/c/webserv.php
     //http://www.csd.uoc.gr/~hy556/material/tutorials/cs556-3rd-tutorial.pdf
@@ -43,17 +45,19 @@ void runServer(void(*handle)(int)) {
     //http://stackoverflow.com/questions/5136165/web-server-problem-in-c
     
     //Create server socket
-    int serverSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+    serverSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
     if (serverSocket < 0) {
         fprintf(stderr, "Failed to create server socket!");
     }
 
     struct sockaddr_in serverAddr, clientAddr;
+	
     memset(&serverAddr, 0, sizeof(serverAddr));
     memset (&(serverAddr.sin_zero), '\0', 8);
+	
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(9998);
+    serverAddr.sin_port = htons(9999);
     serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     //Bind server socket
@@ -74,12 +78,12 @@ void runServer(void(*handle)(int)) {
         int clientSocket = accept(serverSocket, (struct sockaddr *) &clientAddr, &clntLen);
 
         puts("Accepted connection...");
-        char echoBuffer[RCVBUFSIZE];
+        /*char echoBuffer[RCVBUFSIZE];
         int recvMsgSize;
         
-        if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
+        /*if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
              fprintf(stderr, "Failed to read from client socket!");
-        }
+        }/*
         
         /*while(recvMsgSize > 0){
             //puts("Sending back to client...");
@@ -93,30 +97,50 @@ void runServer(void(*handle)(int)) {
             printf("Reding input 2...%d\n",recvMsgSize);
             printf("Read: %s\n",echoBuffer);
         }*/
-        char resp_len[CHAR_SIZE];
+		//Identify length of response
+        /*char resp_len[CHAR_SIZE];
         sprintf(resp_len, "%d", strlen(response));
-        size_t message_len = strlen(header) + strlen(response) + strlen(resp_len + strlen(headerEnd)) + 1;
-        char *deffResp = (char*) malloc(message_len);
-        strncat(deffResp,header,message_len);
-        strncat(deffResp,resp_len,message_len);
-        strncat(deffResp,headerEnd,message_len);
-        strncat(deffResp,response,message_len);
-        puts(deffResp);
-        int length = strlen(deffResp);
-        if(send(clientSocket,deffResp,length,0) <= (length-1)){
+		
+		puts("Calculating size");
+		//Calculate length of message
+        size_t message_len = strlen(header) + strlen(response) + strlen(resp_len) + strlen(headerEnd) + 1;
+		
+		printf("Creating output string %d %d %d %d %d",message_len,strlen(header) , strlen(response) , strlen(resp_len) , strlen(headerEnd));
+		//Create output string
+        char deffResp[message_len + 1];
+		puts("Allocated");
+		stpcpy(deffResp,header);
+			puts("1");
+        stpcpy(deffResp,resp_len);
+			puts("2");
+        stpcpy(deffResp,headerEnd);
+			puts("3");
+        stpcpy(deffResp,response);
+			puts("4");*/
+
+		//Send response to client
+		puts("Sending response to client");
+        if(send(clientSocket,"Test",4,0) <= (4-1)){
             fprintf(stderr,"Sending failed\n");
         }
-        
-        free(deffResp);
+		if(send(clientSocket,"More",4,0) <= (4-1)){
+            fprintf(stderr,"Sending failed\n");
+        }
+		
+		//Free memory
+        puts("Sent response...free memory");
+        //free(deffResp);
+		//deffResp = NULL;
         puts("Finished processing");
         close(clientSocket);
         puts("Closed client socket");
     }
 
-    //close server socket
+}
+
+void shutdownServer(){
+	//close server socket
     if (close(serverSocket) == -1) {
         fprintf(stderr, "Failed to close server socket!");
     }
-    
-    close(serverSocket);
 }
