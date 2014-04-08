@@ -22,7 +22,8 @@
 
 	To build use the following gcc statement
 	(assuming you have the d2xx library in the /usr/local/lib directory).
-	gcc -o setVIDPID main.c -L. -lftd2xx -Wl,-rpath,/usr/local/lib
+	gcc -o setVIDPID main.c -L. -lftd2xx -Wl,-rpath,/Users/michael/projects/controlledClock/code/D2XX/D2XX/
+
 */
 
 #include <stdio.h>
@@ -36,8 +37,8 @@
 int CheckConfigFile(DWORD * iVID, DWORD * iPID)
 {
 	FILE * fp;
-	char cVID[5];
-	char cPID[5];
+	char cVID[6];
+	char cPID[6];
 
 	fp = fopen("myConfig.txt", "r");
 	if(fp == NULL) {
@@ -48,8 +49,11 @@ int CheckConfigFile(DWORD * iVID, DWORD * iPID)
 	fread(cPID, 1, 5, fp);
 	fclose(fp);
 
-	cVID[4] = '\0';
-	cPID[4] = '\0';
+ 	cVID[4] = '\0';
+ 	cPID[5] = '\0';
+
+// 	printf("cVID: %s\n", cVID);
+//	printf("cPID: %s\n", cPID);
 
 	sscanf(cVID, "%X\n", (unsigned int *)iVID);
 	sscanf(cPID, "%X\n", (unsigned int *)iPID);
@@ -68,9 +72,8 @@ FT_STATUS my_FT_ListDevices(PVOID pArg1, PVOID pArg2, DWORD Flags)
 
 	CheckConfigFile(&iVID, &iPID);		// get our VID and PID from config file or other source
 	FT_GetVIDPID(&iOldVID, &iOldPID);	// get original VID and PID
-	printf("%d\n", iVID);
-	iPID = 59530;
-	printf("%d\n", iPID);
+	printf("iVID:\t%d\n", iVID);				// should be: 1027 or 0403
+	printf("iPID:\t%d\n", iPID);				// should be: 59530 or e88a
 	FT_SetVIDPID(iVID, iPID);							// use our VID and PID
 	ftStatus = FT_ListDevices(pArg1, pArg2, Flags);		// Call FTDI function
 	FT_SetVIDPID(iOldVID, iOldPID);						// restore original VID and PID
@@ -157,6 +160,8 @@ int main(int argc, char *argv[])
 		printf("Error writing to device\n");
 		return 1;
 	}
+
+	printf("ALL TESTS WERE SUCCESSFULLY\n");
 
 	ftStatus = FT_Close(ftHandle0);
 
