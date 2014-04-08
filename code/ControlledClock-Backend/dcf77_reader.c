@@ -6,7 +6,8 @@
 
   To build use the following gcc statement
   (assuming you have the d2xx library in the /usr/local/lib directory).
-  clear && gcc -o simple dcf77_reader.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX && ./simple
+  clear && gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX && ./dcf77_reader
+  maybe: gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx
  */
 
 #include <stdio.h>
@@ -76,6 +77,13 @@ static void dumpBuffer(unsigned char *buffer, int elements, int type) {
         printf("0x%02X\t%3d\n", (unsigned int) buffer[j], (unsigned int) buffer[j]);
       }
       break;
+    case 5:
+      // list with only dec and coma
+      for (j = 0; j < elements; j++) {
+        printf("%d,", (unsigned int) buffer[j]);
+      }
+      printf("\n");
+      break;
   }
 }
 
@@ -92,7 +100,7 @@ int main() {
   int iDevicesOpen = 0;
 
   // start logic
-  printf("Program start.\n");
+  printf("start dcf77_reader\n");
 
   // init mutliple devices access
   for (i = 0; i < MAX_DEVICES; i++) {
@@ -175,6 +183,8 @@ int main() {
       
       // output signal for debug
       printf("FT_Read read %d bytes.  Read-buffer is now:\n", (int) dwBytesRead);
+      dumpBuffer(pcBufRead, (int) dwBytesRead, 5);
+      /*
       printf("list in hex");
       dumpBuffer(pcBufRead, (int) dwBytesRead, 1);
 
@@ -186,6 +196,7 @@ int main() {
 
       printf("list in combined");
       dumpBuffer(pcBufRead, (int) dwBytesRead, 4);
+      */
     } else {
       printf("Error FT_GetQueueStatus(%d)\n", (int) ftStatus);
     }
@@ -198,9 +209,9 @@ int main() {
     printf("Closed device %s\n", cBufLD[i]);
   }
 
-  if (pcBufRead)
+  if (pcBufRead) {
     free(pcBufRead);
-
+  }
 
   printf("Program end.\n");
 
