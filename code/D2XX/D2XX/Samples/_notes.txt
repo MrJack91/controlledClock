@@ -1,0 +1,10 @@
+// build
+gcc -o largeread main.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX/
+
+// check iVID and iPID
+FT_SetVIDPID(iVID, iPID)
+FT_SetVIDPID(1027, 59530); // use our VID and PID
+
+// check loaded module
+kextstat
+sudo kextunload -b com.FTDI.driver.FTDIUSBSerialDriver

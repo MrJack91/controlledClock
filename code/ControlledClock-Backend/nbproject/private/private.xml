@@ -9,6 +9,7 @@
         <group>
             <file>file:/Users/michael/projects/controlledClock/code/ControlledClock-Backend/main.c</file>
             <file>file:/Users/michael/projects/controlledClock/code/ControlledClock-Backend/SimpleSocketServer.h</file>
+            <file>file:/Users/michael/projects/controlledClock/code/ControlledClock-Backend/dcf77_reader.c</file>
             <file>file:/Users/michael/projects/controlledClock/code/ControlledClock-Backend/SimpleSocketServer.c</file>
         </group>
     </open-files>
