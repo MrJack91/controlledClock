@@ -97,7 +97,6 @@ local.properties
 
 # netbeans
 nbproject/
-nbproject/*
 
 # Eclipse project files
 .classpath
