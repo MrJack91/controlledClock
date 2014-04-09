@@ -27,6 +27,8 @@ int BUFFER_SIZE = BUFFER_ELEMENTS* sizeof(unsigned int);
 
 int currentPointer = 0;
 
+int debug_readPos = 0;
+
 void resetData() {
   currentPointer = 0;
 }
@@ -41,6 +43,7 @@ int getRelativeBitPos(int bitPos) {
 }
 
 void printData() {
+  // printf("print data from %d to %d\n", 0, currentPointer);
   for (int i = 0; i < currentPointer; i++) {
     printf("%d ", data[i]);
   }
@@ -56,7 +59,7 @@ void printData() {
  */
 int checkParity(int from , int to) {
   int result = 1; // at the end result must be 1 again
-  // printf("check parity from %d to %d\n", from, to);
+  printf("check parity from %d to %d\n", from, to);
   for (int i = from; i <= to; i++) {
     // toggle temporary result by reading 1
     // printf("%d\n", data[getRelativeBitPos(i)]);
@@ -65,6 +68,7 @@ int checkParity(int from , int to) {
     }
     // printf("temporary result of Index %d is: %d\n", i, result);
   }
+  printf("******************************************\nresult of parity check: %d\n******************************************\n", result);
   return result;
 }
 
@@ -72,109 +76,134 @@ int checkParity(int from , int to) {
  * try to read a valid date from the data
  * @param recursive should by try to call it self for error resolving
  */
-int tryToReadDate(int currentPointer, int recursive) {
+int tryToReadDate(int recursive) {
   // printf("try to read date from data\n");
   
-  // int parityCheck = checkParity(20, 20+currentPointer);
+  if (recursive == 0) {
+    // you're in recursion print it readable
+    printf("-- ");
+  }
+  printf("currentPointer current %d\n", currentPointer);
+  // printData();
+  
   // printf("parityCheck is: %d\n", parityCheck);
   
   int parityCheck = 1;  // init with valid data
-  int tryAgaing = 1;    // if he should try again to find a solution
+  int tryAgain = 0;    // if he should try again to find a solution
+  int foundValidDate = 0;
   
   // first bit [bit 20] must be 1 -> start of time
   if (data[getRelativeBitPos(20)] == 1) {
     // select a parity to check - take care: values are absolute, because c want to have int in a switch condition
-    switch (currentPointer) {
+    switch (currentPointer-1) {
       case 8: // check minute value
-        parityCheck = checkParity(20, 28);
+        parityCheck = checkParity(21, 28);
         break;
       case 15: // check hour value
         parityCheck = checkParity(29, 35);
         break;
-      case 38: // check date value
+      case 58: // check date value
         parityCheck = checkParity(36, 58);
+        if (parityCheck == 1) {
+          foundValidDate = 1;
+        }        
         break;
     }
   } else {
+    // at first there must be a 1
     parityCheck = 0;
   }
-    
+  
+  if (foundValidDate == 1) {
+    // found a valid data
+    printf("YEAH: found a valid date\n");
+    printData();
+  }
+  
   // if there a problem with the parity, try by the next value
   if (parityCheck == 0) {
     printf("ou.. parity goes wrong - fix it (recursion: %d)\n", recursive);
+    printData();
     if (recursive == 1) {
-      tryAgaing = 1;
-      while (tryAgaing == 1) {
+      tryAgain = 1;
+      while (tryAgain == 1) {
         // remove first value
-        printf("%p\n", data);
-        printf("%p\n", data+sizeof(int));
-        printData();
-        memmove(&data[0], &data[1], (BUFFER_SIZE-1) * sizeof(unsigned int));
-        printData();
+        // printf("%p\n", &data[0]);
+        // printf("%p\n", &data[1]);
+        // printData();
+        
+        // move first element out
+        // memmove(data, data+1, (BUFFER_ELEMENTS-1)*sizeof(*data));
+        memmove(&data[0], &data[1], (BUFFER_ELEMENTS-1)*sizeof(*data));
+        // memmove(&data[0], &data[1], (BUFFER_SIZE-1) * sizeof(unsigned int));
         data[BUFFER_ELEMENTS-1] = 0;
-        currentPointer--;
+        
+        // check abort condition
+        if (currentPointer > 0) {
+          // printf("currentPointer before %d\n", currentPointer);
+          currentPointer--;
 
-        // after re shift data, valid them again
-        int valuesToCheck[] = { 1, 28, 35, 58 };
-        for (int i = 0; i <= 3; i++) {
-          // only check value if there is anything in it
-          if (valuesToCheck[i] <= currentPointer) {
-            tryAgaing = tryToReadDate(valuesToCheck[i], 0);
+          // printf("currentPointer after %d\n", currentPointer);
+          // printData();
+        
+          // after re shift data, valid them again
+          int tempCurrentPointer = currentPointer;
+          int valuesToCheck[] = { 1, 28, 35, 58 };
+          for (int i = 0; i <= 3; i++) {
+            // only check value if there is anything in it
+            if (valuesToCheck[i] <= tempCurrentPointer) {
+              currentPointer = valuesToCheck[i];
+              tryAgain = tryToReadDate(0);
+              if (tryAgain == 0) {
+                // there was a parity error, break for
+                break;
+              }
+              printf("state of tryAgaing: %d\n", tryAgain);
+            }
           }
+          currentPointer = tempCurrentPointer;
+        } else {
+          // if data array is now empty, leave check
+          tryAgain = 0;
         }
       }
     }
   } else {
-    tryAgaing = 0;
+    tryAgain = 0;
   }
   
-  return tryAgaing;
-  
-  
-  // [0] start of minute
-  // [1-14] stuff (infos)
-  // [15-19] important time data
-  
-  // [20] [0] get first 1 -> start bit
-  
-  // [28] [8]check bit minute
-  
-  // [35] [15] check bit hour
-  
-  // [36-41] day
-  
-  // [42-44] weekday
-  
-  // [45-49] month
-  
-  // [50-57] year
-  
-  // [58] check bit date (date-year)
-  
-  // 59 empty
-  
-  
-  
+  return tryAgain;
 }
 
 void addReceivedByte(unsigned int received) {
+  printf("\n\ndebug_readPos: %d\n", debug_readPos);
+  // printData();
+  debug_readPos++;
   int bit = 1;
   // magic mapping: http://wiki.gude.info/FAQ_mouseCLOCK_Programmierung
   if (received >= 192) {
     bit = 0;
   }
+  
   data[currentPointer] = bit;
-  tryToReadDate(currentPointer, 1);
   currentPointer++;
+  tryToReadDate(1);
 }
 
 int main() {
   printf("start dcf77_decoder\n");
   
-  printf("%p\n", data);
+  // printf("%p\n", data);
   
   // 120 predefined values (timestamp near: 23:10:50 DI 08.04.2014)) - by bit ≈43
+  // full 2 mintues
   int temporaryData[] = { 252,252,252,0,252,252,252,0,252,252,252,128,252,252,252,252,128,252,128,252,252,252,0,252,254,252,128,0,128,128,128,252,128,252,252,252,254,128,252,254,0,254,254,128,252,252,252,252,128,252,252,128,0,128,252,252,252,128,128,252,254,254,0,252,252,254,0,254,252,252,128,252,252,252,252,128,252,0,254,254,254,128,254,0,252,0,128,128,252,252,252,252,252,254,0,254,128,254,252,128,252,252,128,128,252,254,252,128,252,252,252,0,128,252,254,252,128,128,252,252 };
+  // only valid data
+  // int temporaryData[] = { 128,252,252,252,252,128,252,252,128,0,128,252,252,252,128,128,252,254,254,0,252,252,254,0,254,252,252,128,252,252,252,252,128,252,0,254,254,254,128,254 };
+  // only the minutes
+  // int temporaryData[] = { 128,252,252,252,252,128,252,252,128 };
+  // only the minutes and hours
+  // int temporaryData[] = { 128,252,252,252,252,128,252,252,128, 0,128,252,252,252,128,128 };
   int countValues = sizeof(temporaryData) / sizeof(*temporaryData);
   printf("sizeof(temporaryData): %u\n", countValues);
   for (int i = 0; i <= countValues; i++) {

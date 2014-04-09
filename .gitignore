@@ -67,6 +67,7 @@
 *.bak
 *.pdf
 *.bit
+*.ods#
 
 *.o
 
