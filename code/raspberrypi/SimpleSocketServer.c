@@ -23,7 +23,7 @@
 #define CHAR_SIZE ((8 * sizeof(int) - 1) / 3 + 2)
 
 int serverSocket = -1;
-
+int on = 1;
 /*---------------------------- Internal functions ----------------------------*/
 static void sendResponse(int socketId, char *content);
 
@@ -37,6 +37,8 @@ void runServer(char *(*socketHandle)(char*)) {
         fprintf(stderr, "Failed to create server socket!");
     }
 
+    setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(int));
+    
     struct sockaddr_in serverAddr, clientAddr;
 	
     memset(&serverAddr, 0, sizeof(serverAddr));
@@ -48,11 +50,13 @@ void runServer(char *(*socketHandle)(char*)) {
 
     //Bind server socket
     if (bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0) {
+        shutdownServer();
         fprintf(stderr, "Failed to bind server socket!");
     }
 
     //listen to client sockets
     if (listen(serverSocket, MAX_QUEUE) < 0) {
+        shutdownServer();
         fprintf(stderr, "Failed to listen on server socket!");
     }
 
@@ -63,6 +67,11 @@ void runServer(char *(*socketHandle)(char*)) {
         clntLen = sizeof(clientAddr);
         int clientSocket = accept(serverSocket, (struct sockaddr *) &clientAddr, &clntLen);
 
+        if(clientSocket == -1){
+            fprintf(stderr, "Couldn't accept Socket!");
+            continue;
+        }
+        
         printf("Accepted connection...");
         char *handleResponse = socketHandle(NULL);
 
@@ -155,6 +164,7 @@ static void sendResponse(int socketId, char *content){
     int length = strlen(content);
     
     if(send(socketId,content,length,0) <= (length-1)){
-            fprintf(stderr,"Sending failed\n");
+        shutdownServer();
+        fprintf(stderr,"Sending failed\n");
     }
 }
