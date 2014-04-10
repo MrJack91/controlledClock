@@ -115,3 +115,9 @@ nbproject/
 log/
 /code/server/dist/
 /code/server/build/
+
+# C
+*.o
+*.gch
+*.exe
+*.stackdump
