@@ -18,7 +18,7 @@
 
 #define RCVBUFSIZE 32
 #define MAX_QUEUE 5
-#define PORT 9999
+#define PORT 8888
 
 #define CHAR_SIZE ((8 * sizeof(int) - 1) / 3 + 2)
 

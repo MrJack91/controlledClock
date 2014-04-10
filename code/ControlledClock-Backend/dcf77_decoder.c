@@ -101,14 +101,14 @@ int readDCFNumber(int from, int to) {
 }
 
 char readDate() {
-  char date[17] = "";
+  char date[20] = "";
   
   int minute = readDCFNumber(21,27);
   int hour = readDCFNumber(29,34);
   int day = readDCFNumber(36,41);
   int month = readDCFNumber(45,49);
   int year = readDCFNumber(50,57);
-  snprintf(date, sizeof date, "20%02d-%02d-%02dT%02d:%02d", year, month, day, hour, minute);
+  snprintf(date, sizeof date, "20%02d-%02d-%02dT%02d:%02d:00", year, month, day, hour, minute);
   
   printf("data: %s\n", date);
   
