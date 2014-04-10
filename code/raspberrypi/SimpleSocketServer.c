@@ -18,7 +18,7 @@
 
 #define RCVBUFSIZE 32
 #define MAX_QUEUE 5
-#define PORT 8888
+#define PORT 7799
 
 #define CHAR_SIZE ((8 * sizeof(int) - 1) / 3 + 2)
 
@@ -74,15 +74,19 @@ void runServer(char *(*socketHandle)(char*)) {
         
         printf("Accepted connection...");
         char *handleResponse = socketHandle(NULL);
-
+        char contentLength[16 + sizeof(int)] = "\0";
+        
+        sprintf(contentLength,"Content-Length: %d\n",strlen(handleResponse));
+        
         printf("Sending response...\n");
         sendResponse(clientSocket,"HTTP/1.0 200 OK\n");
         sendResponse(clientSocket,"Connection: close\n");
         sendResponse(clientSocket,"Content-type: text/plain;charset=UTF-8\n");
+        sendResponse(clientSocket,contentLength);
         sendResponse(clientSocket,"expires: -1\n");
         sendResponse(clientSocket,"status: 200\n\n");
+        
         sendResponse(clientSocket,handleResponse);
-        sendResponse(clientSocket,"\n\n");
         
         printf("Response sent...\n");
         //TODO: Free fails here...
