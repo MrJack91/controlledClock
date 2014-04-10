@@ -47,7 +47,7 @@ void printData() {
   for (int i = 0; i < currentPointer; i++) {
     printf("%d ", data[i]);
   }
-  printf("\n");
+  printf(" - (length: %d)\n", currentPointer);
 }
 
 /**
@@ -59,7 +59,7 @@ void printData() {
  */
 int checkParity(int from , int to) {
   int result = 1; // at the end result must be 1 again
-  printf("check parity from %d to %d\n", from, to);
+  // printf("check parity from %d to %d\n", from, to);
   for (int i = from; i <= to; i++) {
     // toggle temporary result by reading 1
     // printf("%d\n", data[getRelativeBitPos(i)]);
@@ -68,29 +68,31 @@ int checkParity(int from , int to) {
     }
     // printf("temporary result of Index %d is: %d\n", i, result);
   }
-  printf("******************************************\nresult of parity check: %d\n******************************************\n", result);
+  // printf("******************************************\nresult of parity check: %d\n******************************************\n", result);
   return result;
 }
 
 /**
  * try to read a valid date from the data
  * @param recursive should by try to call it self for error resolving
+ * @return success decode (1 = succesfull) -  if it call it recursivle it will be always true
  */
 int tryToReadDate(int recursive) {
   // printf("try to read date from data\n");
   
+  /*
   if (recursive == 0) {
     // you're in recursion print it readable
     printf("-- ");
   }
   printf("currentPointer current %d\n", currentPointer);
-  // printData();
-  
-  // printf("parityCheck is: %d\n", parityCheck);
+  printData();
+  */
   
   int parityCheck = 1;  // init with valid data
-  int tryAgain = 0;    // if he should try again to find a solution
+  // int tryAgain = 0;     // if he should try again to find a solution
   int foundValidDate = 0;
+  int success = 0;
   
   // first bit [bit 20] must be 1 -> start of time
   if (data[getRelativeBitPos(20)] == 1) {
@@ -102,7 +104,7 @@ int tryToReadDate(int recursive) {
       case 15: // check hour value
         parityCheck = checkParity(29, 35);
         break;
-      case 58: // check date value
+      case 38: // check date value
         parityCheck = checkParity(36, 58);
         if (parityCheck == 1) {
           foundValidDate = 1;
@@ -116,30 +118,36 @@ int tryToReadDate(int recursive) {
   
   if (foundValidDate == 1) {
     // found a valid data
-    printf("YEAH: found a valid date\n");
+    printf("***************************************************************************\n"
+            "YEAH: found a valid date\n"
+            "***************************************************************************\n");
     printData();
   }
   
   // if there a problem with the parity, try by the next value
   if (parityCheck == 0) {
-    printf("ou.. parity goes wrong - fix it (recursion: %d)\n", recursive);
-    printData();
+    // printf("ou.. parity goes wrong - fix it (recursion: %d)\n", recursive);
+    // printf("print data:\n");
+    // printData();
     if (recursive == 1) {
-      tryAgain = 1;
+      int tryAgain = 1;
       while (tryAgain == 1) {
         // remove first value
         // printf("%p\n", &data[0]);
         // printf("%p\n", &data[1]);
         // printData();
         
-        // move first element out
-        // memmove(data, data+1, (BUFFER_ELEMENTS-1)*sizeof(*data));
-        memmove(&data[0], &data[1], (BUFFER_ELEMENTS-1)*sizeof(*data));
-        // memmove(&data[0], &data[1], (BUFFER_SIZE-1) * sizeof(unsigned int));
-        data[BUFFER_ELEMENTS-1] = 0;
-        
-        // check abort condition
         if (currentPointer > 0) {
+        
+          // move first element out
+          // memmove(data, data+1, (BUFFER_ELEMENTS-1)*sizeof(*data));
+          memmove(&data[0], &data[1], (BUFFER_ELEMENTS-1)*sizeof(*data));
+          // memmove(&data[0], &data[1], (BUFFER_SIZE-1) * sizeof(unsigned int));
+          data[BUFFER_ELEMENTS-1] = 0;
+
+          // check abort condition
+          // if (currentPointer > 0) {
+        
           // printf("currentPointer before %d\n", currentPointer);
           currentPointer--;
 
@@ -148,35 +156,45 @@ int tryToReadDate(int recursive) {
         
           // after re shift data, valid them again
           int tempCurrentPointer = currentPointer;
-          int valuesToCheck[] = { 1, 28, 35, 58 };
+          // int valuesToCheck[] = { 20, 28, 35, 58 };
+          int valuesToCheck[] = { 0, 8, 15, 38 };
           for (int i = 0; i <= 3; i++) {
             // only check value if there is anything in it
             if (valuesToCheck[i] <= tempCurrentPointer) {
               currentPointer = valuesToCheck[i];
-              tryAgain = tryToReadDate(0);
-              if (tryAgain == 0) {
-                // there was a parity error, break for
-                break;
+              // printf("parity check for pointer: %d\n", currentPointer);
+              int tempSuccess = tryToReadDate(0);
+              // printf("state of tryAgaing: %d\n", tryAgain);
+              if (tempSuccess == 0) {
+                // there was a parity error -> break and try again with next bit
+                tryAgain = 1;
+                break; // leave check parity for this sequence
               }
-              printf("state of tryAgaing: %d\n", tryAgain);
             }
           }
+          // reset the pointer to origin data position
           currentPointer = tempCurrentPointer;
         } else {
           // if data array is now empty, leave check
           tryAgain = 0;
+          success = 1;
         }
-      }
+      } // loop for search a valid part in the datastream
+    } else {
+      // no recursion - give last parity back
+      success = parityCheck;
     }
   } else {
-    tryAgain = 0;
+    // tryAgain = 0;
+    success = 1;
   }
   
-  return tryAgain;
+  // return tryAgain;
+  return success;
 }
 
 void addReceivedByte(unsigned int received) {
-  printf("\n\ndebug_readPos: %d\n", debug_readPos);
+  // printf("\n\ndebug_readPos: %d\n", debug_readPos);
   // printData();
   debug_readPos++;
   int bit = 1;
@@ -209,9 +227,6 @@ int main() {
   for (int i = 0; i <= countValues; i++) {
     addReceivedByte(temporaryData[i]);
   }
-  
-  printf("print data:\n");
-  printData();
   
   return 0;
 }
