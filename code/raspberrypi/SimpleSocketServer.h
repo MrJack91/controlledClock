@@ -12,9 +12,7 @@
 extern "C" {
 #endif
 
-void Hello();
-
-void runServer( void(*handle)(int));
+void runServer( char *(*handle)(char*));
 
 void shutdownServer();
 

@@ -16,33 +16,19 @@
 
 #include "SimpleSocketServer.h"
 
-void Hello() {
-    printf("Hello");
-}
-
 #define RCVBUFSIZE 32
 #define MAX_QUEUE 5
+#define PORT 9999
 
 #define CHAR_SIZE ((8 * sizeof(int) - 1) / 3 + 2)
 
-char header[] = "HTTP/1.0 200 Ok\nConnection: close\nContent-type: text/html; charset=UTF-8\nstatus:200 OK\nContent-length: ";
-char headerEnd[] = "\n\n";
-char response[] = "<doctype !html><html><head><title>Bye-bye baby bye-bye</title>"
-"<style>body { background-color: #111 }"
-"h1 { font-size:4cm; text-align: center; color: black;"
-" text-shadow: 0 0 2mm red}</style></head>"
-"<body><h1>Goodbye, world!</h1></body></html>\n\n";
-
 int serverSocket = -1;
 
-void runServer(void(*handle)(int)) {
-	atexit(shutdownServer);
-    //Look at this for Webservers:
-    //http://www.paulgriffiths.net/program/c/webserv.php
-    //http://www.csd.uoc.gr/~hy556/material/tutorials/cs556-3rd-tutorial.pdf
-    
-    //HTTP:Header:
-    //http://stackoverflow.com/questions/5136165/web-server-problem-in-c
+/*---------------------------- Internal functions ----------------------------*/
+static void sendResponse(int socketId, char *content);
+
+void runServer(char *(*socketHandle)(char*)) {
+    atexit(shutdownServer);
     
     //Create server socket
     serverSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -57,7 +43,7 @@ void runServer(void(*handle)(int)) {
     memset (&(serverAddr.sin_zero), '\0', 8);
 	
     serverAddr.sin_family = AF_INET;
-    serverAddr.sin_port = htons(9999);
+    serverAddr.sin_port = htons(PORT);
     serverAddr.sin_addr.s_addr = htonl(INADDR_ANY);
 
     //Bind server socket
@@ -77,15 +63,32 @@ void runServer(void(*handle)(int)) {
         clntLen = sizeof(clientAddr);
         int clientSocket = accept(serverSocket, (struct sockaddr *) &clientAddr, &clntLen);
 
-        puts("Accepted connection...");
-        /*char echoBuffer[RCVBUFSIZE];
-        int recvMsgSize;
+        printf("Accepted connection...");
+        char *handleResponse = socketHandle(NULL);
+
+        printf("Sending response...\n");
+        sendResponse(clientSocket,"HTTP/1.0 200 OK\n");
+        sendResponse(clientSocket,"Connection: close\n");
+        sendResponse(clientSocket,"Content-type: text/plain;charset=UTF-8\n");
+        sendResponse(clientSocket,"expires: -1\n");
+        sendResponse(clientSocket,"status: 200\n\n");
+        sendResponse(clientSocket,handleResponse);
+        sendResponse(clientSocket,"\n\n");
         
-        /*if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
+        printf("Response sent...\n");
+        //TODO: Free fails here...
+        // free(handleResponse);
+        //handleResponse = NULL;
+       // free(handleResponse);
+        //handleResponse = NULL;
+        //TODO: Implement read
+        /*int recvMsgSize;
+        
+        if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
              fprintf(stderr, "Failed to read from client socket!");
-        }/*
+        }
         
-        /*while(recvMsgSize > 0){
+        while(recvMsgSize > 0){
             //puts("Sending back to client...");
             if(send(clientSocket,echoBuffer,recvMsgSize,0) != recvMsgSize){
                  fprintf(stderr, "Failed to write to client socket!");
@@ -97,7 +100,7 @@ void runServer(void(*handle)(int)) {
             printf("Reding input 2...%d\n",recvMsgSize);
             printf("Read: %s\n",echoBuffer);
         }*/
-		//Identify length of response
+	//Identify length of response
         /*char resp_len[CHAR_SIZE];
         sprintf(resp_len, "%d", strlen(response));
 		
@@ -119,18 +122,15 @@ void runServer(void(*handle)(int)) {
 			puts("4");*/
 
 		//Send response to client
+        /*sendResponse(clientSocket,"Test");
 		puts("Sending response to client");
         if(send(clientSocket,"Test",4,0) <= (4-1)){
             fprintf(stderr,"Sending failed\n");
         }
-		if(send(clientSocket,"More",4,0) <= (4-1)){
+	if(send(clientSocket,"More",4,0) <= (4-1)){
             fprintf(stderr,"Sending failed\n");
-        }
+        }*/
 		
-		//Free memory
-        puts("Sent response...free memory");
-        //free(deffResp);
-		//deffResp = NULL;
         puts("Finished processing");
         close(clientSocket);
         puts("Closed client socket");
@@ -139,8 +139,22 @@ void runServer(void(*handle)(int)) {
 }
 
 void shutdownServer(){
-	//close server socket
-    if (close(serverSocket) == -1) {
-        fprintf(stderr, "Failed to close server socket!");
+    printf("Shutdown Server...\n");
+    //close server socket
+    if(serverSocket != -1){
+        if (close(serverSocket) == -1) {
+            fprintf(stderr, "Failed to close server socket!\n");
+        }else{
+            printf("Server-Socket closed...\n");
+            serverSocket = -1;
+        }
+    }
+    printf("Server Shutdown complete...\n");
+}
+static void sendResponse(int socketId, char *content){
+    int length = strlen(content);
+    
+    if(send(socketId,content,length,0) <= (length-1)){
+            fprintf(stderr,"Sending failed\n");
     }
 }
