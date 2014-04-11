@@ -1,8 +1,11 @@
 /* 
- * File:   helper_json.h
- * Author: Daniel Brun
- *
- * Created on 9. April 2014, 17:12
+ * File:    helper_json.h
+ * Author:  Daniel Brun
+ * Created: 09.04.2014
+ * 
+ * Description: 
+ * Provides some JSON helper methods.
+ *  
  */
 
 #ifndef HELPER_JSON_H
@@ -12,11 +15,14 @@
 extern "C" {
 #endif
 
-    typedef struct {
-        char *key;
-        char *value;
-    } KeyValuePair;
+/*---------------------------- Declarations ----------------------------------*/
+typedef struct {
+    char *key;
+    char *value;
+} KeyValuePair;
 
+/*---------------------------- Functions -------------------------------------*/
+ 
 /**
  * Creates a json string from the given key value pairs.
  * 

@@ -1,4 +1,15 @@
+/* 
+ * File:    SimpleSocketServer.c
+ * Author:  Daniel Brun
+ * Created: 05.04.2014
+ * 
+ * Description: 
+ * Provides a simple socket server implementation which sends a request given 
+ * by a handle back to the client.
+ *  
+ */
 
+/*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,8 +25,10 @@
 
 #include <string.h>
 
+/*---------------------------- Includes: User-Libs ---------------------------*/
 #include "SimpleSocketServer.h"
 
+/*---------------------------- Declarations ----------------------------------*/
 #define RCVBUFSIZE 32
 #define MAX_QUEUE 5
 #define PORT 7799
@@ -24,11 +37,22 @@
 
 int serverSocket = -1;
 int on = 1;
+
 /*---------------------------- Internal functions ----------------------------*/
+
+/**
+ * Sends a response to the client. If the send process was not successfully,
+ * an error thrown.
+ * 
+ * @param socketId The underlying socket where the content msut be sent.
+ * @param content The content to send.
+ */
 static void sendResponse(int socketId, char *content);
 
-void runServer(char *(*socketHandle)(char*)) {
-    atexit(shutdownServer);
+/*---------------------------- Implementations -------------------------------*/
+
+void server_start(char *(*socketHandle)(char*)) {
+    atexit(server_stop);
     
     //Create server socket
     serverSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -37,6 +61,7 @@ void runServer(char *(*socketHandle)(char*)) {
         fprintf(stderr, "Failed to create server socket!");
     }
 
+    //Set socket options
     setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(int));
     
     struct sockaddr_in serverAddr, clientAddr;
@@ -50,13 +75,13 @@ void runServer(char *(*socketHandle)(char*)) {
 
     //Bind server socket
     if (bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0) {
-        shutdownServer();
+        server_stop();
         fprintf(stderr, "Failed to bind server socket!");
     }
 
     //listen to client sockets
     if (listen(serverSocket, MAX_QUEUE) < 0) {
-        shutdownServer();
+        server_stop();
         fprintf(stderr, "Failed to listen on server socket!");
     }
 
@@ -73,6 +98,47 @@ void runServer(char *(*socketHandle)(char*)) {
         }
         
         printf("Accepted connection...");
+        //Reading of request not necessary
+        /*char readBuffer[RCVBUFSIZE];
+        int recvMsgSize;
+
+        recvMsgSize = 1;
+        int leCount = 0;
+        int lastWasEnd = 0;
+        int endOfRequest = 0;
+        while(endOfRequest == 0 && recvMsgSize > 0){
+            printf("Size: %d",recvMsgSize);
+            if((recvMsgSize = recv(clientSocket,readBuffer,RCVBUFSIZE,0)) < 0){
+             fprintf(stderr, "Failed to read from client socket!");
+            }
+            //printf("%s",readBuffer);
+            
+            int length = strlen(readBuffer);
+            int counter = 0;
+            
+            for(counter = 0;counter < length;counter++){
+                printf("%c",readBuffer[counter]);
+                if(readBuffer[counter] == '\n'){
+                     leCount++;
+                     printf("Found one %d %d %d %d",lastWasEnd,leCount,counter,length);
+                     lastWasEnd = 1;
+                  
+                }else{
+                    lastWasEnd = 0;
+                    leCount = 0;
+                }
+                //Blank line to indicate end of request...
+                if(leCount >= 2 && lastWasEnd){
+                    printf("Detected end of request");
+                    endOfRequest = 1;
+                    break;
+                }
+            }
+            printf("End-Size: %d",recvMsgSize);
+        }
+        
+        printf("Request reading completet...");*/
+        
         char *handleResponse = socketHandle(NULL);
         char contentLength[16 + sizeof(int)] = "\0";
         
@@ -89,61 +155,10 @@ void runServer(char *(*socketHandle)(char*)) {
         sendResponse(clientSocket,handleResponse);
         
         printf("Response sent...\n");
-        //TODO: Free fails here...
-        // free(handleResponse);
+        //No free needed here.
+        //free(handleResponse);
         //handleResponse = NULL;
-       // free(handleResponse);
-        //handleResponse = NULL;
-        //TODO: Implement read
-        /*int recvMsgSize;
-        
-        if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
-             fprintf(stderr, "Failed to read from client socket!");
-        }
-        
-        while(recvMsgSize > 0){
-            //puts("Sending back to client...");
-            if(send(clientSocket,echoBuffer,recvMsgSize,0) != recvMsgSize){
-                 fprintf(stderr, "Failed to write to client socket!");
-            }
-            printf("Reding input...%d\n",recvMsgSize);
-            if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
-             fprintf(stderr, "Failed to read from client socket!");
-            }
-            printf("Reding input 2...%d\n",recvMsgSize);
-            printf("Read: %s\n",echoBuffer);
-        }*/
-	//Identify length of response
-        /*char resp_len[CHAR_SIZE];
-        sprintf(resp_len, "%d", strlen(response));
-		
-		puts("Calculating size");
-		//Calculate length of message
-        size_t message_len = strlen(header) + strlen(response) + strlen(resp_len) + strlen(headerEnd) + 1;
-		
-		printf("Creating output string %d %d %d %d %d",message_len,strlen(header) , strlen(response) , strlen(resp_len) , strlen(headerEnd));
-		//Create output string
-        char deffResp[message_len + 1];
-		puts("Allocated");
-		stpcpy(deffResp,header);
-			puts("1");
-        stpcpy(deffResp,resp_len);
-			puts("2");
-        stpcpy(deffResp,headerEnd);
-			puts("3");
-        stpcpy(deffResp,response);
-			puts("4");*/
-
-		//Send response to client
-        /*sendResponse(clientSocket,"Test");
-		puts("Sending response to client");
-        if(send(clientSocket,"Test",4,0) <= (4-1)){
-            fprintf(stderr,"Sending failed\n");
-        }
-	if(send(clientSocket,"More",4,0) <= (4-1)){
-            fprintf(stderr,"Sending failed\n");
-        }*/
-		
+	
         puts("Finished processing");
         close(clientSocket);
         puts("Closed client socket");
@@ -151,7 +166,7 @@ void runServer(char *(*socketHandle)(char*)) {
 
 }
 
-void shutdownServer(){
+void server_stop(){
     printf("Shutdown Server...\n");
     //close server socket
     if(serverSocket != -1){
@@ -164,11 +179,12 @@ void shutdownServer(){
     }
     printf("Server Shutdown complete...\n");
 }
+
 static void sendResponse(int socketId, char *content){
     int length = strlen(content);
     
     if(send(socketId,content,length,0) <= (length-1)){
-        shutdownServer();
+        server_stop();
         fprintf(stderr,"Sending failed\n");
     }
 }

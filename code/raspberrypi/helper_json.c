@@ -1,30 +1,38 @@
-
 /* 
- * File:   helper_json.c
- * Author: Daniel Brun
- *
- * Created on 9. April 2014, 17:12
+ * File:    helper_json.c
+ * Author:  Daniel Brun
+ * Created: 09.04.2014
+ * 
+ * Description: 
+ * Provides some JSON helper methods.
+ *  
  */
 
+/*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+/*---------------------------- Includes: User-Libs ---------------------------*/
 #include "helper_json.h"
 
 char * json_createString(KeyValuePair *keyValuePairs){
     int size = 0; //empty json string
 
+    //Calculate size
     int arrSize = sizeof(KeyValuePair) / sizeof(keyValuePairs);
 
     if (arrSize > 0){
+        //minimal size is known
         size = 2 + arrSize + 1;
         
+        //Summ up the different lengths of the elments.
         int elem = 0;
         for(elem = 0; elem < arrSize;elem++){
             size = size + strlen(keyValuePairs[elem].key) + strlen(keyValuePairs[elem].value) + 5;
         }
         
+        //Allocate memory
         char *jsonString = malloc(size*sizeof(*jsonString));
         
         if(jsonString == NULL){
@@ -32,6 +40,7 @@ char * json_createString(KeyValuePair *keyValuePairs){
                  exit(2);
         }
         
+        //Create the json string.
         strncpy(jsonString,"{",1);
         for(elem = 0; elem < arrSize;elem++){
             strncat(jsonString,"\"",1);
