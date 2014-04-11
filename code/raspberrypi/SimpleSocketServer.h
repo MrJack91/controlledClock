@@ -22,9 +22,9 @@ extern "C" {
  * Starts the server on the preconfigred port.
  * 
  * @param handle    The function which should be processed after a connection 
- *                  is established.
+ *                  is established. Takes two strings as argument.
  */
-void server_start( char *(*handle)(char*));
+void server_start( void (*handle)(char*,char**));
 
 /**
  * Stops the server.

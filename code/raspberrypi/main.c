@@ -35,7 +35,7 @@ int cleanUpExecuted = 0;
  * @param content The request content.
  * @return The content to be sent to the client.
  */
-char *server_handle(char *content);
+void server_handle(char *content,char **response);
 
 /**
  * Shuts all modules properly down and exits.
@@ -105,7 +105,8 @@ int main(int argc, char *argv[]) {
     return (EXIT_SUCCESS);
 }
 
-char *server_handle(char *content) {
+void server_handle(char *content, char **response) {
+    
     printf("Client-Request: %s\n", content);
     
     TimeStruct currTime = clock_getCurrentTime();
@@ -124,7 +125,22 @@ char *server_handle(char *content) {
     kvPairs[1].key = "LastSyncTime";
     kvPairs[1].value = lastSyncTimeStr;
     
-    return json_createString(kvPairs);
+    char *jsonString = json_createString(kvPairs);
+    
+    int length = strlen(jsonString) * sizeof(*jsonString);
+    *response = malloc(length);
+
+    if(*response == NULL){
+           fprintf(stderr, "Failed to allocate memory for json conversion!\n");
+           exit(2);
+    }
+    
+    strncpy(*response,jsonString,length);
+    (*response)[length] = '\0';
+    
+    free(jsonString);
+    jsonString = NULL;
+    
 }
 
 void main_exit(){

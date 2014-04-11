@@ -24,24 +24,28 @@ char * json_createString(KeyValuePair *keyValuePairs){
 
     if (arrSize > 0){
         //minimal size is known
-        size = 2 + arrSize + 1;
+        size = 3;
         
         //Summ up the different lengths of the elments.
         int elem = 0;
         for(elem = 0; elem < arrSize;elem++){
             size = size + strlen(keyValuePairs[elem].key) + strlen(keyValuePairs[elem].value) + 5;
+            
+            if(elem < (arrSize -1)){
+                size++;
+            }
         }
         
         //Allocate memory
         char *jsonString = malloc(size*sizeof(*jsonString));
-        
+
         if(jsonString == NULL){
                  fprintf(stderr, "Failed to allocate memory for json conversion!\n");
                  exit(2);
         }
         
         //Create the json string.
-        strncpy(jsonString,"{",1);
+        strncpy(jsonString,"{",2);
         for(elem = 0; elem < arrSize;elem++){
             strncat(jsonString,"\"",1);
             strncat(jsonString,keyValuePairs[elem].key,strlen(keyValuePairs[elem].key));
@@ -53,7 +57,10 @@ char * json_createString(KeyValuePair *keyValuePairs){
                 strncat(jsonString,",",1);//Comma needed at the end
             }
          }
-        strncat(jsonString,"}\0",2);
+
+        strncat(jsonString,"}",1);
+        strncat(jsonString,"\0",1);
+
         return jsonString;
     }
      return "";

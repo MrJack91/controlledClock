@@ -31,7 +31,7 @@
 /*---------------------------- Declarations ----------------------------------*/
 #define RCVBUFSIZE 32
 #define MAX_QUEUE 5
-#define PORT 7799
+#define PORT 7899
 
 #define CHAR_SIZE ((8 * sizeof(int) - 1) / 3 + 2)
 
@@ -51,7 +51,7 @@ static void sendResponse(int socketId, char *content);
 
 /*---------------------------- Implementations -------------------------------*/
 
-void server_start(char *(*socketHandle)(char*)) {
+void server_start(void (*socketHandle)(char*,char**)) {
     atexit(server_stop);
     
     //Create server socket
@@ -138,8 +138,9 @@ void server_start(char *(*socketHandle)(char*)) {
         }
         
         printf("Request reading completet...");*/
+        char *handleResponse;
+        socketHandle(NULL,&handleResponse);
         
-        char *handleResponse = socketHandle(NULL);
         char contentLength[16 + sizeof(int)] = "\0";
         
         sprintf(contentLength,"Content-Length: %d\n",strlen(handleResponse));
@@ -156,9 +157,9 @@ void server_start(char *(*socketHandle)(char*)) {
         
         printf("Response sent...\n");
         //No free needed here.
-        //free(handleResponse);
-        //handleResponse = NULL;
-	
+        free(handleResponse);
+        handleResponse = NULL;
+
         puts("Finished processing");
         close(clientSocket);
         puts("Closed client socket");
