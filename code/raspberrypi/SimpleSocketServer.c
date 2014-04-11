@@ -1,4 +1,15 @@
+/* 
+ * File:    SimpleSocketServer.c
+ * Author:  Daniel Brun
+ * Created: 05.04.2014
+ * 
+ * Description: 
+ * Provides a simple socket server implementation which sends a request given 
+ * by a handle back to the client.
+ *  
+ */
 
+/*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -14,8 +25,10 @@
 
 #include <string.h>
 
+/*---------------------------- Includes: User-Libs ---------------------------*/
 #include "SimpleSocketServer.h"
 
+/*---------------------------- Declarations ----------------------------------*/
 #define RCVBUFSIZE 32
 #define MAX_QUEUE 5
 #define PORT 7799
@@ -24,11 +37,22 @@
 
 int serverSocket = -1;
 int on = 1;
+
 /*---------------------------- Internal functions ----------------------------*/
+
+/**
+ * Sends a response to the client. If the send process was not successfully,
+ * an error thrown.
+ * 
+ * @param socketId The underlying socket where the content msut be sent.
+ * @param content The content to send.
+ */
 static void sendResponse(int socketId, char *content);
 
-void runServer(char *(*socketHandle)(char*)) {
-    atexit(shutdownServer);
+/*---------------------------- Implementations -------------------------------*/
+
+void server_start(char *(*socketHandle)(char*)) {
+    atexit(server_stop);
     
     //Create server socket
     serverSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -37,6 +61,7 @@ void runServer(char *(*socketHandle)(char*)) {
         fprintf(stderr, "Failed to create server socket!");
     }
 
+    //Set socket options
     setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &on, sizeof(int));
     
     struct sockaddr_in serverAddr, clientAddr;
@@ -50,13 +75,13 @@ void runServer(char *(*socketHandle)(char*)) {
 
     //Bind server socket
     if (bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr)) < 0) {
-        shutdownServer();
+        server_stop();
         fprintf(stderr, "Failed to bind server socket!");
     }
 
     //listen to client sockets
     if (listen(serverSocket, MAX_QUEUE) < 0) {
-        shutdownServer();
+        server_stop();
         fprintf(stderr, "Failed to listen on server socket!");
     }
 
@@ -73,6 +98,7 @@ void runServer(char *(*socketHandle)(char*)) {
         }
         
         printf("Accepted connection...");
+        //Reading of request not necessary
         /*char readBuffer[RCVBUFSIZE];
         int recvMsgSize;
 
@@ -129,8 +155,8 @@ void runServer(char *(*socketHandle)(char*)) {
         sendResponse(clientSocket,handleResponse);
         
         printf("Response sent...\n");
-        //TODO: Free fails here...
-        // free(handleResponse);
+        //No free needed here.
+        //free(handleResponse);
         //handleResponse = NULL;
 	
         puts("Finished processing");
@@ -140,7 +166,7 @@ void runServer(char *(*socketHandle)(char*)) {
 
 }
 
-void shutdownServer(){
+void server_stop(){
     printf("Shutdown Server...\n");
     //close server socket
     if(serverSocket != -1){
@@ -153,11 +179,12 @@ void shutdownServer(){
     }
     printf("Server Shutdown complete...\n");
 }
+
 static void sendResponse(int socketId, char *content){
     int length = strlen(content);
     
     if(send(socketId,content,length,0) <= (length-1)){
-        shutdownServer();
+        server_stop();
         fprintf(stderr,"Sending failed\n");
     }
 }

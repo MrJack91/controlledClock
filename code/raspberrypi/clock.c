@@ -15,16 +15,16 @@
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "clock.h"
 
-/*---------------------------- Internal functions ----------------------------*/
-
-
-/*---------------------------- Implementations -------------------------------*/
-
+/*---------------------------- Declarations ----------------------------------*/
 TimeStruct currentTime;
 TimeStruct lastSyncTime;
 
+/*---------------------------- Internal functions ----------------------------*/
+
 unsigned long long rdtsc();
 
+
+/*---------------------------- Implementations -------------------------------*/
 void clock_start(){
     currentTime.year = 2014;
     currentTime.month = 4;

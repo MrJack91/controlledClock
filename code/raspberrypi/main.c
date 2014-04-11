@@ -1,10 +1,15 @@
 /* 
- * File:   main.c
- * Author: Daniel Brun
- *
- * Created on 1. April 2014, 12:59
+ * File:    main.c
+ * Author:  Daniel Brun
+ * Created: 01.04.2014
+ * 
+ * Description: 
+ * Main programm of the 'ControlledClock'. Starts and coordinates the different
+ * modules.
+ *  
  */
 
+/*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,46 +17,48 @@
 #include <pthread.h>
 #include <signal.h>
 
+/*---------------------------- Includes: User-Libs ---------------------------*/
 #include "SimpleSocketServer.h"
 #include "helper_json.h"
 #include "clock.h"
 
-
+/*---------------------------- Declarations ----------------------------------*/
 int cleanUpExecuted = 0;
 
+/*---------------------------- Internal functions ----------------------------*/
+
+/**
+ * Handles the http request from the web server. A json string with the current
+ * time from the clock module und the last sync time will be sent back to the
+ * client.
+ * 
+ * @param content The request content.
+ * @return The content to be sent to the client.
+ */
 char *server_handle(char *content);
 
-void cleanUp();
+/**
+ * Shuts all modules properly down and exits.
+ */
+void main_exit();
 
 int main(int argc, char *argv[]) {
 
-    if (signal (SIGINT, cleanUp) == SIG_IGN){
+    //Setup signal handlers for unexcpected termination
+    if (signal (SIGINT, main_exit) == SIG_IGN){
          signal (SIGINT, SIG_IGN);
     }
-    if (signal (SIGKILL, cleanUp) == SIG_IGN){
+    if (signal (SIGKILL, main_exit) == SIG_IGN){
          signal (SIGKILL, SIG_IGN);
     }
-    if (signal (SIGHUP, cleanUp) == SIG_IGN){
+    if (signal (SIGHUP, main_exit) == SIG_IGN){
          signal (SIGHUP, SIG_IGN);
     }
-    if (signal (SIGTERM, cleanUp) == SIG_IGN){
+    if (signal (SIGTERM, main_exit) == SIG_IGN){
          signal (SIGTERM, SIG_IGN);
     }
+    
     clock_start();
-    //TODO: use log4c
-    
-    /*KeyValuePair kvPairs[2];
-    kvPairs[0].key = "Test1";
-    kvPairs[0].value = "Value1";
-    
-    kvPairs[1].key = "Test2";
-    kvPairs[1].value = "Value2";
-    
-    char *myString = json_createString(kvPairs);
-    printf("Result: %s\n",myString);
-    
-    free(myString);
-    myString = NULL;*/
 
     //First startup sequence
 
@@ -73,14 +80,14 @@ int main(int argc, char *argv[]) {
 
     pthread_create(&serverThread,
             NULL,
-            (void *) runServer,
+            (void *) server_start,
             (void *) server_handle);
 
     pthread_join(serverThread, NULL);
     //pthread_join(inlineThread, NULL);
     
     
-    atexit(cleanUp);
+    atexit(main_exit);
     exit(0);
    
     //!!!!http://www.intel-assembler.it/portale/5/high-precision-timer-clock/source-code-fast-timer-8259-c-asm.asp
@@ -120,13 +127,13 @@ char *server_handle(char *content) {
     return json_createString(kvPairs);
 }
 
-void cleanUp(){
+void main_exit(){
     
     if(cleanUpExecuted != 1){
         cleanUpExecuted = 1;
         printf("Shutdown application...\n");
 
-        shutdownServer();
+        server_stop();
 
         printf("Application shutdown finished...exiting now...\n");
     }
