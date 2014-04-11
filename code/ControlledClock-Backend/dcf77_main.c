@@ -14,10 +14,10 @@ int main() {
   printf("========================================================================================================================================================================\n");
   
   // decode manually for debugging
-  // dcf77_decode();
+  dcf77_decode();
   
   // read data (will call decoder if data are available)
-  dcf77_read();
+  // dcf77_read();
   
   printf("==\tEND dcf77_main\t\t==\n");
 }

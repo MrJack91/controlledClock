@@ -16,7 +16,8 @@
 #include <unistd.h>
 #include "ftd2xx.h"
 
-#define BUF_SIZE 0x384 // 120 Entries ≈ 2 minutes
+// #define BUF_SIZE 0x384 // 900 Entries ≈ 2 minutes
+#define BUF_SIZE 0x384 // 120 Entries ≈ 15 minutes
 
 #define MAX_DEVICES 5
 
