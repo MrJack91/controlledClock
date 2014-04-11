@@ -17,3 +17,6 @@ dcf77_decoder.o: dcf77_decoder.c dcf77_decoder.h
 clean:
 	rm -f *.o
 	rm -f dcf77.out
+
+reader_standalone: dcf77_reader_standalone.c
+	gcc -o dcf77_reader_standalone.out dcf77_reader_standalone.c -L. -lftd2xx

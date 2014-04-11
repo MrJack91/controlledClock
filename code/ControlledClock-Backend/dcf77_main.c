@@ -11,6 +11,8 @@
 int main() {
   printf("==\tSTART dcf77_main\t==\n");
   
+  // decode manually for debugging
+  dcf77_decode();
   
   // read data (will call decoder if data are available)
   dcf77_read();

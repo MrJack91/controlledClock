@@ -5,8 +5,9 @@
 
   To build use the following gcc statement
   (assuming you have the d2xx library in the /usr/local/lib directory).
-  clear && gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX && ./dcf77_reader
-  maybe: gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx
+
+  build:
+  gcc -o dcf77_reader_standalone.out dcf77_reader_standalone.c -L. -lftd2xx
  */
 
 #include <stdio.h>
@@ -15,7 +16,7 @@
 #include <unistd.h>
 #include "ftd2xx.h"
 
-#define BUF_SIZE 0x78 // 120 Entries ≈ 2 minutes
+#define BUF_SIZE 0x384 // 120 Entries ≈ 2 minutes
 
 #define MAX_DEVICES 5
 

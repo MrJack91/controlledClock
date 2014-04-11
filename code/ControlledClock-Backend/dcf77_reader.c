@@ -199,9 +199,10 @@ void handleUsbDevice() {
         }
         
         
-        /*
+        
         // reset buffer pointer (size) - not sure if necessary
         ftStatus = FT_Purge(ftHandle[i], FT_PURGE_RX | FT_PURGE_TX); // Purge both Rx and Tx buffers
+        /*
         if (ftStatus == FT_OK) {
           // FT_Purge OK
           printf("Purge was succesfull\n");
@@ -210,7 +211,6 @@ void handleUsbDevice() {
           printf("Purge was failed\n");
         }
          */
-        
         
         dwRxSize = 0;
         dwRxSizeTemp = 0;

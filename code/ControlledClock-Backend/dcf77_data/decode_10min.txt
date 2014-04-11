@@ -1,0 +1,498 @@
+VALID DATES
+===
+1 0 0 0 1 1 1 0 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:38:00
+
+1 0 0 0 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:48:00
+
+1 1 0 0 1 0 0 1 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:49:00
+
+INVALID DATES
+===
+1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 1 1 1 1 1 0 1 1 1 1 0 1 0 0 0 0 1 0 0 1 1 1 0  - (length: 39)
+data: 20144-05-25T22:04:0
+
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 0 1 0 0 1 0 1 1 0 0 1 0 0 0 1 0 0 1 0  - (length: 39)
+data: 2091-06-21T10:12:00
+
+1 0 0 0 1 1 1 0 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:38:00
+
+1 0 1 0 0 0 1 0 0 0 1 1 1 1 0 0 1 1 0 1 1 0 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 0 0  - (length: 39)
+data: 2011-04-21T24:22:00
+
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 1  - (length: 39)
+data: 2090-14-11T10:12:00
+
+1 0 1 0 0 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0  - (length: 39)
+data: 2095-03-02T02:42:00
+
+1 0 1 0 0 0 1 0 0 0 1 1 1 0 1 0 0 0 0 1 0 1 0 0 1 0 0 1 1 0 0 0 1 0 1 1 0 0 0  - (length: 39)
+data: 2034-12-28T34:22:00
+
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 1 1 0 1 0 1 1 1 0 0 0 1 0 0 1 0  - (length: 39)
+data: 2091-20-11T10:12:00
+
+1 0 1 0 0 0 1 0 0 1 0 1 1 0 0 1 1 1 1 0 0 1 0 0 1 0 0 1 1 1 1 0 1 0 1 1 0 0 0  - (length: 39)
+data: 2035-22-27T13:22:00
+
+
+ALL DATES
+===
+1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 1 1 1 1 1 0 1 1 1 1 0 1 0 0 0 0 1 0 0 1 1 1 0  - (length: 39)
+data: 20144-05-25T22:04:0
+
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 0 1 0 0 1 0 1 1 0 0 1 0 0 0 1 0 0 1 0  - (length: 39)
+data: 2091-06-21T10:12:00
+
+1 0 0 0 1 1 1 0 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:38:00
+
+1 0 1 0 0 0 1 0 0 0 1 1 1 1 0 0 1 1 0 1 1 0 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 0 0  - (length: 39)
+data: 2011-04-21T24:22:00
+
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 1  - (length: 39)
+data: 2090-14-11T10:12:00
+
+1 0 0 0 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:48:00
+
+1 1 0 0 1 0 0 1 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:49:00
+
+1 0 1 0 0 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0  - (length: 39)
+data: 2095-03-02T02:42:00
+
+1 0 1 0 0 0 1 0 0 0 1 1 1 0 1 0 0 0 0 1 0 1 0 0 1 0 0 1 1 0 0 0 1 0 1 1 0 0 0  - (length: 39)
+data: 2034-12-28T34:22:00
+
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 1 1 0 1 0 1 1 1 0 0 0 1 0 0 1 0  - (length: 39)
+data: 2091-20-11T10:12:00
+
+1 0 1 0 0 0 1 0 0 1 0 1 1 0 0 1 1 1 1 0 0 1 0 0 1 0 0 1 1 1 1 0 1 0 1 1 0 0 0  - (length: 39)
+data: 2035-22-27T13:22:00
+
+
+
+OUTPUT DATA
+==
+==	START dcf77_main	==
+===	START dcf77_reader	===
+Device 0 Serial Number - FTV8RVN9
+Number of devices: 1.
+Opened device FTV8RVN9
+
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+***************************************
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 1 1 1 1 1 0 1 1 1 1 0 1 0 0 0 0 1 0 0 1 1 1 0  - (length: 39)
+data: 20144-05-25T22:04:0
+
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 0 1 0 0 1 0 1 1 0 0 1 0 0 0 1 0 0 1 0  - (length: 39)
+data: 2091-06-21T10:12:00
+
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 0 0 1 1 1 0 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:38:00
+
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 0 0 0 0 0 1 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:40:00
+
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+****8*****
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 1 0 0 0 1 0 0 0 1 1 1 1 0 0 1 1 0 1 1 0 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 0 0  - (length: 39)
+data: 2011-04-21T24:22:00
+
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 0 0 0 1 1 1 0 0 0 0 0 1 0 0 1 1  - (length: 39)
+data: 2090-14-11T10:12:00
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 0 0 1 0 0 1 0 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:48:00
+
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 1 0 0 1 0 0 1 1 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1  - (length: 39)
+data: 2014-04-11T08:49:00
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 1 0 0 0 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 0 1 0 0 1 1 0 0 0 1 0 1 0 1 0 0 1 0  - (length: 39)
+data: 2095-03-02T02:42:00
+
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 1 0 0 0 1 0 0 0 1 1 1 0 1 0 0 0 0 1 0 1 0 0 1 0 0 1 1 0 0 0 1 0 1 1 0 0 0  - (length: 39)
+data: 2034-12-28T34:22:00
+
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 1 0 0 1 0 0 0 0 1 0 1 0 0 0 1 0 0 0 1 0 0 1 1 0 1 0 1 1 1 0 0 0 1 0 0 1 0  - (length: 39)
+data: 2091-20-11T10:12:00
+
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+***************************************
+YEAH: found a valid date:
+1 0 1 0 0 0 1 0 0 1 0 1 1 0 0 1 1 1 1 0 0 1 0 0 1 0 0 1 1 1 1 0 1 0 1 1 0 0 0  - (length: 39)
+data: 2035-22-27T13:22:00
+
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+***************************************
+search a valid date:
+*
+search a valid date:
+****************
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+*
+search a valid date:
+*********
+search a valid date:
+*
+search a valid date:
+****************
