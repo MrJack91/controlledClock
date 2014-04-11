@@ -23,6 +23,8 @@
 TimeStruct currentTime;
 TimeStruct lastSyncTime;
 
+unsigned long long rdtsc();
+
 void clock_start(){
     currentTime.year = 2014;
     currentTime.month = 4;
@@ -38,7 +40,24 @@ void clock_start(){
     lastSyncTime.hour = 18;
     lastSyncTime.minute = 10;
     lastSyncTime.second = 5;
-    lastSyncTime.zoneOffset = 1;
+    lastSyncTime.zoneOffset = 1; 
+    
+    printf("%lld\n",rdtsc());
+    printf("%lld\n",rdtsc());
+    printf("%lld\n",rdtsc());
+    
+    //High res claendar: http://www.chemie.fu-berlin.de/chemnet/use/info/libc/libc_17.html
+}
+
+unsigned long long rdtsc()
+{
+    //http://stackoverflow.com/questions/275004/c-timer-function-to-provide-time-in-nano-seconds
+  #define rdtsc(low, high) \
+         __asm__ __volatile__("rdtsc" : "=a" (low), "=d" (high))
+
+  unsigned int low, high;
+  rdtsc(low, high);
+  return ((long long)high << 32) | low;
 }
 
 void clock_shutdown(){

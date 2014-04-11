@@ -65,17 +65,9 @@ int main(int argc, char *argv[]) {
 
     //Start encoder
 
-    //Semaphores:
-    //http://www.daniweb.com/software-development/c/threads/330806/semaphores-in-c
-
-    //Function Pointers -> Callback
-    //http://www.cprogramming.com/tutorial/function-pointers.html
-
-    //http://www.chemie.fu-berlin.de/chemnet/use/info/libc/libc_21.html
-
  //initializeClock();
     //Thread exmplae
-    
+   
     pthread_t serverThread;
    
 
@@ -86,7 +78,8 @@ int main(int argc, char *argv[]) {
 
     pthread_join(serverThread, NULL);
     //pthread_join(inlineThread, NULL);
-   
+    
+    
     atexit(cleanUp);
     exit(0);
    

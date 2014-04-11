@@ -73,6 +73,46 @@ void runServer(char *(*socketHandle)(char*)) {
         }
         
         printf("Accepted connection...");
+        /*char readBuffer[RCVBUFSIZE];
+        int recvMsgSize;
+
+        recvMsgSize = 1;
+        int leCount = 0;
+        int lastWasEnd = 0;
+        int endOfRequest = 0;
+        while(endOfRequest == 0 && recvMsgSize > 0){
+            printf("Size: %d",recvMsgSize);
+            if((recvMsgSize = recv(clientSocket,readBuffer,RCVBUFSIZE,0)) < 0){
+             fprintf(stderr, "Failed to read from client socket!");
+            }
+            //printf("%s",readBuffer);
+            
+            int length = strlen(readBuffer);
+            int counter = 0;
+            
+            for(counter = 0;counter < length;counter++){
+                printf("%c",readBuffer[counter]);
+                if(readBuffer[counter] == '\n'){
+                     leCount++;
+                     printf("Found one %d %d %d %d",lastWasEnd,leCount,counter,length);
+                     lastWasEnd = 1;
+                  
+                }else{
+                    lastWasEnd = 0;
+                    leCount = 0;
+                }
+                //Blank line to indicate end of request...
+                if(leCount >= 2 && lastWasEnd){
+                    printf("Detected end of request");
+                    endOfRequest = 1;
+                    break;
+                }
+            }
+            printf("End-Size: %d",recvMsgSize);
+        }
+        
+        printf("Request reading completet...");*/
+        
         char *handleResponse = socketHandle(NULL);
         char contentLength[16 + sizeof(int)] = "\0";
         
@@ -92,58 +132,7 @@ void runServer(char *(*socketHandle)(char*)) {
         //TODO: Free fails here...
         // free(handleResponse);
         //handleResponse = NULL;
-       // free(handleResponse);
-        //handleResponse = NULL;
-        //TODO: Implement read
-        /*int recvMsgSize;
-        
-        if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
-             fprintf(stderr, "Failed to read from client socket!");
-        }
-        
-        while(recvMsgSize > 0){
-            //puts("Sending back to client...");
-            if(send(clientSocket,echoBuffer,recvMsgSize,0) != recvMsgSize){
-                 fprintf(stderr, "Failed to write to client socket!");
-            }
-            printf("Reding input...%d\n",recvMsgSize);
-            if((recvMsgSize = recv(clientSocket,echoBuffer,RCVBUFSIZE,0)) < 0){
-             fprintf(stderr, "Failed to read from client socket!");
-            }
-            printf("Reding input 2...%d\n",recvMsgSize);
-            printf("Read: %s\n",echoBuffer);
-        }*/
-	//Identify length of response
-        /*char resp_len[CHAR_SIZE];
-        sprintf(resp_len, "%d", strlen(response));
-		
-		puts("Calculating size");
-		//Calculate length of message
-        size_t message_len = strlen(header) + strlen(response) + strlen(resp_len) + strlen(headerEnd) + 1;
-		
-		printf("Creating output string %d %d %d %d %d",message_len,strlen(header) , strlen(response) , strlen(resp_len) , strlen(headerEnd));
-		//Create output string
-        char deffResp[message_len + 1];
-		puts("Allocated");
-		stpcpy(deffResp,header);
-			puts("1");
-        stpcpy(deffResp,resp_len);
-			puts("2");
-        stpcpy(deffResp,headerEnd);
-			puts("3");
-        stpcpy(deffResp,response);
-			puts("4");*/
-
-		//Send response to client
-        /*sendResponse(clientSocket,"Test");
-		puts("Sending response to client");
-        if(send(clientSocket,"Test",4,0) <= (4-1)){
-            fprintf(stderr,"Sending failed\n");
-        }
-	if(send(clientSocket,"More",4,0) <= (4-1)){
-            fprintf(stderr,"Sending failed\n");
-        }*/
-		
+	
         puts("Finished processing");
         close(clientSocket);
         puts("Closed client socket");

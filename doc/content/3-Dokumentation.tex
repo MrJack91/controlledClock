@@ -8,12 +8,26 @@ In diesem Kapitel wird der Aufbau und die wichtigsten Aspekte der Implementation
 \section{Aufbau}
 \begin{itemize}
 \item {Backend}\\
-....
 Das Backend ist in folgende Module aufgeteilt:
+%TODO: Fehlerkorrektur? etc.
 \begin{itemize}
-\item {DCF77-Reader}
-\item {DCF77-Simulator}
-\item {Web-Server}\\
+\item {Main} \\
+Das Main-Modul verbindet alle übrigen Module miteinander und stellt die Kommunikation untereinander sicher.
+\item {DCF77-Reader} \\
+Der DCF77-Reader liest die Daten von der USB-Schnittstelle und stellt diese dem Decoder zur Verfügung.
+\item {DCF77-Decoder}
+Der Decoder decodiert laufend die erhaltenen Daten von der USB-Schnittstelle und generiert auf den Anfang einer Minute einen entsprechenden Timestamp. Voraussetzung dafür ist, dass die genügend Daten empfangen wurden und keine Fehler aufgetreten sind. Der Timestamp wird anschliessend dem Clock-Modul zur Synchronisation übergeben.
+\item {Server}\\
+Der Server bietet eine einfache Web-Schnittstelle via Sockets an, welche den Timestamp gemäss ISO-Standard als JSON an den Client zurücksendet. Der Timestamp wird dafür aus dem Clock-Modul geholt.
+\item {Clock}\\
+Das Clock-Modul bildet eine eigenständige, fortlaufende Uhr. Wird ein DCF77-Signal empfangen wird der Sekundentakt von diesem übernommen. Sonst wird die Sekunde anhand des System-Tics gebildet. Konte vom Decoder ein Signal vollständig decodiert werden wird die zeit der Uhr mit der decodierten Zeit synchronisiert.
 \end{itemize} 
 \item {Frontend}\\
+Das Frontend ist eine simple Web-Oberfläche welche die entsprechenden GUI-Elemente darstellt und via HTTP-Requests in bestimmten Zeitintervallen die aktuelle Zeit vom Server abruft.
 \end{itemize}
+
+\section{Modul-Dokumentation}
+Der Code der Module wurde so weit als möglich und sinnvoll innerhalb des Codes dokumentiert und beschrieben. Nachfolgend werden die wichtigsten Aspekte der Umsetzung kurz beschrieben.
+
+%\section{Installationsanleitung}
+%\subsection{Raspberry-PI}
