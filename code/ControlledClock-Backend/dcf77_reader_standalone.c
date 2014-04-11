@@ -1,4 +1,3 @@
-
 /*
   Simple example to open a maximum of 4 devices - write some data then read it back.
   Shows one method of using list devices also.
@@ -7,19 +6,14 @@
   To build use the following gcc statement
   (assuming you have the d2xx library in the /usr/local/lib directory).
   clear && gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX && ./dcf77_reader
-  maybe:
-  gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx
+  maybe: gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "ftd2xx.h"         // lib for usb access
-
-#include "dcf77_decoder.h"
-#include "dcf77_reader.h"
+#include "ftd2xx.h"
 
 #define BUF_SIZE 0x78 // 120 Entries ≈ 2 minutes
 
@@ -27,7 +21,6 @@
 
 
 // http://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
-
 /**
  * Calcs number to string in binary
  * @param x the value to convert in binary
@@ -93,7 +86,7 @@ static void dumpBuffer(unsigned char *buffer, int elements, int type) {
   }
 }
 
-void handleUsbDevice() {
+int main() {
   // init vars
   unsigned char * pcBufRead = NULL;
   char * pcBufLD[MAX_DEVICES + 1];
@@ -102,12 +95,14 @@ void handleUsbDevice() {
   FT_STATUS ftStatus;
   FT_HANDLE ftHandle[MAX_DEVICES];
   int iNumDevs = 0;
+  int i;
   int iDevicesOpen = 0;
-  
-  int i = 0;
-  
+
+  // start logic
+  printf("start dcf77_reader\n");
+
   // init mutliple devices access
-  for (int i = 0; i < MAX_DEVICES; i++) {
+  for (i = 0; i < MAX_DEVICES; i++) {
     pcBufLD[i] = cBufLD[i];
   }
   pcBufLD[MAX_DEVICES] = NULL;
@@ -118,7 +113,7 @@ void handleUsbDevice() {
 
   if (ftStatus != FT_OK) {
     printf("Error: FT_ListDevices(%d)\n", (int) ftStatus);
-    exit(1);
+    return 1;
   }
 
   // list founded devices
@@ -139,7 +134,7 @@ void handleUsbDevice() {
       printf("Error FT_OpenEx(%d), device %d\n", (int) ftStatus, i);
       printf("Use lsmod to check if ftdi_sio (and usbserial) are present.\n");
       printf("If so, unload them using rmmod, as they conflict with ftd2xx.\n");
-      exit(1);
+      return 1;
     }
 
     printf("Opened device %s\n", cBufLD[i]);
@@ -150,80 +145,25 @@ void handleUsbDevice() {
       printf("Error FT_SetBaudRate(%d), cBufLD[i] = %s\n", (int) ftStatus, cBufLD[i]);
       break;
     }
-    
+
     /* Read data from sensor */
     // load buffer
     dwRxSize = 0;
     dwRxSizeTemp = 0;
-    // printf("Fill Buffer (Size: %d)...\n", BUF_SIZE);
+    printf("Fill Buffer (Size: %d)...\n", BUF_SIZE);
     while ((dwRxSize < BUF_SIZE) && (ftStatus == FT_OK)) {
       ftStatus = FT_GetQueueStatus(ftHandle[i], &dwRxSize);
 
       // show progress
       if (dwRxSize > dwRxSizeTemp) {
         dwRxSizeTemp = dwRxSize;
-
-        // printf("Buffer %d/%d\n", dwRxSize, BUF_SIZE);
-        
-        // read a byte from the queue
-        if (ftStatus == FT_OK) {
-          // preset (init) buffer
-          pcBufRead = realloc(pcBufRead, dwRxSize);
-          memset(pcBufRead, 0xFF, dwRxSize);
-
-          ftStatus = FT_Read(ftHandle[i], pcBufRead, dwRxSize, &dwBytesRead);
-
-          if (ftStatus != FT_OK) {
-            printf("Error FT_Read(%d)\n", (int) ftStatus);
-            break;
-          }
-          if (dwBytesRead != dwRxSize) {
-            printf("FT_Read only read %d (of %d) bytes\n",
-                    (int) dwBytesRead,
-                    (int) dwRxSize);
-            break;
-          }
-
-          // output signal for debug
-          /*
-          printf("FT_Read read %d bytes.  Read-buffer is now:\n", (int) dwBytesRead);
-          dumpBuffer(pcBufRead, (int) dwBytesRead, 5);
-           * */
-          
-        } else {
-          printf("Error FT_GetQueueStatus(%d)\n", (int) ftStatus);
-        }
-        // add new byte to decoder
-        for (int j = 0; j < dwBytesRead; j++) {
-          addReceivedByte(pcBufRead[j]);
-        }
-        
-        
-        /*
-        // reset buffer pointer (size) - not sure if necessary
-        ftStatus = FT_Purge(ftHandle[i], FT_PURGE_RX | FT_PURGE_TX); // Purge both Rx and Tx buffers
-        if (ftStatus == FT_OK) {
-          // FT_Purge OK
-          printf("Purge was succesfull\n");
-        } else {
-          // FT_Purge failed
-          printf("Purge was failed\n");
-        }
-         */
-        
-        
-        dwRxSize = 0;
-        dwRxSizeTemp = 0;
+        printf("Buffer %d/%d\n", dwRxSize, BUF_SIZE);
       }
     }
-    
-    // this code should never be reached, because it's a read loop
-    printf("\n\nINFO: read loop was leaved, this is not normal (maybe: overflow by read buffer)\n");
 
-    /*
     // buffer is filled
     if (ftStatus == FT_OK) {
-      // preset (init) buffer
+      // preset buffer
       pcBufRead = realloc(pcBufRead, dwRxSize);
       memset(pcBufRead, 0xFF, dwRxSize);
 
@@ -239,12 +179,10 @@ void handleUsbDevice() {
                 (int) dwRxSize);
         break;
       }
-
+      
       // output signal for debug
       printf("FT_Read read %d bytes.  Read-buffer is now:\n", (int) dwBytesRead);
       dumpBuffer(pcBufRead, (int) dwBytesRead, 5);
-      */
-      
       /*
       printf("list in hex");
       dumpBuffer(pcBufRead, (int) dwBytesRead, 1);
@@ -257,12 +195,10 @@ void handleUsbDevice() {
 
       printf("list in combined");
       dumpBuffer(pcBufRead, (int) dwBytesRead, 4);
-       */
-    /*
+      */
     } else {
       printf("Error FT_GetQueueStatus(%d)\n", (int) ftStatus);
     }
-    */
   }
 
   iDevicesOpen = i;
@@ -275,13 +211,9 @@ void handleUsbDevice() {
   if (pcBufRead) {
     free(pcBufRead);
   }
+
+  printf("Program end.\n");
+
+  return 0;
 }
 
-void dcf77_read() {
-  // start logic
-  printf("===\tSTART dcf77_reader\t===\n");
-
-  handleUsbDevice();
-
-  printf("===\tEND dcf77_reader\t===\n");
-}

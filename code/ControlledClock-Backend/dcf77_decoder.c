@@ -241,7 +241,7 @@ void addReceivedByte(unsigned int received) {
 }
 
 
-int main() {
+void dcf77_decode() {
   printf("start dcf77_decoder\n");
   
   /***** START - TEST DATE *****/
@@ -265,5 +265,5 @@ int main() {
     addReceivedByte(temporaryData[i]);
   }
   
-  return 0;
+  printf("end dcf77_decoder\n");
 }
