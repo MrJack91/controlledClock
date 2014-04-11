@@ -127,6 +127,8 @@ void handleUsbDevice() {
   }
 
   printf("Number of devices: %d.\n", iNumDevs);
+  
+  printf("ERROR: Device not found\n\tCheck the connection to the \"expert mouse CLOCK II\" device\n");
 
   for (i = 0; ((i < MAX_DEVICES) && (i < iNumDevs)); i++) {
     /* Setup */

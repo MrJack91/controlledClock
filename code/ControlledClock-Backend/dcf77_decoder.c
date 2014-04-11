@@ -158,7 +158,13 @@ int tryToReadData(int recursive) {
     readDate();
     
     // reset pointer
-    currentPointer = 0;
+    // currentPointer = 0;
+    
+    // try to search more results in one minute
+    // remove first bit and set pointer --
+    memmove(&data[0], &data[1], (BUFFER_ELEMENTS-1)*sizeof(*data));
+    data[BUFFER_ELEMENTS-1] = 0;
+    currentPointer--;
   }
   
   // if there a problem with the parity, try by the next value
@@ -236,10 +242,8 @@ void addReceivedByte(unsigned int received) {
   data[currentPointer] = bit;
   currentPointer++;
   
-  /*
-  printf("\nread bit: %d\n", currentPointer);
-  printData();
-   */
+  // printf("\nread bit: %d\n", currentPointer);
+  // printData();
   
   tryToReadData(1);
 }
