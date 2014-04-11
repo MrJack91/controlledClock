@@ -128,7 +128,9 @@ void handleUsbDevice() {
 
   printf("Number of devices: %d.\n", iNumDevs);
   
-  printf("ERROR: Device not found\n\tCheck the connection to the \"expert mouse CLOCK II\" device\n");
+  if (iNumDevs == 0) {
+    printf("ERROR: Device not found\n\tCheck the connection to the \"expert mouse CLOCK II\" device\n");
+  }
 
   for (i = 0; ((i < MAX_DEVICES) && (i < iNumDevs)); i++) {
     /* Setup */
@@ -200,9 +202,7 @@ void handleUsbDevice() {
           addReceivedByte(pcBufRead[j]);
         }
         
-        
-        
-        // reset buffer pointer (size) - not sure if necessary
+        // reset buffer pointer (size) - not sure if necessary or destroy the signal
         ftStatus = FT_Purge(ftHandle[i], FT_PURGE_RX | FT_PURGE_TX); // Purge both Rx and Tx buffers
         /*
         if (ftStatus == FT_OK) {

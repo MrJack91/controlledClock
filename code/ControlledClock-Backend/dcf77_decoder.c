@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 #include <math.h> // to use the pow command
 
 // max count of element in buffer
@@ -47,7 +48,14 @@ void printData() {
   for (int i = 0; i < currentPointer; i++) {
     printf("%d ", data[i]);
   }
-  printf(" - (length: %d)\n", currentPointer);
+  
+  // get time information
+  time_t rawtime;
+  struct tm * timeinfo;
+  time ( &rawtime );
+  timeinfo = localtime ( &rawtime );
+
+  printf(" - (length: %d); decoded at %s\n", currentPointer+1, asctime (timeinfo));
 }
 
 /**
@@ -234,7 +242,7 @@ void addReceivedByte(unsigned int received) {
   
   // show something like a status bar
   if (currentPointer == 0) {
-    printf("\nsearch a valid date:\n");
+    printf("\nsearch a valid date: (length 40)     to |\n");
   }
   printf("*");
   fflush(stdout); // print every process
