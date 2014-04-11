@@ -31,6 +31,15 @@ int currentPointer = 0;
 
 int debug_readPos = 0;
 
+
+/* defines the output for debugging
+ *  0   nothing
+ *  1   only found valid dates
+ *  2   every second infos
+ *  10  all (only for debugging)
+ */
+int debugLevel = 1;
+
 void resetData() {
   currentPointer = 0;
 }
@@ -45,17 +54,11 @@ int getRelativeBitPos(int bitPos) {
 }
 
 void printData() {
-  for (int i = 0; i < currentPointer; i++) {
+  for (int i = 0; i <= currentPointer; i++) {
     printf("%d ", data[i]);
   }
-  
-  // get time information
-  time_t rawtime;
-  struct tm * timeinfo;
-  time ( &rawtime );
-  timeinfo = localtime ( &rawtime );
 
-  printf(" - (length: %d); decoded at %s\n", currentPointer+1, asctime (timeinfo));
+  printf(" - (length: %d)\n", currentPointer+1);
 }
 
 /**
@@ -116,9 +119,18 @@ char readDate() {
   int day = readDCFNumber(36,41);
   int month = readDCFNumber(45,49);
   int year = readDCFNumber(50,57);
-  snprintf(date, sizeof date, "20%02d-%02d-%02dT%02d:%02d:00", year, month, day, hour, minute);
   
-  printf("data: %s\n", date);
+  if (debugLevel >= 1) {
+    snprintf(date, sizeof date, "20%02d-%02d-%02dT%02d:%02d:00", year, month, day, hour, minute);
+    printf("date\t%s\n", date);
+
+    // get time information
+    time_t rawtime;
+    struct tm * timeinfo;
+    time ( &rawtime );
+    timeinfo = localtime ( &rawtime );
+    printf("\tdecoded at %s\treadPos last bit: %d\n", asctime (timeinfo), debug_readPos);
+  }
   
   return *date;
 }
@@ -138,7 +150,7 @@ int tryToReadData(int recursive) {
   // first bit [bit 20] must be 1 -> start of time
   if (data[getRelativeBitPos(20)] == 1) {
     // select a parity to check - take care: values are absolute, because c want to have int in a switch condition
-    switch (currentPointer-1) {
+    switch (currentPointer) {
       case 8: // check minute value
         parityCheck = checkParity(21, 28);
         break;
@@ -157,10 +169,16 @@ int tryToReadData(int recursive) {
     parityCheck = 0;
   }
   
+  if (debugLevel >= 10) {
+    printf("parity check: %d\n", parityCheck);
+  }
+  
   if (foundValidDate == 1) {
     // found a valid data
-    printf("\nYEAH: found a valid date:\n");
-    printData();
+    if (debugLevel >= 1) {
+      printf("\nYEAH: found a valid date:\n");
+      printData();
+    }
     
     // convert to date
     readDate();
@@ -168,43 +186,76 @@ int tryToReadData(int recursive) {
     // reset pointer
     // currentPointer = 0;
     
+    // NOT SURE! After all i think it's correct, but have to check parity again!!
     // try to search more results in one minute
     // remove first bit and set pointer --
+    // printf("search all")
+    // printData();
+    /*
     memmove(&data[0], &data[1], (BUFFER_ELEMENTS-1)*sizeof(*data));
     data[BUFFER_ELEMENTS-1] = 0;
-    currentPointer--;
+    currentPointer = currentPointer - 1;
+    */
+    // force new search
+    parityCheck = 0;
+    // printData();
   }
   
   // if there a problem with the parity, try by the next value
   if (parityCheck == 0) {
-    // printf("ou.. parity goes wrong - fix it (recursion: %d)\n", recursive);
+    if (debugLevel >= 10) {
+      printf("ou.. parity goes wrong - fix it (recursion: %d)\n", recursive);
+    }
+    
     if (recursive == 1) {
       int tryAgain = 1;
       while (tryAgain == 1) {
-        // remove first value
+        
+        if (debugLevel >= 10) {
+          printf("\nin while with counter: %d\n", currentPointer);
+          printData();
+        }
+          
+        // move first element out
+        memmove(&data[0], &data[1], (BUFFER_ELEMENTS-1)*sizeof(*data));
+        data[BUFFER_ELEMENTS-1] = 0;
+        currentPointer--;
+        
+        if (debugLevel >= 10) {
+          printData();
+        }
         
         // check abort condition
         if (currentPointer > 0) {
-          // move first element out
-          memmove(&data[0], &data[1], (BUFFER_ELEMENTS-1)*sizeof(*data));
-          data[BUFFER_ELEMENTS-1] = 0;
-          
-          currentPointer--;
-        
           // after re shift data, valid them again
           int tempCurrentPointer = currentPointer;
-          // int valuesToCheck[] = { 20, 28, 35, 58 };
           int valuesToCheck[] = { 0, 8, 15, 38 };
           for (int i = 0; i <= 3; i++) {
+            if (debugLevel >= 10) {
+              printf("i was %d\n", i);
+            }
+            
             // only check value if there is anything in it
-            if (valuesToCheck[i] <= tempCurrentPointer) {
+            if (tempCurrentPointer >= valuesToCheck[i]) {
               currentPointer = valuesToCheck[i];
               int tempSuccess = tryToReadData(0);
+              if (debugLevel >= 10) {
+                printf("i %d was checked - result: %d\n", i, tempSuccess);
+              }
               if (tempSuccess == 0) {
                 // there was a parity error -> break and try again with next bit
                 tryAgain = 1;
                 break; // leave check parity for this sequence
               }
+            } else {
+              if (debugLevel >= 10) {
+                printf("skip check for %d\n", i);
+              }
+              
+              // this test was skipped, because not enough data
+              tryAgain = 0;
+              success = 1; // so all it's fine
+              break; // leave check parity for this sequence
             }
           }
           // reset the pointer to origin data position
@@ -223,37 +274,47 @@ int tryToReadData(int recursive) {
     success = 1;
   }
   
+  if (debugLevel >= 10) {
+    printf("success %d\n", success);
+  }
+  
   // return tryAgain;
   return success;
 }
 
 void addReceivedByte(unsigned int received) {
-  
-  /*
-  printf("\n\ndebug_readPos: %d\n", debug_readPos);
-  debug_readPos++;
-  */
-  
   int bit = 1;
   // magic mapping: http://wiki.gude.info/FAQ_mouseCLOCK_Programmierung
   if (received >= 192) {
     bit = 0;
   }
   
-  // show something like a status bar
-  if (currentPointer == 0) {
-    printf("\nsearch a valid date: (length 40)     to |\n");
+  if (debugLevel >= 10) {
+    printf("\n\n===\ndebug_readPos: %d\tcurrentPointer: %d\tvalue: %d\n", debug_readPos, currentPointer, bit);
   }
-  printf("*");
+  debug_readPos++;
+  
+  // show something like a status bar (not correct because recursive modification)
+  if (currentPointer == 0) {
+    // printf("\nsearch a valid date: (length 39)   to |\n");
+  }
+  // printf("*");
+  
+  if (debugLevel >= 1) {
+    printf("Total: %04d\tRel: %02d\t\tSignal: %02d/39\n", debug_readPos, debug_readPos%60, currentPointer+1);
+  }
+  
   fflush(stdout); // print every process
+  // printf("abs: %d; rel: %d\n", debug_readPos, currentPointer);
   
   data[currentPointer] = bit;
-  currentPointer++;
+  // currentPointer++;
   
   // printf("\nread bit: %d\n", currentPointer);
   // printData();
   
   tryToReadData(1);
+  currentPointer++;
 }
 
 
@@ -264,10 +325,24 @@ void dcf77_decode() {
   
   // 900 values (10 minutes)
   int temporaryData[] = { 128,252,252,252,128,252,252,252,0,252,128,252,128,252,252,128,252,252,252,252,128,254,128,252,252,252,128,252,252,252,254,128,128,128,252,254,254,128,128,252,252,128,252,252,128,254,252,128,252,252,128,252,252,254,252,128,128,252,252,0,252,254,254,128,254,252,252,128,252,128,252,128,252,252,0,252,252,252,254,128,252,128,252,252,252,0,252,128,128,254,252,252,252,252,128,128,128,0,252,252,254,252,254,128,252,252,128,128,254,128,252,252,254,252,254,128,252,254,128,252,252,252,128,252,254,252,128,252,128,252,128,252,252,128,254,254,252,252,128,254,128,252,252,252,0,252,128,0,128,128,254,252,128,252,252,128,252,128,252,128,252,252,128,252,254,128,254,128,128,252,252,254,252,254,128,252,254,128,252,254,252,128,252,252,252,128,252,128,252,0,252,252,0,252,252,252,254,128,252,128,252,252,252,0,252,252,128,128,252,252,252,252,252,252,252,128,128,252,128,254,252,0,252,252,128,128,128,128,252,252,252,252,128,128,252,252,128,254,252,252,128,254,254,252,128,254,128,252,128,252,252,128,252,252,252,252,128,252,128,252,252,254,128,252,252,252,252,254,128,252,252,252,128,252,252,128,128,252,252,252,128,252,254,128,252,252,252,128,252,252,254,128,128,252,240,0,252,252,254,128,252,252,252,128,252,128,252,128,252,252,128,254,254,252,254,128,254,128,252,252,252,128,252,252,128,128,254,128,0,128,252,252,128,128,254,252,254,254,252,128,252,254,128,128,254,252,128,252,252,252,252,128,252,252,128,254,254,254,128,252,252,252,128,252,128,252,128,252,252,128,252,252,252,254,0,252,128,252,252,252,128,252,252,252,252,252,252,0,128,252,252,128,128,252,254,128,254,254,128,254,252,128,252,252,254,252,0,252,252,0,0,252,252,0,254,252,252,128,252,252,252,0,252,128,252,128,252,254,128,252,252,252,252,128,252,128,252,252,252,128,252,252,252,128,128,128,252,128,128,252,252,128,128,252,128,252,252,128,252,252,128,128,252,252,252,128,252,252,252,0,254,252,0,252,252,252,128,252,252,252,128,254,128,252,128,252,252,128,252,252,252,252,128,252,128,252,252,252,128,252,252,128,252,254,128,128,128,128,128,128,252,128,252,252,254,254,128,252,252,128,252,128,252,254,0,252,252,252,128,254,252,128,252,252,252,128,252,252,254,128,252,128,252,128,252,252,128,252,252,252,252,128,252,128,252,252,252,128,252,252,128,252,252,128,128,128,254,252,254,128,128,128,128,252,254,128,254,252,128,128,128,254,252,128,254,252,128,128,252,254,128,252,252,252,128,252,254,252,128,252,128,254,128,252,252,128,252,252,252,254,128,252,128,252,252,252,128,252,128,128,128,254,254,252,252,128,128,128,128,128,252,0,252,252,128,252,252,128,252,252,128,252,128,254,252,252,128,252,252,128,252,252,254,128,252,252,252,128,252,128,252,128,252,252,128,252,252,254,252,128,252,128,252,252,252,128,252,128,252,252,252,252,128,254,128,128,128,128,0,252,128,254,252,128,252,252,128,128,252,128,252,128,252,252,128,128,252,252,0,252,252,252,0,252,252,252,128,252,128,252,128,252,252,128,252,252,252,252,128,252,128,254,252,254,128,252,252,252,0,0,128,128,128,252,252,252,254,252,128,252,252,252,128,252,252,128,252,128,128,252,128,252,252,128,128,254,252,128,252,252,252,128,252,252,252,128,252,128,252,128,252,252,128,254,252,252,252,128,252,0,252,252,254,128,252,254,252,128,254,128,252,128,128,252,128,128,252,252,254,252,252,128,252,252,128,128,128,128,252,128,254,252,252,0,252,252,128,252,252,252,128,252,254,252,128,252,128,252,128,252,252,128,252,252,252,252,128,252,128,252,252,252,128,252,128,128,128,0,128,128,0,252,128,252,128,128,128,252,252,252,128,252,254,128,252,252,252,128,128,252,254,252,128,252,252,128,252,252,252,128,252,252,252,128,252,128,254,128,252,252 };
+  // int temporaryData[] = { 128,252,252,252,128,252,252,252,0,252,128,252,128,252,252,128,252,252,252,252,128,254,128,252,252,252,128,252,252,252,254,128,128,128,252,254,254,128,128,252,252,128,252,252,128,254,252,128,252,252,128,252,252,254,252,128,128,252,252,0,252,254,254,128,254,252,252,128,252,128,252,128,252,252,0,252,252,252,254,128,252,128,252,252,252,0,252,128,128,254,252,252,252,252,128,128,128,0,252,252,254,252,254,128,252,252,128,128,254,128,252,252,254,252,254,128,252,254,128,252,252,252,128,252,254,252,128,252,128,252,128,252,252,128,254,254,252,252,128,254,128,252,252,252,0,252,128,0,128,128,254,252,128,252,252,128,252,128,252,128,252,252,128,252,254,128,254,128,128,252,252,254,252,254,128,252,254,128,252,254,252,128,252,252,252,128,252,128,252,0,252,252,0,252,252,252,254,128,252,128,252,252,252,0,252,252,128,128,252,252,252,252,252,252,252,128,128,252,128,254,252,0,252,252,128,128,128,128,252,252,252,252,128,128,252,252,128,254,252,252,128,254,254,252,128,254,128,252,128,252,252,128,252,252,252,252,128,252,128,252,252,254,128,252,252,252,252,254,128,252,252,252,128,252,252,128,128,252,252,252,128,252,254,128,252,252,252,128,252,252, };
+  
+  // the magical input (error in last bit, one move then it's correct)
+  // int temporaryData[] = { 0,0,0,0,0,0,255,255,0,0,0,0,255,255,255,0,0,0,0,0,0,255,0,0,255,0,0,0,255,255,0,0,0,0,255,0,255,255,255,255, 0 };
+
   
   // 120 predefined values (timestamp near: 23:10:50 DI 08.04.2014)) - by bit ≈43
   // full 2 mintues
   // int temporaryData[] = { 252,252,252,0,252,252,252,0,252,252,252,128,252,252,252,252,128,252,128,252,252,252,0,252,254,252,128,0,128,128,128,252,128,252,252,252,254,128,252,254,0,254,254,128,252,252,252,252,128,252,252,128,0,128,252,252,252,128,128,252,254,254,0,252,252,254,0,254,252,252,128,252,252,252,252,128,252,0,254,254,254,128,254,0,252,0,128,128,252,252,252,252,252,254,0,254,128,254,252,128,252,252,128,128,252,254,252,128,252,252,252,0,128,252,254,252,128,128,252,252 };
+  
+  // temporary: 
+  // int temporaryData[] = { 252,252,252,0,252,252,252,0,252,252,252,128,252,252,252,252,128,252,128,252,252,252,0,252,254,252,128,0,128,128,128,252,128,252,252,252,254,128,252,254,0,254,254,128,252,252,252,252,128,252,252,128,0,128,252,252,252,128,128,252,254,254,0,252,252,254,0,254,252,252,128,252,252,252,252,128,252,0,254,254,254,128,254,0,252,0,128,128,252,252,252,252,252,254,0,254,128,254,252,128,252,252,128,128,252,254,252,128,252,252,252,0,128,252,254,252,128,128,252,252 };
+  
+  
+  // temporary: only 60 values -> start of signal by 3.
+  // int temporaryData[] = { 252,254,254,0,252,252,254,0,254,252,252,128,252,252,252,252,128,252,0,254,254,254,128,254,0,252,0,128,128,252,252,252,252,252,254,0,254,128,254,252,128,252,252,128,128,252,254,252,128,252,252,252,0,128,252,254,252,128,128,252 };
+  
+  
   // full 2x2 times the signal
   // int temporaryData[] = { 252,252,252,0,252,252,252,0,252,252,252,128,252,252,252,252,128,252,128,252,252,252,0,252,254,252,128,0,128,128,128,252,128,252,252,252,254,128,252,254,0,254,254,128,252,252,252,252,128,252,252,128,0,128,252,252,252,128,128,252,254,254,0,252,252,254,0,254,252,252,128,252,252,252,252,128,252,0,254,254,254,128,254,0,252,0,128,128,252,252,252,252,252,254,0,254,128,254,252,128,252,252,128,128,252,254,252,128,252,252,252,0,128,252,254,252,128,128,252,252, 252,252,252,0,252,252,252,0,252,252,252,128,252,252,252,252,128,252,128,252,252,252,0,252,254,252,128,0,128,128,128,252,128,252,252,252,254,128,252,254,0,254,254,128,252,252,252,252,128,252,252,128,0,128,252,252,252,128,128,252,254,254,0,252,252,254,0,254,252,252,128,252,252,252,252,128,252,0,254,254,254,128,254,0,252,0,128,128,252,252,252,252,252,254,0,254,128,254,252,128,252,252,128,128,252,254,252,128,252,252,252,0,128,252,254,252,128,128,252,252 };
   // only valid data
@@ -283,6 +358,7 @@ void dcf77_decode() {
   for (int i = 0; i <= countValues; i++) {
     addReceivedByte(temporaryData[i]);
   }
+  printf("\n");
   
   printf("end dcf77_decoder\n");
 }
