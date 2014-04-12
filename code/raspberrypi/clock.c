@@ -11,11 +11,13 @@
 /*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "clock.h"
 
 /*---------------------------- Declarations ----------------------------------*/
+
 TimeStruct currentTime;
 TimeStruct lastSyncTime;
 
@@ -23,6 +25,7 @@ TimeStruct lastSyncTime;
 
 unsigned long long rdtsc();
 
+void loadFromSystem();
 
 /*---------------------------- Implementations -------------------------------*/
 void clock_start(){
@@ -49,6 +52,19 @@ void clock_start(){
     //High res claendar: http://www.chemie.fu-berlin.de/chemnet/use/info/libc/libc_17.html
 }
 
+void clock_shutdown(){
+    
+}
+
+TimeStruct clock_getCurrentTime(){
+    loadFromSystem();
+    return currentTime;
+}
+
+TimeStruct clock_getLastSyncTime(){
+    return lastSyncTime;
+}
+
 unsigned long long rdtsc()
 {
     //http://stackoverflow.com/questions/275004/c-timer-function-to-provide-time-in-nano-seconds
@@ -60,14 +76,35 @@ unsigned long long rdtsc()
   return ((long long)high << 32) | low;
 }
 
-void clock_shutdown(){
+void loadFromSystem(){
+    time_t t = time(NULL);
+    struct tm lt = *localtime(&t);
     
-}
-
-TimeStruct clock_getCurrentTime(){
-    return currentTime;
-}
-
-TimeStruct clock_getLastSyncTime(){
-    return lastSyncTime;
+    //TODO: Use Sempaphores
+    lastSyncTime.year = (lt.tm_year + 1900);
+    lastSyncTime.month = (lt.tm_mon + 1);
+    lastSyncTime.day = lt.tm_mday;
+    lastSyncTime.hour = lt.tm_hour;
+    lastSyncTime.minute = lt.tm_min;
+    lastSyncTime.second = lt.tm_sec;
+    
+    if(lt.tm_isdst == 0){
+         lastSyncTime.zoneOffset = 1;
+    }else{
+         lastSyncTime.zoneOffset = 2;
+    }
+    
+    //TODO: Use Sempaphores
+    currentTime.year = (lt.tm_year + 1900);
+    currentTime.month = (lt.tm_mon + 1);
+    currentTime.day = lt.tm_mday;
+    currentTime.hour = lt.tm_hour;
+    currentTime.minute = lt.tm_min;
+    currentTime.second = lt.tm_sec;
+    
+    if(lt.tm_isdst == 0){
+         currentTime.zoneOffset = 1;
+    }else{
+         currentTime.zoneOffset = 2;
+    }
 }
