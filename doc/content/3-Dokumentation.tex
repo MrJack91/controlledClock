@@ -2,32 +2,52 @@
 % !TeX spellcheck = de-CH
 
 \chapter{Dokumentation}
-In diesem Kapitel wird der Aufbau und die wichtigsten Aspekte der Implementation der verschiedenen Komponenten näher beschrieben.
+In diesem Kaptiel wird der Aufbau der Implementation mit den verschiedenen Komponenten näher beschrieben.
 
 %TODO: Finish
-\section{Aufbau}
-\begin{itemize}
-\item {Backend}\\
-Das Backend ist in folgende Module aufgeteilt:
+\section{Übersicht der Struktur}
+\subsection{Server Side}
+Das Backend unter \textit{/code/server} ist in folgende Module aufgeteilt:
 %TODO: Fehlerkorrektur? etc.
 \begin{itemize}
-\item {Main} \\
+\item {\textbf{Main} - dcf77\_main.c} \\
 Das Main-Modul verbindet alle übrigen Module miteinander und stellt die Kommunikation untereinander sicher.
-\item {DCF77-Reader} \\
-Der DCF77-Reader liest die Daten von der USB-Schnittstelle und stellt diese dem Decoder zur Verfügung.
-\item {DCF77-Decoder}
+\item {\textbf{DCF77 Reader} - dcf77\_reader.c} \\
+Der Reader liest die Daten von der USB-Schnittstelle zum DCF77 und übergibt diese dem Decoder.
+\item {\textbf{DCF77 Decoder} - dcf77\_decoder.c}\\
 Der Decoder decodiert laufend die erhaltenen Daten von der USB-Schnittstelle und generiert auf den Anfang einer Minute einen entsprechenden Timestamp. Voraussetzung dafür ist, dass die genügend Daten empfangen wurden und keine Fehler aufgetreten sind. Der Timestamp wird anschliessend dem Clock-Modul zur Synchronisation übergeben.
-\item {Server}\\
-Der Server bietet eine einfache Web-Schnittstelle via Sockets an, welche den Timestamp gemäss ISO-Standard als JSON an den Client zurücksendet. Der Timestamp wird dafür aus dem Clock-Modul geholt.
-\item {Clock}\\
-Das Clock-Modul bildet eine eigenständige, fortlaufende Uhr. Wird ein DCF77-Signal empfangen wird der Sekundentakt von diesem übernommen. Sonst wird die Sekunde anhand des System-Tics gebildet. Konte vom Decoder ein Signal vollständig decodiert werden wird die zeit der Uhr mit der decodierten Zeit synchronisiert.
+%TODO: ADD C-FILE NAME
+\item {\textbf{Server} - C\_FILE.c}\\
+Der Server bietet eine Web-Schnittstelle via Sockets an, welche den Timestamp, gemäss ISO 8601\footnote{Spezifikation: http://www.iso.org/iso/home/standards/iso8601.htm}, als JSON anbietet. Der Timestamp wird dafür aus dem Clock-Modul geholt.
+%TODO: ADD C-FILE NAME
+\item {\textbf{Clock} - C\_FILE.c}\\
+Das Clock-Modul bildet eine eigenständige, laufende Uhr. Wird ein DCF77-Signal erfolgreich decodiert, so werden die Informationen (Datum und Zeit) auf den Start einer Minute, sekundengenau übernommen. Ab dann läuft die Uhr wieder autonom weiter.
+Die Länge einer Sekunde wird anhand des System-Tics gebildet.
 \end{itemize} 
-\item {Frontend}\\
-Das Frontend ist eine simple Web-Oberfläche welche die entsprechenden GUI-Elemente darstellt und via HTTP-Requests in bestimmten Zeitintervallen die aktuelle Zeit vom Server abruft.
-\end{itemize}
+
+\subsection{Client Side}
+Das Frontend ist eine simple Web-Oberfläche, welche die entsprechenden GUI-Elemente darstellt und via HTTP-Requests in bestimmten Zeitintervallen die aktuelle Zeit vom Server abruft.
 
 \section{Modul-Dokumentation}
-Der Code der Module wurde so weit als möglich und sinnvoll innerhalb des Codes dokumentiert und beschrieben. Nachfolgend werden die wichtigsten Aspekte der Umsetzung kurz beschrieben.
+Die funktionsweise, der einzelnen Module, wurde innerhalb des Codes dokumentiert und beschrieben. Nachfolgend werden die wichtigsten Aspekte der Umsetzung kurz erläutert.
+
+\subsection{DCF Reader}
+Source: \textit{/code/server/dcf77\_reader.c}\\
+Via Schnittstelle zum "`Expert mouse CLOCK USB II"' wird der Status der Warteschlange  solange abgerufen, bis mindenstens ein Wert (8-Bit Integer) bereit ist.
+Sobald ein Wert vorhanden ist, wird dieser ausgelesen und direkt dem Decoder übergeben.
+
+Da das Programm seriell abläuft, ist es wichtig, dass wir pro Verarbeitung nicht länger als eine Sekunde benötigen, denn dann muss das nächste Signal verarbeitet werden können.
+Dadurch das die ganze Software in C vollzogen wird, und keine sehr aufwändigen Berechnungen erfolgen müssen, stellt dies kein Problem dar.
+
+\subsubsection{standalone}
+Source: \textit{/code/server/dcf77\_reader\_standalone.c}\\
+Diese Version des Readers liest alle empfangene Werte in einen Buffer und gibt sie am Ende zurück. So können veraltete, aber echte Daten für das Debugging verwendet werden.
+
+\subsection{DCF Decoder}
+Source: \textit{/code/server/dcf77\_decoder.c}\\
+Der Decoder mappt jedes erhaltende Byte direkt einem Bit zu. Laufend werden aus den verfügbaren Bits, via 4 Paritäsbit, gültige Daten gesucht. Ein vollständiges Datum besteht aus 39 fortlaufenden Bits.
+Wird ein gültiges Datum gefunden, so wird dies direkt der Systemclock übergeben.
+
 
 %\section{Installationsanleitung}
 %\subsection{Raspberry-PI}
