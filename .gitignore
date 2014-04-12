@@ -65,9 +65,10 @@
 *.xdy
 *.tdo
 *.bak
-doc/*.pdf
+*.pdf
 *.bit
 *.ods#
+!analyse/*.pdf
 
 *.o
 
