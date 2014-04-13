@@ -8,7 +8,7 @@ In diesem Kaptiel wird der Aufbau der Implementation mit den verschiedenen Kompo
 \section{Übersicht der Struktur}
 \subsection{Server Side}
 Das Backend unter \textit{/code/server} ist in folgende Module aufgeteilt:
-%TODO: Fehlerkorrektur? etc.
+%TODO: Ergänzung weiterer Module
 \begin{itemize}
 \item {\textbf{Main} - dcf77\_main.c} \\
 Das Main-Modul verbindet alle übrigen Module miteinander und stellt die Kommunikation untereinander sicher.
@@ -17,23 +17,23 @@ Der Reader liest die Daten von der USB-Schnittstelle zum DCF77 und übergibt die
 \item {\textbf{DCF77 Decoder} - dcf77\_decoder.c}\\
 Der Decoder decodiert laufend die erhaltenen Daten von der USB-Schnittstelle und generiert auf den Anfang einer Minute einen entsprechenden Timestamp. Voraussetzung dafür ist, dass die genügend Daten empfangen wurden und keine Fehler aufgetreten sind. Der Timestamp wird anschliessend dem Clock-Modul zur Synchronisation übergeben.
 %TODO: ADD C-FILE NAME
-\item {\textbf{Server} - C\_FILE.c}\\
-Der Server bietet eine Web-Schnittstelle via Sockets an, welche den Timestamp, gemäss ISO 8601\footnote{Spezifikation: http://www.iso.org/iso/home/standards/iso8601.htm}, als JSON anbietet. Der Timestamp wird dafür aus dem Clock-Modul geholt.
+\item {\textbf{Server} - SimpleSocketServer.c}\\
+Der Server bietet eine Web-Schnittstelle via Sockets an, welche den Timestamp, gemäss ISO 8601\footnote{Spezifikation: http://www.iso.org/iso/home/standards/iso8601.htm}, als JSON anbietet. Der Timestamp wird aus der aktuellen Zeit aus dem Clock-Modul erzeugt.
 %TODO: ADD C-FILE NAME
-\item {\textbf{Clock} - C\_FILE.c}\\
+\item {\textbf{Clock} - Clock.c}\\
 Das Clock-Modul bildet eine eigenständige, laufende Uhr. Wird ein DCF77-Signal erfolgreich decodiert, so werden die Informationen (Datum und Zeit) auf den Start einer Minute, sekundengenau übernommen. Ab dann läuft die Uhr wieder autonom weiter.
-Die Länge einer Sekunde wird anhand des System-Tics gebildet.
+Die Länge einer Sekunde wird anhand des System-Tics abgebildet.
 \end{itemize} 
 
 \subsection{Client Side}
 Das Frontend ist eine simple Web-Oberfläche, welche die entsprechenden GUI-Elemente darstellt und via HTTP-Requests in bestimmten Zeitintervallen die aktuelle Zeit vom Server abruft.
 
 \section{Modul-Dokumentation}
-Die funktionsweise, der einzelnen Module, wurde innerhalb des Codes dokumentiert und beschrieben. Nachfolgend werden die wichtigsten Aspekte der Umsetzung kurz erläutert.
+Die Funktionsweise, der einzelnen Module, wurde innerhalb des Codes dokumentiert und beschrieben. Nachfolgend werden die wichtigsten Aspekte der Umsetzung kurz erläutert.
 
 \subsection{DCF Reader}
 Source: \textit{/code/server/dcf77\_reader.c}\\
-Via Schnittstelle zum "`Expert mouse CLOCK USB II"' wird der Status der Warteschlange  solange abgerufen, bis mindenstens ein Wert (8-Bit Integer) bereit ist.
+Via Schnittstelle zum "`Expert mouse CLOCK USB II"' wird der Status der Warteschlange  solange abgerufen, bis mindestens ein Wert (8-Bit Integer) bereit ist.
 Sobald ein Wert vorhanden ist, wird dieser ausgelesen und direkt dem Decoder übergeben.
 
 Da das Programm seriell abläuft, ist es wichtig, dass wir pro Verarbeitung nicht länger als eine Sekunde benötigen, denn dann muss das nächste Signal verarbeitet werden können.
@@ -48,6 +48,13 @@ Source: \textit{/code/server/dcf77\_decoder.c}\\
 Der Decoder mappt jedes erhaltende Byte direkt einem Bit zu. Laufend werden aus den verfügbaren Bits, via 4 Paritäsbit, gültige Daten gesucht. Ein vollständiges Datum besteht aus 39 fortlaufenden Bits.
 Wird ein gültiges Datum gefunden, so wird dies direkt der Systemclock übergeben.
 
+\subsection{Simple Web Server}
+Source: \textit{/code/server/SimpleSocketServer.c}\\
+Aus dem Main-Modul heraus wird ein simpler Socket Server in einem separaten Thread gestartet. Der Server arbeitet nur auf einem Thread. Multithreading muss in C selbst implementiert werde. Dies haben wir aufgrund der Rahmenbindungen bewusst nicht implementiert. Wird eine Verbindung zum Server hergestellt wird mit Hilfe einer Hilfs-Funktion und der Zeit aus dem Clock-Modul ein JSON-String generiert und an den Client zurückgesendet. Die Implementation des Servers wurde bewusst so minimal als möglich gehalten.
+
+\subsection{Clock}
+Source: \textit{/code/server/Clock.c}\\
+%Die Clock wird mit der aktuellen Systemzeit initialisiert. 
 
 \section{Installationsanleitung}
 \subsection{OSX}
@@ -59,7 +66,7 @@ Im Git Repo unter:\\
 
 \section{Betrieb}
 \subsection{Server}
-Im Verzeichnis \textit{code/server} können via \textit{make} die auführbaren Dateien generiert werden.
+Im Verzeichnis \textit{code/server} können via \textit{make} die ausführbaren Dateien generiert werden.
 
 \subsection{Client}
 Der Client ist komplett in HTML/JS geschrieben und kann deshalb ohne Installation ausgeführt werden.
