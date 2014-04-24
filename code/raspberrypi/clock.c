@@ -21,11 +21,15 @@
 TimeStruct currentTime;
 TimeStruct lastSyncTime;
 
+int ticsPerSecond;
+int currentTics;
 /*---------------------------- Internal functions ----------------------------*/
 
 unsigned long long rdtsc();
 
 void loadFromSystem();
+
+void tic();
 
 /*---------------------------- Implementations -------------------------------*/
 void clock_start(){
@@ -49,7 +53,63 @@ void clock_start(){
     printf("%lld\n",rdtsc());
     printf("%lld\n",rdtsc());
     
-    //High res claendar: http://www.chemie.fu-berlin.de/chemnet/use/info/libc/libc_17.html
+    ticsPerSecond = 1;
+    currentTics = 0;
+    
+}
+
+void tic(){
+    currentTics++;
+    
+    //Second passed
+    if(currentTics >= ticsPerSecond){
+        currentTime.second++;
+        
+        if(currentTime.second == 60){
+            currentTime.second = 0;
+            currentTime.minute++;
+            
+            if(currentTime.minute == 60){
+                currentTime.minute = 0;
+                currentTime.hour++;
+                
+                if(currentTime.hour == 24){
+                    currentTime.hour = 0;
+                    currentTime.day++;
+                    
+                    int maxDay = 31;
+                    int daysInYear = 365;
+                    
+                    switch(currentTime.month){
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            maxDay = 30;
+                            break;
+                        case 2:
+                            if((((currentTime.year % 4) == 0) && !((currentTime.year % 100) == 0)) || (((currentTime.year % 4) == 0) && ((currentTime.year % 400) == 0))){
+                                maxDay = 29;
+                                daysInYear = 366;
+                            }else{
+                                maxDay = 28;
+                            }
+                            break;
+                    }
+                    
+                    if(currentTime.day > maxDay){
+                        currentTime.day = 1;
+                        currentTime.month++;
+                        
+                        if(currentTime.month > 12){
+                            currentTime.month = 1;
+                            currentTime.year++;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 void clock_shutdown(){
