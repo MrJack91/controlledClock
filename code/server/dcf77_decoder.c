@@ -1,10 +1,14 @@
-/*
- * read the signal from the sensor
+/* 
+ * File:   dcf77_decoder.c
+ * Author: Michael Hadorn
+ * Created: 08.04.2014
  * 
- * links:
- *  - http://blog.blinkenlight.net/2012/12/01/dcf77-project/
+ * Description: 
+ * Get the readed values from the reader and search valid dates in it.
+ *  
  */
 
+/*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,6 +16,7 @@
 #include <time.h>
 #include <math.h> // to use the pow command
 
+/*---------------------------- Declarations ----------------------------------*/
 // max count of element in buffer
 #define BUFFER_ELEMENTS 100
 
@@ -25,7 +30,7 @@ int currentPointer = 0;
 
 int debug_readPos = 0;
 
-
+/*---------------------------- Config -----------------------------------------*/
 /* defines the output for debugging
  *  0   nothing
  *  1   only found valid dates
@@ -44,6 +49,7 @@ int debugLevel = 3;
  */
 int dateValidatorLevel = 4;
 
+/*---------------------------- Implementations -------------------------------*/
 void resetData() {
   currentPointer = 0;
 }
@@ -194,17 +200,17 @@ char readDate() {
   
   if (dateIsValid == 1) {
     if (debugLevel >= 1) {
-      printf("\nYEAH: found a valid date by parity:\n");
+      printf("\nFound a valid:\n");
       printData();
       
-      printf("date\t%s\n", date);
+      printf("VALID\t%s\n", date);
       printf("\tdecoded at %s\treadPos last bit\tabs: %d\trel: %d\n", asctime(timeinfo), debug_readPos, debug_readPos%59);
     }
   } else {
     if (debugLevel >= 3) {
-      printf("\nParity was correct:\n");
+      printf("\nOnly parity was correct:\n");
       printData();
-      printf("\tDATE IS CRAP:\t%s\n", date);
+      printf("CRAP\t%s\n", date);
       printf("\terror reason:\t%s\n", errorMessage);
     }
   }

@@ -1,35 +1,33 @@
-
-/*
-  Simple example to open a maximum of 4 devices - write some data then read it back.
-  Shows one method of using list devices also.
-  Assumes the devices have a loopback connector on them and they also have a serial number
-
-  To build use the following gcc statement
-  (assuming you have the d2xx library in the /usr/local/lib directory).
-  clear && gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx -Wl,-rpath /Users/michael/projects/controlledClock/code/D2XX/D2XX && ./dcf77_reader
-  maybe:
-  gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx
+/* 
+ * File:   dcf77_reader.c
+ * Author: Michael Hadorn
+ * Created: 23.03.2014
+ * 
+ * Description: 
+ * Reads the date from the expert usb ii mouse clock.
+ * It calls by every signal the decoder and give the value to him.
+ *  
  */
 
+/*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
+/*---------------------------- Includes: User-Libs ---------------------------*/
 #include "ftd2xx.h"         // lib for usb access
-
 #include "dcf77_decoder.h"
 #include "dcf77_reader.h"
 
+/*---------------------------- Declarations ----------------------------------*/
 #define BUF_SIZE 0x78 // 120 Entries ≈ 2 minutes
-
 #define MAX_DEVICES 5
 
-
-// http://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
-
+/*---------------------------- Implementations -------------------------------*/
 /**
  * Calcs number to string in binary
+ * --> http://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
  * @param x the value to convert in binary
  * @return string binary value
  */
@@ -159,15 +157,12 @@ void handleUsbDevice() {
     // load buffer
     dwRxSize = 0;
     dwRxSizeTemp = 0;
-    // printf("Fill Buffer (Size: %d)...\n", BUF_SIZE);
     while ((dwRxSize < BUF_SIZE) && (ftStatus == FT_OK)) {
       ftStatus = FT_GetQueueStatus(ftHandle[i], &dwRxSize);
 
       // show progress
       if (dwRxSize > dwRxSizeTemp) {
         dwRxSizeTemp = dwRxSize;
-
-        // printf("Buffer %d/%d\n", dwRxSize, BUF_SIZE);
         
         // read a byte from the queue
         if (ftStatus == FT_OK) {
@@ -187,13 +182,6 @@ void handleUsbDevice() {
                     (int) dwRxSize);
             break;
           }
-
-          // output signal for debug
-          /*
-          printf("FT_Read read %d bytes.  Read-buffer is now:\n", (int) dwBytesRead);
-          dumpBuffer(pcBufRead, (int) dwBytesRead, 5);
-           * */
-          
         } else {
           printf("Error FT_GetQueueStatus(%d)\n", (int) ftStatus);
         }
@@ -206,15 +194,6 @@ void handleUsbDevice() {
         
         // reset buffer pointer (size) - not sure if necessary or destroy the signal
         ftStatus = FT_Purge(ftHandle[i], FT_PURGE_RX | FT_PURGE_TX); // Purge both Rx and Tx buffers
-        /*
-        if (ftStatus == FT_OK) {
-          // FT_Purge OK
-          printf("Purge was succesfull\n");
-        } else {
-          // FT_Purge failed
-          printf("Purge was failed\n");
-        }
-         */
         
         dwRxSize = 0;
         dwRxSizeTemp = 0;
@@ -223,50 +202,6 @@ void handleUsbDevice() {
     
     // this code should never be reached, because it's a read loop
     printf("\n\nINFO: read loop was leaved, this is not normal (maybe: overflow by read buffer)\n");
-
-    /*
-    // buffer is filled
-    if (ftStatus == FT_OK) {
-      // preset (init) buffer
-      pcBufRead = realloc(pcBufRead, dwRxSize);
-      memset(pcBufRead, 0xFF, dwRxSize);
-
-      ftStatus = FT_Read(ftHandle[i], pcBufRead, dwRxSize, &dwBytesRead);
-
-      if (ftStatus != FT_OK) {
-        printf("Error FT_Read(%d)\n", (int) ftStatus);
-        break;
-      }
-      if (dwBytesRead != dwRxSize) {
-        printf("FT_Read only read %d (of %d) bytes\n",
-                (int) dwBytesRead,
-                (int) dwRxSize);
-        break;
-      }
-
-      // output signal for debug
-      printf("FT_Read read %d bytes.  Read-buffer is now:\n", (int) dwBytesRead);
-      dumpBuffer(pcBufRead, (int) dwBytesRead, 5);
-      */
-      
-      /*
-      printf("list in hex");
-      dumpBuffer(pcBufRead, (int) dwBytesRead, 1);
-
-      printf("list in hex");
-      dumpBuffer(pcBufRead, (int) dwBytesRead, 2);
-
-      printf("list in dec");
-      dumpBuffer(pcBufRead, (int) dwBytesRead, 3);
-
-      printf("list in combined");
-      dumpBuffer(pcBufRead, (int) dwBytesRead, 4);
-       */
-    /*
-    } else {
-      printf("Error FT_GetQueueStatus(%d)\n", (int) ftStatus);
-    }
-    */
   }
 
   iDevicesOpen = i;

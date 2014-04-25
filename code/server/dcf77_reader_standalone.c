@@ -10,6 +10,7 @@
   gcc -o dcf77_reader_standalone.out dcf77_reader_standalone.c -L. -lftd2xx
  */
 
+/*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
