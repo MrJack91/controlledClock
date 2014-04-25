@@ -33,7 +33,7 @@ int debug_readPos = 0;
  *  3   show invalid dates and error per each
  *  10  all (only for debugging)
  */
-int debugLevel = 2;
+int debugLevel = 3;
 
 /* defines the validation logic for a valid date
  *  0   no validation (only parity)
