@@ -112,7 +112,7 @@ void handleUsbDevice() {
   }
   pcBufLD[MAX_DEVICES] = NULL;
 
-  // overwrite the correct vector id and product id
+  // overwrite with correct vector id and product id
   FT_SetVIDPID(1027, 59530); // use our VID and PID
   ftStatus = FT_ListDevices(pcBufLD, &iNumDevs, FT_LIST_ALL | FT_OPEN_BY_SERIAL_NUMBER);
 
