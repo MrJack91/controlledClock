@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
     
     clock_start();
 
+   
     //First startup sequence
 
     //Pass function pointer to methods...
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
             NULL,
             (void *) server_start,
             (void *) server_handle);
-
+   
     pthread_join(serverThread, NULL);
     //pthread_join(inlineThread, NULL);
     
@@ -151,6 +152,7 @@ void main_exit(){
 
         server_stop();
 
+        clock_shutdown();
         printf("Application shutdown finished...exiting now...\n");
     }
     exit(1);
