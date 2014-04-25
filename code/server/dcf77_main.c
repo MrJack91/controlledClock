@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <time.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "dcf77_reader.h"

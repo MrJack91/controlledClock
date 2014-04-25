@@ -16,11 +16,13 @@
 
 #include <pthread.h>
 #include <signal.h>
+#include <unistd.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "SimpleSocketServer.h"
 #include "helper_json.h"
 #include "clock.h"
+#include "dcf77_reader.h"
 
 /*---------------------------- Declarations ----------------------------------*/
 int cleanUpExecuted = 0;
@@ -60,6 +62,7 @@ int main(int argc, char *argv[]) {
     
     pthread_t serverThread;
     pthread_t clockThread;
+    pthread_t dcf77Thread;
     
     pthread_create(&serverThread,
             NULL,
@@ -69,9 +72,16 @@ int main(int argc, char *argv[]) {
             NULL,
             (void *) clock_start,
             NULL);
+    /*
+    pthread_create(&dcf77Thread,
+            NULL,
+            (void *) dcf77_read,
+            NULL);
+     * */
    
     pthread_join(serverThread, NULL);
     pthread_join(clockThread, NULL);
+    // pthread_join(dcf77Thread, NULL);
     
     atexit(main_exit);
     exit(0);
