@@ -211,16 +211,16 @@ char readDate() {
       printf("\tdecoded at %s\treadPos last bit\tabs: %d\trel: %d\n", asctime(timeinfo), debug_readPos, debug_readPos%59);
     }
     
-    
-    typedef struct {
-        int year;
-        int month;
-        int day;
-        int hour;
-        int minute;
-        int second;
-        int zoneOffset;
-    } TimeStruct;
+    // build the correct time struct for the clock
+    TimeStruct currentTime;
+    currentTime.hour = hour;
+    currentTime.minute = minute;
+    currentTime.day = day;
+    currentTime.month = month;
+    currentTime.year = 2000+year;
+    currentTime.second = 0;
+    currentTime.zoneOffset = 2;
+    clock_syncTime(currentTime);
     
   } else {
     if (debugLevel >= 3) {
