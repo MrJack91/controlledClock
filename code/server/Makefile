@@ -17,7 +17,7 @@ win: dcf77_main.o dcf77_reader.o dcf77_decoder.o
 	
 # server main
 server: main.o SimpleSocketServer.o helper_json.o clock.o
-	gcc -o controlledClock main.o SimpleSocketServer.o helper_json.o clock.o -lpthread 
+	gcc -o controlledClock.out main.o SimpleSocketServer.o helper_json.o clock.o -lpthread 
 	
 SimpleSocketServer.o: SimpleSocketServer.c SimpleSocketServer.h
 	gcc -c SimpleSocketServer.c SimpleSocketServer.h

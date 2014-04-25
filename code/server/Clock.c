@@ -43,17 +43,20 @@ void timerHandler(int signum);
 
 /*---------------------------- Implementations -------------------------------*/
 void clock_start(){
-    if (sem_init(&clockSem, 0, 1) != 0) {
+    // if (sem_init(&clockSem, 0, 1) != 0) {
+    if (clockSem = sem_open("/clockSemaphore", O_CREAT, 0, 1) == SEM_FAILED) {
         perror("Clock Semaphore initialization failed");
         exit(EXIT_FAILURE);
     }
     
-    if (sem_init(&timerSem, 0, 1) != 0) {
+    // if (sem_init(&timerSem, 0, 1) != 0) {
+    if (timerSem = sem_open("/timerSemaphore", O_CREAT, 0, 1) == SEM_FAILED) {
         perror("Timer Semaphore initialization failed");
         exit(EXIT_FAILURE);
     }
     
-    if (sem_init(&syncSem, 0, 1) != 0) {
+    // if (sem_init(&syncSem, 0, 1) != 0) {
+    if (syncSem = sem_open("/syncSemaphore", O_CREAT, 0, 1) == SEM_FAILED) {
         perror("Sync Semaphore initialization failed");
         exit(EXIT_FAILURE);
     }
@@ -70,9 +73,38 @@ void clock_start(){
 }
 
 void clock_shutdown(){
+  /*
     sem_destroy(&clockSem);
     sem_destroy(&timerSem);
     sem_destroy(&syncSem);
+    */
+  
+  if (sem_close(clockSem) == -1) {
+    perror("sem_close: clockSemaphore");
+    exit(EXIT_FAILURE);
+  }
+  if (sem_unlink("/clockSemaphore") == -1) {
+    perror("sem_unlink: clockSemaphore");
+    exit(EXIT_FAILURE);
+  }
+  
+  if (sem_close(timerSem) == -1) {
+    perror("sem_close: timerSemaphore");
+    exit(EXIT_FAILURE);
+  }
+  if (sem_unlink("/timerSemaphore") == -1) {
+    perror("sem_unlink: timerSemaphore");
+    exit(EXIT_FAILURE);
+  }
+  
+  if (sem_close(syncSem) == -1) {
+    perror("sem_close: syncSemaphore");
+    exit(EXIT_FAILURE);
+  }
+  if (sem_unlink("/syncSemaphore") == -1) {
+    perror("sem_unlink: syncSemaphore");
+    exit(EXIT_FAILURE);
+  }
 }
 
 TimeStruct clock_getCurrentTime(){
