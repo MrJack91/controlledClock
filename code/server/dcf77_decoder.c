@@ -17,6 +17,7 @@
 #include <math.h> // to use the pow command
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
+#include "dcf77_decoder.h"
 #include "clock.h"
 
 /*---------------------------- Declarations ----------------------------------*/

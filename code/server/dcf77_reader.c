@@ -223,4 +223,5 @@ void dcf77_read() {
   handleUsbDevice();
 
   printf("===\tEND dcf77_reader\t===\n");
+  pthread_exit(3);
 }

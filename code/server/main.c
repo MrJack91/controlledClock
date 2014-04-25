@@ -72,16 +72,14 @@ int main(int argc, char *argv[]) {
             NULL,
             (void *) clock_start,
             NULL);
-    /*
     pthread_create(&dcf77Thread,
             NULL,
             (void *) dcf77_read,
             NULL);
-     * */
    
     pthread_join(serverThread, NULL);
     pthread_join(clockThread, NULL);
-    // pthread_join(dcf77Thread, NULL);
+    pthread_join(dcf77Thread, NULL);
     
     atexit(main_exit);
     exit(0);
