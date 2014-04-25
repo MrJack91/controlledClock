@@ -202,8 +202,10 @@ char readDate() {
     }
   } else {
     if (debugLevel >= 3) {
+      printf("\nParity was correct:\n");
+      printData();
       printf("\tDATE IS CRAP:\t%s\n", date);
-      printf("\error reason:\t%s\n", errorMessage);
+      printf("\terror reason:\t%s\n", errorMessage);
     }
   }
   
