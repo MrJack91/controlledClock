@@ -43,4 +43,4 @@ reader_standalone: dcf77_reader_standalone.c
 clean:
 	rm -f *.o
 	rm -f dcf77.out
-	rm -f controlledClock
+	rm -f *.h.gch
