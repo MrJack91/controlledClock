@@ -29,6 +29,10 @@ extern "C" {
     TimeStruct clock_getCurrentTime();
     
     TimeStruct clock_getLastSyncTime();
+    
+    void clock_syncTime(TimeStruct aTime);
+    
+    void clock_ticSecond();
 #ifdef	__cplusplus
 }
 #endif

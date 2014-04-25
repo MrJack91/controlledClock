@@ -58,7 +58,8 @@ int getRelativeBitPos(int bitPos) {
 }
 
 void printData() {
-  for (int i = 0; i <= currentPointer; i++) {
+  int i = 0;
+  for (i = 0; i <= currentPointer; i++) {
     printf("%d ", data[i]);
   }
 
@@ -74,7 +75,8 @@ void printData() {
  */
 int checkParity(int from , int to) {
   int result = 1; // at the end result must be 1 again
-  for (int i = from; i <= to; i++) {
+  int i = 0;
+  for (i = from; i <= to; i++) {
     // toggle temporary result by reading 1
     if (data[getRelativeBitPos(i)] == 1) {
       result = abs(result-1);
@@ -95,7 +97,8 @@ int readDCFNumber(int from, int to) {
   int relPos = 0;
   int val = 0;
   int calc = 0;
-  for (int i = from; i <= to; i++) {
+  int i = 0;
+  for (i = from; i <= to; i++) {
     val = data[getRelativeBitPos(i)];
     relPos = i-from;
     
@@ -283,7 +286,8 @@ int tryToReadData(int recursive) {
           // after re shift data, valid them again
           int tempCurrentPointer = currentPointer;
           int valuesToCheck[] = { 0, 8, 15, 38 };
-          for (int i = 0; i <= 3; i++) {
+          int i = 0;
+          for (i = 0; i <= 3; i++) {
             if (debugLevel >= 10) {
               printf("i was %d\n", i);
             }
@@ -372,7 +376,9 @@ void dcf77_decode() {
   
   int countValues = sizeof(temporaryData) / sizeof(*temporaryData);
   printf("sizeof(temporaryData): %u\n", countValues);
-  for (int i = 0; i <= countValues; i++) {
+  
+  int i = 0;
+  for (i = 0; i <= countValues; i++) {
     addReceivedByte(temporaryData[i]);
   }
   printf("\n");

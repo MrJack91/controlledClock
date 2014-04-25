@@ -12,52 +12,70 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <signal.h>
+#include <semaphore.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "clock.h"
 
 /*---------------------------- Declarations ----------------------------------*/
 
+#define TIMER_RESOLUTION 1 
+
 TimeStruct currentTime;
 TimeStruct lastSyncTime;
 
-/*---------------------------- Internal functions ----------------------------*/
+int ticsPerSecond;
+int currentTics;
 
-unsigned long long rdtsc();
+int synched;
+
+sem_t clockSem;
+sem_t timerSem;
+sem_t syncSem;
+/*---------------------------- Internal functions ----------------------------*/
 
 void loadFromSystem();
 
+void tic();
+
+void timerHandler(int signum);
+
 /*---------------------------- Implementations -------------------------------*/
 void clock_start(){
-    currentTime.year = 2014;
-    currentTime.month = 4;
-    currentTime.day = 10;
-    currentTime.hour = 18;
-    currentTime.minute = 10;
-    currentTime.second = 5;
-    currentTime.zoneOffset = 1;
+    if (sem_init(&clockSem, 0, 1) != 0) {
+        perror("Clock Semaphore initialization failed");
+        exit(EXIT_FAILURE);
+    }
     
-    lastSyncTime.year = 2014;
-    lastSyncTime.month = 4;
-    lastSyncTime.day = 10;
-    lastSyncTime.hour = 18;
-    lastSyncTime.minute = 10;
-    lastSyncTime.second = 5;
-    lastSyncTime.zoneOffset = 1; 
+    if (sem_init(&timerSem, 0, 1) != 0) {
+        perror("Timer Semaphore initialization failed");
+        exit(EXIT_FAILURE);
+    }
     
-    printf("%lld\n",rdtsc());
-    printf("%lld\n",rdtsc());
-    printf("%lld\n",rdtsc());
+    if (sem_init(&syncSem, 0, 1) != 0) {
+        perror("Sync Semaphore initialization failed");
+        exit(EXIT_FAILURE);
+    }
     
-    //High res claendar: http://www.chemie.fu-berlin.de/chemnet/use/info/libc/libc_17.html
+    loadFromSystem();
+    
+    ticsPerSecond = 1;
+    currentTics = 0;
+    synched = 0;
+    
+    signal (SIGALRM, timerHandler);
+    alarm (TIMER_RESOLUTION);
+    
 }
 
 void clock_shutdown(){
-    
+    sem_destroy(&clockSem);
+    sem_destroy(&timerSem);
+    sem_destroy(&syncSem);
 }
 
 TimeStruct clock_getCurrentTime(){
-    loadFromSystem();
     return currentTime;
 }
 
@@ -65,15 +83,126 @@ TimeStruct clock_getLastSyncTime(){
     return lastSyncTime;
 }
 
-unsigned long long rdtsc()
-{
-    //http://stackoverflow.com/questions/275004/c-timer-function-to-provide-time-in-nano-seconds
-  #define rdtsc(low, high) \
-         __asm__ __volatile__("rdtsc" : "=a" (low), "=d" (high))
+void clock_syncTime(TimeStruct aTime){
+    sem_wait(&syncSem);
+    sem_wait(&timerSem);
+    sem_wait(&clockSem);
+   
+    //cancel alarm
+    alarm(0);
+    
+    //setup next alarm
+    alarm (TIMER_RESOLUTION);
+     
+    synched = 1;
+    
+    //Sync time
+    currentTics = 0;
+    currentTime = aTime;
+    
+    sem_post(&clockSem);
+    sem_post(&timerSem);
+    sem_post(&syncSem);
+}
+    
+void clock_ticSecond(){
+     //Abort if sync is in process
+    int syncSemVal;
+    sem_getvalue(&syncSem,&syncSemVal);
+    
+    if(syncSemVal == 0){
+        return;
+    }
+    
+    sem_wait(&timerSem);
+    sem_wait(&clockSem);
+    
+    //cancel alarm
+    alarm(0);
+    
+    //setup next alarm
+    alarm (TIMER_RESOLUTION);
 
-  unsigned int low, high;
-  rdtsc(low, high);
-  return ((long long)high << 32) | low;
+    currentTics = ticsPerSecond - 1;
+    sem_post(&clockSem);
+    sem_post(&timerSem);
+    
+    tic();
+}
+
+void timerHandler(int signum){
+    //Abort if sync is in process
+    int syncSemVal;
+    sem_getvalue(&syncSem,&syncSemVal);
+    
+    if(syncSemVal == 0){
+        return;
+    }
+    
+    sem_wait(&timerSem);
+       
+    alarm (TIMER_RESOLUTION);
+
+    tic();
+    sem_post(&timerSem);
+}
+
+void tic(){
+    sem_wait(&clockSem);
+
+    currentTics++;
+
+    //Second passed
+    if(currentTics >= ticsPerSecond){
+        currentTime.second++;
+
+        if(currentTime.second == 60){
+            currentTime.second = 0;
+            currentTime.minute++;
+
+            if(currentTime.minute == 60){
+                currentTime.minute = 0;
+                currentTime.hour++;
+
+                if(currentTime.hour == 24){
+                    currentTime.hour = 0;
+                    currentTime.day++;
+
+                    int maxDay = 31;
+                    int daysInYear = 365;
+
+                    switch(currentTime.month){
+                        case 4:
+                        case 6:
+                        case 9:
+                        case 11:
+                            maxDay = 30;
+                            break;
+                        case 2:
+                            if((((currentTime.year % 4) == 0) && !((currentTime.year % 100) == 0)) || (((currentTime.year % 4) == 0) && ((currentTime.year % 400) == 0))){
+                                maxDay = 29;
+                                daysInYear = 366;
+                            }else{
+                                maxDay = 28;
+                            }
+                            break;
+                    }
+
+                    if(currentTime.day > maxDay){
+                        currentTime.day = 1;
+                        currentTime.month++;
+
+                        if(currentTime.month > 12){
+                            currentTime.month = 1;
+                            currentTime.year++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    sem_post(&clockSem);
 }
 
 void loadFromSystem(){

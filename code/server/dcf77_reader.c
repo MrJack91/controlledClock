@@ -107,7 +107,7 @@ void handleUsbDevice() {
   int i = 0;
   
   // init mutliple devices access
-  for (int i = 0; i < MAX_DEVICES; i++) {
+  for (i = 0; i < MAX_DEVICES; i++) {
     pcBufLD[i] = cBufLD[i];
   }
   pcBufLD[MAX_DEVICES] = NULL;
@@ -197,8 +197,10 @@ void handleUsbDevice() {
         } else {
           printf("Error FT_GetQueueStatus(%d)\n", (int) ftStatus);
         }
+        
+        int j = 0;
         // add new byte to decoder
-        for (int j = 0; j < dwBytesRead; j++) {
+        for (j = 0; j < dwBytesRead; j++) {
           addReceivedByte(pcBufRead[j]);
         }
         
