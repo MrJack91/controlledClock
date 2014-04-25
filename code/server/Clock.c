@@ -14,6 +14,7 @@
 #include <time.h>
 #include <signal.h>
 #include <semaphore.h>
+#include <fcntl.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "clock.h"
@@ -30,9 +31,9 @@ int currentTics;
 
 int synched;
 
-sem_t clockSem;
-sem_t timerSem;
-sem_t syncSem;
+sem_t* clockSem;
+sem_t* timerSem;
+sem_t* syncSem;
 /*---------------------------- Internal functions ----------------------------*/
 
 void loadFromSystem();
@@ -44,19 +45,22 @@ void timerHandler(int signum);
 /*---------------------------- Implementations -------------------------------*/
 void clock_start(){
     // if (sem_init(&clockSem, 0, 1) != 0) {
-    if (clockSem = sem_open("/clockSemaphore", O_CREAT, 0, 1) == SEM_FAILED) {
+    clockSem = sem_open("/clockSemaphore", O_CREAT, 0, 1);
+    if (clockSem  == SEM_FAILED) {
         perror("Clock Semaphore initialization failed");
         exit(EXIT_FAILURE);
     }
     
     // if (sem_init(&timerSem, 0, 1) != 0) {
-    if (timerSem = sem_open("/timerSemaphore", O_CREAT, 0, 1) == SEM_FAILED) {
+    timerSem = sem_open("/timerSemaphore", O_CREAT, 0, 1);
+    if (timerSem == SEM_FAILED) {
         perror("Timer Semaphore initialization failed");
         exit(EXIT_FAILURE);
     }
     
     // if (sem_init(&syncSem, 0, 1) != 0) {
-    if (syncSem = sem_open("/syncSemaphore", O_CREAT, 0, 1) == SEM_FAILED) {
+    syncSem =  sem_open("/syncSemaphore", O_CREAT, 0, 1);
+    if (syncSem == SEM_FAILED) {
         perror("Sync Semaphore initialization failed");
         exit(EXIT_FAILURE);
     }
@@ -116,9 +120,9 @@ TimeStruct clock_getLastSyncTime(){
 }
 
 void clock_syncTime(TimeStruct aTime){
-    sem_wait(&syncSem);
-    sem_wait(&timerSem);
-    sem_wait(&clockSem);
+    sem_wait(syncSem);
+    sem_wait(timerSem);
+    sem_wait(clockSem);
    
     //cancel alarm
     alarm(0);
@@ -132,22 +136,22 @@ void clock_syncTime(TimeStruct aTime){
     currentTics = 0;
     currentTime = aTime;
     
-    sem_post(&clockSem);
-    sem_post(&timerSem);
-    sem_post(&syncSem);
+    sem_post(clockSem);
+    sem_post(timerSem);
+    sem_post(syncSem);
 }
     
 void clock_ticSecond(){
      //Abort if sync is in process
     int syncSemVal;
-    sem_getvalue(&syncSem,&syncSemVal);
+    sem_getvalue(syncSem,&syncSemVal);
     
     if(syncSemVal == 0){
         return;
     }
     
-    sem_wait(&timerSem);
-    sem_wait(&clockSem);
+    sem_wait(timerSem);
+    sem_wait(clockSem);
     
     //cancel alarm
     alarm(0);
@@ -156,8 +160,8 @@ void clock_ticSecond(){
     alarm (TIMER_RESOLUTION);
 
     currentTics = ticsPerSecond - 1;
-    sem_post(&clockSem);
-    sem_post(&timerSem);
+    sem_post(clockSem);
+    sem_post(timerSem);
     
     tic();
 }
@@ -165,22 +169,22 @@ void clock_ticSecond(){
 void timerHandler(int signum){
     //Abort if sync is in process
     int syncSemVal;
-    sem_getvalue(&syncSem,&syncSemVal);
+    sem_getvalue(syncSem,&syncSemVal);
     
     if(syncSemVal == 0){
         return;
     }
     
-    sem_wait(&timerSem);
+    sem_wait(timerSem);
        
     alarm (TIMER_RESOLUTION);
 
     tic();
-    sem_post(&timerSem);
+    sem_post(timerSem);
 }
 
 void tic(){
-    sem_wait(&clockSem);
+    sem_wait(clockSem);
 
     currentTics++;
 
@@ -234,7 +238,7 @@ void tic(){
         }
     }
     
-    sem_post(&clockSem);
+    sem_post(clockSem);
 }
 
 void loadFromSystem(){
