@@ -8,6 +8,18 @@ all: dcf77_main.o dcf77_reader.o dcf77_decoder.o
 #dcf77_main.o: dcf77_main.c
 #	gcc -c dcf77_main.c -o dcf77_main.o
 
+#all: main.o SimpleSocketServer.o helper_json.o clock.o
+#	gcc -o controlledClock main.o SimpleSocketServer.o helper_json.o clock.o -lpthread 
+	
+SimpleSocketServer.o: SimpleSocketServer.c SimpleSocketServer.h
+	gcc -c SimpleSocketServer.c SimpleSocketServer.h
+	
+helper_json.o: helper_json.c helper_json.h
+	gcc -c helper_json.c helper_json.h
+	
+clock.o: clock.c clock.h
+	gcc -c clock.c clock.h
+	
 dcf77_reader.o: dcf77_reader.c dcf77_reader.h	
 	gcc -c dcf77_reader.c -o dcf77_reader.o
 #	gcc -o dcf77_reader dcf77_reader.c -L. -lftd2xx
@@ -18,6 +30,8 @@ dcf77_decoder.o: dcf77_decoder.c dcf77_decoder.h
 clean:
 	rm -f *.o
 	rm -f dcf77.out
+	rm -f controlledClock
 
 reader_standalone: dcf77_reader_standalone.c
 	gcc -o dcf77_reader_standalone.out dcf77_reader_standalone.c -L. -lftd2xx
+	
