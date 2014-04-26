@@ -46,7 +46,7 @@ void timerHandler(int signum);
 void clock_start(){
     // if (sem_init(&clockSem, 0, 1) != 0) {
     clockSem = sem_open("/clockSemaphore", O_CREAT, 0, 1);
-    if (clockSem  == SEM_FAILED) {
+    if (clockSem == SEM_FAILED) {
         perror("Clock Semaphore initialization failed");
         exit(EXIT_FAILURE);
     }
