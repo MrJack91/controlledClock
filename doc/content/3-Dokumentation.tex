@@ -54,7 +54,29 @@ Aus dem Main-Modul heraus wird ein simpler Socket Server in einem separaten Thre
 
 \subsection{Clock}
 Source: \textit{/code/server/Clock.c}\\
-%Die Clock wird mit der aktuellen Systemzeit initialisiert. 
+Die Clock wird zu Beginn mit der aktuellen Systemzeit initialisiert. Anschliessend wird mit Hilfe der POSIX-Alarm Funktion jede Sekunde die Zeit erhöht. Dabei werden die Standardmässigen Regeln für die Zeitzählung angewendet.
+\begin{itemize}
+\item 1 Minute: 60 Sekunden
+\item 1 Stunde: 60 Sekunden
+\item 1 Tag: 24 Stunden
+\item 
+\begin{itemize}
+\item Januar, März, Mai, Juli, August, Oktober, Dezember: 1 Monat: 31 Tage 
+\item April, Juni, September, November: 1 Monat:30 Tage
+\item Februar:
+\begin{itemize}
+\item Aktuelles Jahr ist ein Schaltjahr: 29 Tage 
+\item Aktuelles Jahr ist kein Schaltjahr: 28 Tage
+\end{itemize}
+\end{itemize}
+\item 1 Jahr: 365 Tage (366 Tage in einem Schaltjahr)
+\end{itemize}
+
+Das Schaltjahr wird wie folgt berechnet. Grundsätzlich gilt: Ist die aktuelle Jahreszahl ohne Rest durch 4 teilbar ist dies ein Schaltjahr. Ist das Jahr wiederum restlos durch 100 teilbar handelt es sich um kein Schaltjahr. Zusätzlich gilt, dass es sich wieder um ein Schaltjahr, wenn das Jahr restlos durch 400 teilbar ist.
+
+Die Uhr bietet eine Funktion an, mit welchem die Zeit "`synchronisiert"' und auf einen bestimmten Wert gesetzt werden kann. Um konkurrierende Zugriffe zu verhindern werden Semaphoren eingesetzt.
+
+Uns ist bewusst, dass die aktuelle Implementation der Uhr je nach Systemlast unterschiedlich stark abweichen kann. Hier mussten wir jedoch aus zeitlichen Gründen einen Kompromiss eingehen. Ursprünglich war angedacht, dass für die Bestimmung einer Sekunde der System-Tic verwendet wird. Dieser generiert 18.2 mal in der Sekunde einen entsprechenden Tic / Interrupt. Die Registrierung einer entsprechenden Interrupt Service Routine oder das explizite Abfragen des Tics erfordert unter allen modernen Betriebssystemen höhere Rechte (Kernel Mode). Dafür müsste entweder ein eigener Geräte-Treiber oder ein Kernel-Modul implementiert werden. Da wir auch nach einigen Anläufen keine funktionierende Lösung realisieren konnten, haben wir uns für die Implementation der vereinfachten Variante entschieden.
 
 \section{Installationsanleitung}
 \subsection{OSX}
