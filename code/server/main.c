@@ -65,6 +65,7 @@ int main(int argc, char *argv[]) {
             NULL,
             (void *) server_start,
             (void *) server_handle);
+    
     pthread_create(&clockThread,
             NULL,
             (void *) clock_start,

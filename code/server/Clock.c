@@ -136,6 +136,13 @@ void clock_syncTime(TimeStruct aTime){
     currentTics = 0;
     currentTime = aTime;
     
+    lastSyncTime.year = currentTime.year;
+    lastSyncTime.month = currentTime.month;
+    lastSyncTime.day = currentTime.day;
+    lastSyncTime.hour = currentTime.hour;
+    lastSyncTime.minute = currentTime.minute;
+    lastSyncTime.second = currentTime.second;
+    
     sem_post(clockSem);
     sem_post(timerSem);
     sem_post(syncSem);

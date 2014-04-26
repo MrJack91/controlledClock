@@ -13,8 +13,9 @@ osx: dcf77_main.o dcf77_reader.o dcf77_decoder.o
 	gcc -o dcf77.out dcf77_main.o dcf77_reader.o dcf77_decoder.o -lpthread -L. -lftd2xx
 	
 win: dcf77_main.o dcf77_reader.o dcf77_decoder.o
-	gcc -o dcf77_reader dcf77_reader.c -L"/cygdrive/c/Program Files/Cygwin64/usr/local/lib/ftd2xx/" -lftd2xx -Wl,-rpath /cygdrive/d/Development/git_workspaces/controlledClock/code/D2XX/bin && ./dcf77_reader
-	
+	gcc -m64 -o dcf77_reader.exe  dcf77_main.o dcf77_reader.o dcf77_decoder.o -L. -L"/cygdrive/c/Program Files/Cygwin64/usr/local/lib/ftd2xx" -lpthread -lftd2xx
+	# gcc -o dcf77_reader dcf77_reader.c -L. -L"/cygdrive/c/Program Files/Cygwin64/usr/local/lib/ftd2xx" -lftd2xx -lpthread -Wl,-rpath "/cygdrive/c/Program Files/Cygwin64/usr/local/lib/ftd2xx"
+	# Somethin on dynamic / shared libs: http://www.cprogramming.com/tutorial/shared-libraries-linux-gcc.html && http://www.geeksforgeeks.org/static-vs-dynamic-libraries/
 # server main
 server: main.o SimpleSocketServer.o helper_json.o clock.o
 	gcc -o controlledClock.exe main.o SimpleSocketServer.o helper_json.o clock.o -lpthread 
