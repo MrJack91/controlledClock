@@ -71,6 +71,8 @@ void clock_start(){
     currentTics = 0;
     synched = 0;
     
+    siginterrupt(SIGALRM, TIMER_RESOLUTION);
+    
     signal (SIGALRM, timerHandler);
     alarm (TIMER_RESOLUTION);
     
@@ -125,7 +127,8 @@ void clock_syncTime(TimeStruct aTime){
     sem_wait(clockSem);
    
     //cancel alarm
-    alarm(0);
+    siginterrupt(SIGALRM, 0);
+    // alarm(0);
     
     //setup next alarm
     alarm (TIMER_RESOLUTION);

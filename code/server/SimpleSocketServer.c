@@ -6,7 +6,7 @@
  * Description: 
  * Provides a simple socket server implementation which sends a request given 
  * by a handle back to the client.
- *  
+ *    
  */
 
 /*---------------------------- Includes: System ------------------------------*/
@@ -143,7 +143,7 @@ void server_start(void (*socketHandle)(char*,char**)) {
         
         char contentLength[16 + sizeof(int)] = "\0";
         
-        sprintf(contentLength,"Content-Length: %d\n",strlen(handleResponse));
+        sprintf(contentLength,"Content-Length: %lu\n",strlen(handleResponse));
         
         printf("Sending response...\n");
         sendResponse(clientSocket,"HTTP/1.0 200 OK\n");
