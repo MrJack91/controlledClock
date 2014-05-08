@@ -51,7 +51,7 @@ int debugLevel = 3;
  *  3   check by current year, month
  *  4   check by current year, month, day
  */
-int dateValidatorLevel = 4;
+int dateValidatorLevel = 1;
 
 /*---------------------------- Implementations -------------------------------*/
 void resetData() {

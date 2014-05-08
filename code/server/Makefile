@@ -36,11 +36,11 @@ clock.o: clock.c clock.h
 	gcc -c clock.c clock.h
 
 # dcf77 main
-osx: dcf77_main.o dcf77_reader.o dcf77_decoder.o
-	gcc -o dcf77.exe dcf77_main.o dcf77_reader.o dcf77_decoder.o -lpthread -L. -lftd2xx
+#osx: dcf77_main.o dcf77_reader.o dcf77_decoder.o
+#	gcc -o dcf77.exe dcf77_main.o dcf77_reader.o dcf77_decoder.o -lpthread -L. -lftd2xx
 	
-win: dcf77_main.o dcf77_reader.o dcf77_decoder.o
-	gcc -o dcf77_reader dcf77_reader.c -L"/cygdrive/c/Program Files/Cygwin64/usr/local/lib/ftd2xx/" -lftd2xx -Wl,-rpath /cygdrive/d/Development/git_workspaces/controlledClock/code/D2XX/bin && ./dcf77_reader
+#win: dcf77_main.o dcf77_reader.o dcf77_decoder.o
+#	gcc -o dcf77_reader dcf77_reader.c -L"/cygdrive/c/Program Files/Cygwin64/usr/local/lib/ftd2xx/" -lftd2xx -Wl,-rpath /cygdrive/d/Development/git_workspaces/controlledClock/code/D2XX/bin && ./dcf77_reader
 	
 dcf77_reader.o: dcf77_reader.c dcf77_reader.h	
 	gcc -c dcf77_reader.c -o dcf77_reader.o

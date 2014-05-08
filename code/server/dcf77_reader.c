@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "ftd2xx.h"         // lib for usb access
@@ -197,6 +198,15 @@ void handleUsbDevice() {
         
         dwRxSize = 0;
         dwRxSizeTemp = 0;
+      } else {
+        // if nothing to do, wait a small time for the next request
+        struct timespec tim, tim2;
+        tim.tv_sec = 0;
+        tim.tv_nsec = 100000000L; // wait 100ms
+
+        nanosleep(&tim , &tim2);
+       
+        printf("*\n");
       }
     }
     

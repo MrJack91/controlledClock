@@ -15,6 +15,7 @@
 #include <signal.h>
 #include <semaphore.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "clock.h"
@@ -71,7 +72,7 @@ void clock_start(){
     currentTics = 0;
     synched = 0;
     
-    siginterrupt(SIGALRM, TIMER_RESOLUTION);
+    siginterrupt(SIGALRM, 1);
     
     signal (SIGALRM, timerHandler);
     alarm (TIMER_RESOLUTION);
@@ -189,7 +190,13 @@ void timerHandler(int signum){
        
     alarm (TIMER_RESOLUTION);
 
+    printf("%02d:%02d:%02d",currentTime.hour,currentTime.minute,currentTime.second);
+    
     tic();
+    
+    printf("%02d:%02d:%02d",currentTime.hour,currentTime.minute,currentTime.second);
+    
+    
     sem_post(timerSem);
 }
 
@@ -282,4 +289,6 @@ void loadFromSystem(){
     }else{
          currentTime.zoneOffset = 2;
     }
+    
+    printf("Time on server is initialised: %02d:%02d:%02d",currentTime.hour,currentTime.minute,currentTime.second);
 }
