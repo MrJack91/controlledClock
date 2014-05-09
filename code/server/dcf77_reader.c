@@ -206,7 +206,7 @@ void handleUsbDevice() {
       // if nothing to do, wait a small time for the next request
       struct timespec tim, tim2;
       tim.tv_sec = 0;
-      tim.tv_nsec = 10000000L; // wait 100ms
+      tim.tv_nsec = 10000000L; // wait 10ms
 
       nanosleep(&tim , &tim2);
     }
