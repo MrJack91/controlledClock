@@ -15,6 +15,10 @@
 #include <string.h>
 #include <unistd.h>
 
+#ifdef _WINDOWS
+#include <windows.h>
+#endif
+
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "ftd2xx.h"         // lib for usb access
 #include "dcf77_decoder.h"
@@ -111,7 +115,9 @@ void handleUsbDevice() {
   pcBufLD[MAX_DEVICES] = NULL;
 
   // overwrite with correct vector id and product id
+  #ifdef __APPLE__
   FT_SetVIDPID(1027, 59530); // use our VID and PID
+  #endif
   ftStatus = FT_ListDevices(pcBufLD, &iNumDevs, FT_LIST_ALL | FT_OPEN_BY_SERIAL_NUMBER);
 
   if (ftStatus != FT_OK) {
