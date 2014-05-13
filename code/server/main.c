@@ -90,7 +90,7 @@ int main(int argc, char *argv[]) {
 
 void server_handle(char *content, char **response) {
     
-    printf("Client-Request: %s\n", content);
+    // printf("Client-Request: %s\n", content);
     
     TimeStruct currTime = clock_getCurrentTime();
     TimeStruct lastSyncTime = clock_getLastSyncTime();
@@ -132,7 +132,8 @@ void main_exit(){
         cleanUpExecuted = 1;
         printf("Shutdown application...\n");
 
-        server_stop();
+        // isn't used because serverstop is registered atexit()
+        // server_stop();
 
         clock_shutdown();
         printf("Application shutdown finished...exiting now...\n");

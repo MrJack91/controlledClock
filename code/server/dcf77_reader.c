@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
 #ifdef _WINDOWS
 #include <windows.h>
@@ -203,7 +204,17 @@ void handleUsbDevice() {
         
         dwRxSize = 0;
         dwRxSizeTemp = 0;
+      } else {
+        
+       
+        // printf("*\n");
       }
+      // if nothing to do, wait a small time for the next request
+      struct timespec tim, tim2;
+      tim.tv_sec = 0;
+      tim.tv_nsec = 10000000L; // wait 10ms
+
+      nanosleep(&tim , &tim2);
     }
     
     // this code should never be reached, because it's a read loop
