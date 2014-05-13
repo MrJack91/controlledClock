@@ -22,9 +22,7 @@ win: dcf77_main.o dcf77_reader.o dcf77_decoder.o
 # full programm on win
 fullWin: main.o SimpleSocketServer.o helper_json.o clock.o dcf77_reader.o dcf77_decoder.o
 	gcc -Wall -m32 -mcmodel=large -o controlledClock.exe main.o SimpleSocketServer.o helper_json.o clock.o dcf77_reader.o -L. -lpthread -L"/cygdrive/c/Cygwin86/usr/local/lib/ftd2xx-dyn-32/" -lftd2xx dcf77_decoder.o
-	#gcc -Wall -m32 -mcmodel=large -o controlledClock.exe main.o SimpleSocketServer.o helper_json.o clock.o dcf77_reader.o -L"/cygdrive/c/Cygwin86/usr/local/lib/ftd2xx-dyn-32/" -lftd2xx dcf77_decoder.o -L. -lpthread
-	#gcc -Wall -m32 -mcmodel=large -o controlledClock.exe main.o SimpleSocketServer.o helper_json.o clock.o dcf77_reader.o dcf77_decoder.o -L. -lpthread -L"/cygdrive/c/Cygwin86/usr/local/lib/ftd2xx-static-32" -lftd2xx
-	
+
 # full programm
 full: main.o SimpleSocketServer.o helper_json.o clock.o dcf77_reader.o dcf77_decoder.o
 	gcc -o controlledClock.exe main.o SimpleSocketServer.o helper_json.o clock.o dcf77_reader.o dcf77_decoder.o -lpthread -L. -lftd2xx
