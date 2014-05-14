@@ -45,7 +45,8 @@ void server_handle(char *content,char **response);
 void main_exit();
 
 int main(int argc, char *argv[]) {
-
+    atexit(main_exit);
+    
     //Setup signal handlers for unexcpected termination
     if (signal (SIGINT, main_exit) == SIG_IGN){
          signal (SIGINT, SIG_IGN);
@@ -78,12 +79,11 @@ int main(int argc, char *argv[]) {
             (void *) dcf77_read,
             NULL);
    
-    pthread_join(serverThread, NULL);
-    pthread_join(clockThread, NULL);
     pthread_join(dcf77Thread, NULL);
-    
-    atexit(main_exit);
-    exit(0);
+    pthread_join(clockThread, NULL);
+    pthread_join(serverThread, NULL);
+ 
+    exit(EXIT_SUCCESS);
 
     return (EXIT_SUCCESS);
 }
@@ -135,8 +135,9 @@ void main_exit(){
         // isn't used because serverstop is registered atexit()
         // server_stop();
 
-        clock_shutdown();
+        //auto shutdown in clock itself
+        //clock_shutdown();
         printf("Application shutdown finished...exiting now...\n");
     }
-    exit(1);
+    exit(EXIT_SUCCESS);
 }

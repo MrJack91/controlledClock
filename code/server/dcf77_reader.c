@@ -15,10 +15,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
-
-#ifdef _WINDOWS
-#include <windows.h>
-#endif
+#include <pthread.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "ftd2xx.h"         // lib for usb access
@@ -116,14 +113,14 @@ void handleUsbDevice() {
   pcBufLD[MAX_DEVICES] = NULL;
 
   // overwrite with correct vector id and product id
-  #ifdef __APPLE__
+  #ifdef OSX
   FT_SetVIDPID(1027, 59530); // use our VID and PID
   #endif
   ftStatus = FT_ListDevices(pcBufLD, &iNumDevs, FT_LIST_ALL | FT_OPEN_BY_SERIAL_NUMBER);
 
   if (ftStatus != FT_OK) {
     printf("Error: FT_ListDevices(%d)\n", (int) ftStatus);
-    exit(1);
+    pthread_exit((void*)1);
   }
 
   // list founded devices

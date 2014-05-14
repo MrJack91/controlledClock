@@ -16,6 +16,7 @@
 #include <semaphore.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <pthread.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
 #include "clock.h"
@@ -122,7 +123,6 @@ void tic() {
           currentTime.day++;
 
           int maxDay = 31;
-          int daysInYear = 365;
 
           switch (currentTime.month) {
             case 4:
@@ -134,7 +134,6 @@ void tic() {
             case 2:
               if ((((currentTime.year % 4) == 0) && !((currentTime.year % 100) == 0)) || (((currentTime.year % 4) == 0) && ((currentTime.year % 400) == 0))) {
                 maxDay = 29;
-                daysInYear = 366;
               } else {
                 maxDay = 28;
               }
@@ -199,7 +198,6 @@ void loadFromSystem() {
     lastSyncTime.zoneOffset = 2;
   }
 
-  //TODO: Use Sempaphores
   currentTime.year = (lt.tm_year + 1900);
   currentTime.month = (lt.tm_mon + 1);
   currentTime.day = lt.tm_mday;
@@ -217,25 +215,40 @@ void loadFromSystem() {
 }
 
 void clock_start() {
+  atexit(clock_shutdown);
+
+    //unlink existing semaphores
+    if (sem_unlink("/clockSemaphore") == -1) {
+        perror("sem_unlink: clockSemaphore");
+    }
+
+    if (sem_unlink("/timerSemaphore") == -1) {
+        perror("sem_unlink: clockSemaphore");
+    }
+
+    if (sem_unlink("/syncSemaphore") == -1) {
+        perror("sem_unlink: clockSemaphore");
+    }
+  
   // if (sem_init(&clockSem, 0, 1) != 0) {
   clockSem = sem_open("/clockSemaphore", O_CREAT, 0, 1);
   if (clockSem == SEM_FAILED) {
     perror("Clock Semaphore initialization failed");
-    exit(EXIT_FAILURE);
+    pthread_exit((void*)EXIT_FAILURE);
   }
 
   // if (sem_init(&timerSem, 0, 1) != 0) {
   timerSem = sem_open("/timerSemaphore", O_CREAT, 0, 1);
   if (timerSem == SEM_FAILED) {
     perror("Timer Semaphore initialization failed");
-    exit(EXIT_FAILURE);
+    pthread_exit((void*)EXIT_FAILURE);
   }
 
   // if (sem_init(&syncSem, 0, 1) != 0) {
   syncSem = sem_open("/syncSemaphore", O_CREAT, 0, 1);
   if (syncSem == SEM_FAILED) {
     perror("Sync Semaphore initialization failed");
-    exit(EXIT_FAILURE);
+    pthread_exit((void*)EXIT_FAILURE);
   }
 
   loadFromSystem();
@@ -253,32 +266,46 @@ void clock_start() {
 }
 
 void clock_shutdown() {
-  if (sem_close(clockSem) == -1) {
-    perror("sem_close: clockSemaphore");
-    exit(EXIT_FAILURE);
+  printf("Shutdown Clock... \n");
+  
+  sem_wait(syncSem);
+  sem_wait(timerSem);
+  sem_wait(clockSem);
+  
+  alarm(0);
+  
+  if(clockSem > 0){
+    if (sem_close(clockSem) == -1) {
+      perror("sem_close: clockSemaphore");
+    }
+    if (sem_unlink("/clockSemaphore") == -1) {
+      perror("sem_unlink: clockSemaphore");
+    }
   }
-  if (sem_unlink("/clockSemaphore") == -1) {
-    perror("sem_unlink: clockSemaphore");
-    exit(EXIT_FAILURE);
+  sem_post(syncSem);
+  
+  if(timerSem > 0){
+    if (sem_close(timerSem) == -1) {
+      perror("sem_close: timerSemaphore");
+    }
+    if (sem_unlink("/timerSemaphore") == -1) {
+      perror("sem_unlink: timerSemaphore");
+    }
   }
 
-  if (sem_close(timerSem) == -1) {
-    perror("sem_close: timerSemaphore");
-    exit(EXIT_FAILURE);
+  if(syncSem > 0){
+    if (sem_close(syncSem) == -1) {
+      perror("sem_close: syncSemaphore");
+    }
+    if (sem_unlink("/syncSemaphore") == -1) {
+      perror("sem_unlink: syncSemaphore");
+    }
   }
-  if (sem_unlink("/timerSemaphore") == -1) {
-    perror("sem_unlink: timerSemaphore");
-    exit(EXIT_FAILURE);
-  }
-
-  if (sem_close(syncSem) == -1) {
-    perror("sem_close: syncSemaphore");
-    exit(EXIT_FAILURE);
-  }
-  if (sem_unlink("/syncSemaphore") == -1) {
-    perror("sem_unlink: syncSemaphore");
-    exit(EXIT_FAILURE);
-  }
+  
+  sem_post(clockSem);
+  sem_post(timerSem);
+  sem_post(syncSem);
+  printf("Clock Shutdown complete...\n");
 }
 
 /*

@@ -55,7 +55,7 @@ kernel & user mode
 #define FTD2XX_API __declspec(dllimport)
 #endif
 
-#ifdef _WINDOWS
+#ifdef WIN
 #include <windows.h>
 #endif
 

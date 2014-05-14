@@ -12,6 +12,7 @@
 /*---------------------------- Includes: System ------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #ifdef WIN32
 #include <winsock.h>
@@ -63,6 +64,7 @@ void server_start(void (*socketHandle)(char*, char**)) {
 
   if (serverSocket < 0) {
     fprintf(stderr, "Failed to create server socket!");
+     server_stop();
   }
 
   //Set socket options
@@ -79,17 +81,18 @@ void server_start(void (*socketHandle)(char*, char**)) {
 
   //Bind server socket
   if (bind(serverSocket, (struct sockaddr *) &serverAddr, sizeof (serverAddr)) < 0) {
-    server_stop();
     fprintf(stderr, "Failed to bind server socket!");
+    server_stop();
   }
 
   //listen to client sockets
   if (listen(serverSocket, MAX_QUEUE) < 0) {
-    server_stop();
     fprintf(stderr, "Failed to listen on server socket!");
+    server_stop();
   }
 
-  unsigned int clntLen;
+  printf("Server startup complete!");
+  socklen_t clntLen;
 
   acceptSockts = 1;
   //accept client sockets (second part, stop if serversocket is not working -> avoid many outputs on unix)
@@ -110,7 +113,7 @@ void server_start(void (*socketHandle)(char*, char**)) {
 
     char contentLength[16 + sizeof (int)] = "\0";
 
-    sprintf(contentLength, "Content-Length: %lu\n", strlen(handleResponse));
+    sprintf(contentLength, "Content-Length: %zu\n", strlen(handleResponse));
 
     if (serverDebugInfo > 0) {
       printf("Sending response...\n");
@@ -156,6 +159,8 @@ void server_stop() {
     }
   }
   printf("Server Shutdown complete...\n");
+  
+  pthread_exit((void*)0);
 }
 
 static void sendResponse(int socketId, char *content) {
