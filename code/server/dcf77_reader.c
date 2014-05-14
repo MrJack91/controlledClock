@@ -145,7 +145,7 @@ void handleUsbDevice() {
       printf("Error FT_OpenEx(%d), device %d\n", (int) ftStatus, i);
       printf("Use lsmod to check if ftdi_sio (and usbserial) are present.\n");
       printf("If so, unload them using rmmod, as they conflict with ftd2xx.\n");
-      exit(1);
+      pthread_exit((void*)1);
     }
 
     printf("Opened device %s\n", cBufLD[i]);
@@ -237,5 +237,5 @@ void dcf77_read() {
   handleUsbDevice();
 
   printf("===\tEND dcf77_reader\t===\n");
-  pthread_exit(0);
+  pthread_exit((void*)0);
 }
