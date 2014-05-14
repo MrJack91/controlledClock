@@ -55,11 +55,13 @@ kernel & user mode
 #define FTD2XX_API __declspec(dllimport)
 #endif
 
-#ifdef WIN
-#include <windows.h>
+#ifdef OSX
+  #include "WinTypes.h"
 #else
-#include "WinTypes.h"
+  #include <windows.h>
 #endif
+
+
 
 typedef PVOID	FT_HANDLE;
 typedef ULONG	FT_STATUS;
