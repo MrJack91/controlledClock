@@ -57,6 +57,8 @@ kernel & user mode
 
 #ifdef WIN
 #include <windows.h>
+#else
+#include "WinTypes.h"
 #endif
 
 typedef PVOID	FT_HANDLE;
