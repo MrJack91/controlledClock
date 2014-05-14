@@ -223,11 +223,11 @@ void clock_start() {
     }
 
     if (sem_unlink("/timerSemaphore") == -1) {
-        perror("sem_unlink: clockSemaphore");
+        perror("sem_unlink: timerSemaphore");
     }
 
     if (sem_unlink("/syncSemaphore") == -1) {
-        perror("sem_unlink: clockSemaphore");
+        perror("sem_unlink: syncSemaphore");
     }
   
   // if (sem_init(&clockSem, 0, 1) != 0) {
