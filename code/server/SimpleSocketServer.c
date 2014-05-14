@@ -91,7 +91,7 @@ void server_start(void (*socketHandle)(char*, char**)) {
     server_stop();
   }
 
-  printf("Server startup complete!");
+  printf("Server startup complete!\n");
   socklen_t clntLen;
 
   acceptSockts = 1;
