@@ -26,7 +26,9 @@
 
 /*---------------------------- Declarations ----------------------------------*/
 int cleanUpExecuted = 0;
-
+pthread_t serverThread;
+pthread_t clockThread;
+pthread_t dcf77Thread;
 /*---------------------------- Internal functions ----------------------------*/
 
 /**
@@ -60,11 +62,7 @@ int main(int argc, char *argv[]) {
     if (signal (SIGTERM, main_exit) == SIG_IGN){
          signal (SIGTERM, SIG_IGN);
     }
-    
-    pthread_t serverThread;
-    pthread_t clockThread;
-    pthread_t dcf77Thread;
-    
+      
     pthread_create(&serverThread,
             NULL,
             (void *) server_start,
@@ -137,6 +135,8 @@ void main_exit(){
 
         //auto shutdown in clock itself
         //clock_shutdown();
+        
+        pthread_cancel(dcf77Thread);
         printf("Application shutdown finished...exiting now...\n");
     }
     exit(EXIT_SUCCESS);
