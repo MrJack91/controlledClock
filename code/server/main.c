@@ -136,7 +136,10 @@ void main_exit(){
         //auto shutdown in clock itself
         //clock_shutdown();
         
+        printf("Exiting threads now...\n");
         pthread_cancel(dcf77Thread);
+        pthread_cancel(clockThread);
+        pthread_cancel(serverThread);
         printf("Application shutdown finished...exiting now...\n");
     }
     exit(EXIT_SUCCESS);

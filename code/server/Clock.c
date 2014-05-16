@@ -44,6 +44,10 @@ void tic();
 
 void timerHandler(int signum);
 
+int verifyTime(TimeStruct aTime);
+
+int getLastDayOfMonth(int year, int aMonth);
+
 /*---------------------------- Implementations -------------------------------*/
 TimeStruct clock_getCurrentTime() {
   return currentTime;
@@ -122,23 +126,7 @@ void tic() {
           currentTime.hour = 0;
           currentTime.day++;
 
-          int maxDay = 31;
-
-          switch (currentTime.month) {
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-              maxDay = 30;
-              break;
-            case 2:
-              if ((((currentTime.year % 4) == 0) && !((currentTime.year % 100) == 0)) || (((currentTime.year % 4) == 0) && ((currentTime.year % 400) == 0))) {
-                maxDay = 29;
-              } else {
-                maxDay = 28;
-              }
-              break;
-          }
+          int maxDay = getLastDayOfMonth(currentTime.year, currentTime.month);
 
           if (currentTime.day > maxDay) {
             currentTime.day = 1;
@@ -157,31 +145,82 @@ void tic() {
   sem_post(clockSem);
 }
 
+int getLastDayOfMonth(int year, int aMonth) {
+    int maxDay = 31;
+
+    switch (aMonth) {
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            maxDay = 30;
+            break;
+        case 2:
+            if ((((year % 4) == 0) && !((year % 100) == 0)) || (((year % 4) == 0) && ((year % 400) == 0))) {
+                maxDay = 29;
+            } else {
+                maxDay = 28;
+            }
+            break;
+    }
+    return maxDay;
+}
+
+int verifyTime(TimeStruct aTime){
+    int result = -1;
+    
+    if  ((aTime.year == currentTime.year) || 
+        (aTime.year == currentTime.year - 1 && aTime.month == 12 && aTime.day == 31) || 
+        (aTime.year == currentTime.year + 1 && aTime.month == 1 && aTime.day == 1)) {
+
+        int lastDayOfMonth = getLastDayOfMonth(aTime.year, aTime.month);
+        if  ((aTime.month == currentTime.month) || 
+            (aTime.month == currentTime.month - 1 && aTime.day == lastDayOfMonth) ||
+            (aTime.month == currentTime.month + 1 && aTime.day == 1)){
+            
+            if  ((aTime.day == currentTime.day) ||
+                (aTime.day == currentTime.day - 1 && aTime.hour == 23) ||
+                (aTime.day == currentTime.day + 1 && aTime.hour == 0)){
+                
+                if  ((aTime.hour == currentTime.hour) ||
+                    (aTime.hour >= currentTime.hour-2) ||
+                    (aTime.hour <= currentTime.hour+2)){
+                    result = 0;
+                }
+            }
+        }
+    }
+   
+    return result;
+}
+
 void clock_syncTime(TimeStruct aTime) {
   sem_wait(syncSem);
   sem_wait(timerSem);
   sem_wait(clockSem);
 
-  //cancel alarm
-  // siginterrupt(SIGALRM, 0);
-  alarm(0);
+  if ( verifyTime(aTime) == 0){
+    //cancel alarm
+    // siginterrupt(SIGALRM, 0);
+    alarm(0);
 
-  //setup next alarm
-  alarm(TIMER_RESOLUTION);
+    //setup next alarm
+    alarm(TIMER_RESOLUTION);
+  
+    synched = 1;
 
-  synched = 1;
+    //Sync time
+    currentTics = 0;
+    currentTime = aTime;
 
-  //Sync time
-  currentTics = 0;
-  currentTime = aTime;
-
-  lastSyncTime.year = currentTime.year;
-  lastSyncTime.month = currentTime.month;
-  lastSyncTime.day = currentTime.day;
-  lastSyncTime.hour = currentTime.hour;
-  lastSyncTime.minute = currentTime.minute;
-  lastSyncTime.second = currentTime.second;
-
+    lastSyncTime.year = currentTime.year;
+    lastSyncTime.month = currentTime.month;
+    lastSyncTime.day = currentTime.day;
+    lastSyncTime.hour = currentTime.hour;
+    lastSyncTime.minute = currentTime.minute;
+    lastSyncTime.second = currentTime.second;
+  }
+  
   sem_post(clockSem);
   sem_post(timerSem);
   sem_post(syncSem);
@@ -219,35 +258,35 @@ void clock_start() {
 
     //unlink existing semaphores
     if (sem_unlink("/clockSemaphore") == -1) {
-        perror("sem_unlink: clockSemaphore");
+        perror("sem_unlink: clockSemaphore\n");
     }
 
     if (sem_unlink("/timerSemaphore") == -1) {
-        perror("sem_unlink: timerSemaphore");
+        perror("sem_unlink: timerSemaphore\n");
     }
 
     if (sem_unlink("/syncSemaphore") == -1) {
-        perror("sem_unlink: syncSemaphore");
+        perror("sem_unlink: syncSemaphore\n");
     }
   
   // if (sem_init(&clockSem, 0, 1) != 0) {
   clockSem = sem_open("/clockSemaphore", O_CREAT, 0, 1);
   if (clockSem == SEM_FAILED) {
-    perror("Clock Semaphore initialization failed");
+    perror("Clock Semaphore initialization failed\n");
     pthread_exit((void*)EXIT_FAILURE);
   }
 
   // if (sem_init(&timerSem, 0, 1) != 0) {
   timerSem = sem_open("/timerSemaphore", O_CREAT, 0, 1);
   if (timerSem == SEM_FAILED) {
-    perror("Timer Semaphore initialization failed");
+    perror("Timer Semaphore initialization failed\n");
     pthread_exit((void*)EXIT_FAILURE);
   }
 
   // if (sem_init(&syncSem, 0, 1) != 0) {
   syncSem = sem_open("/syncSemaphore", O_CREAT, 0, 1);
   if (syncSem == SEM_FAILED) {
-    perror("Sync Semaphore initialization failed");
+    perror("Sync Semaphore initialization failed\n");
     pthread_exit((void*)EXIT_FAILURE);
   }
 
@@ -276,29 +315,29 @@ void clock_shutdown() {
   
   if(clockSem > 0){
     if (sem_close(clockSem) == -1) {
-      perror("sem_close: clockSemaphore");
+      perror("sem_close: clockSemaphore\n");
     }
     if (sem_unlink("/clockSemaphore") == -1) {
-      perror("sem_unlink: clockSemaphore");
+      perror("sem_unlink: clockSemaphore\n");
     }
   }
   sem_post(syncSem);
   
   if(timerSem > 0){
     if (sem_close(timerSem) == -1) {
-      perror("sem_close: timerSemaphore");
+      perror("sem_close: timerSemaphore\n");
     }
     if (sem_unlink("/timerSemaphore") == -1) {
-      perror("sem_unlink: timerSemaphore");
+      perror("sem_unlink: timerSemaphore\n");
     }
   }
 
   if(syncSem > 0){
     if (sem_close(syncSem) == -1) {
-      perror("sem_close: syncSemaphore");
+      perror("sem_close: syncSemaphore\n");
     }
     if (sem_unlink("/syncSemaphore") == -1) {
-      perror("sem_unlink: syncSemaphore");
+      perror("sem_unlink: syncSemaphore\n");
     }
   }
   
