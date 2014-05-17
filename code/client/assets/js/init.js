@@ -19,7 +19,7 @@ var myCoolClock = new CoolClock({
 
 // Assign handlers immediately after making the request,
 // and remember the jqxhr object for this request
-var jqxhr = $.get( "http://localhost:7899/", function(data) {
+/*var jqxhr = $.get( "http://localhost:7899/", function(data) {
 	var resp = JSON.parse(data)
     alert(resp.status);
 })
@@ -31,7 +31,7 @@ var jqxhr = $.get( "http://localhost:7899/", function(data) {
 })
 .always(function() {
 
-});/*
+});
 $.ajax({
             url: "http://localhost:7899/",
             type: "GET",
@@ -49,4 +49,5 @@ $.ajax({
 var myTime = new TimeObject(2014,5,16,12,0,0);
 myCoolClock.setTime(myTime);
 
+	
 });

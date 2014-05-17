@@ -38,7 +38,7 @@
       </button>
       <a class="navbar-brand" href="#">Controlled Clock</a>
     </div>
-    <div class="navbar-collapse collapse">
+    <!--<div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#about">About</a></li>
@@ -69,13 +69,40 @@
 
   <!-- Main component for a primary marketing message or call to action -->
   <div class="jumbotron">
-    <h1>Analoge Uhrzeit</h1>
-    <!--
-    <canvas id="clockid" class="CoolClock:Skin:Radius:noSeconds:GMTOffset:showDigital:logClock"></canvas>
-    -->
+	<div class="row">
+		<div class="col-md-6">
+		  <div id="analogClockContainer">
+			<h1>Analoge Uhrzeit</h1>
+			<!--
+			<canvas id="clockid" class="CoolClock:Skin:Radius:noSeconds:GMTOffset:showDigital:logClock"></canvas>
+			-->
+			<canvas id="clockid" class="CoolClock:swissRail:180:::showDigital"></canvas>
+		</div>
+		</div>
 
-    <canvas id="clockid" class="CoolClock:swissRail:180:::showDigital"></canvas>
-
+		<div class="col-md-6">
+			<div class="row">
+				<div id="digitalClockContainer">
+				<h1>Digitale Uhrzeit</h1>
+					http://googlecreativelab.github.io/coder-projects/projects/digital_clock/
+				</div>
+			</div>
+			<br/><br/>
+			<div class="row">
+				<div id="timeSetterContainer">
+					<h3>Neue Uhrzeit:</h3>
+					
+					<input type="button" value="&Uuml;bernehmen" />
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<br/><br/>
+	<div class="row">
+		<strong><em>Letzte Synchronisierung mit dem Server:</strong> - </em><br/>
+		<strong><em>Letzte Synchronisierung mit DCF77:</strong> - </em>
+	</div>
     <!--
     <h1>Navbar example</h1>
     <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
@@ -127,8 +154,6 @@
         </div>
       </div>
     </div>
-
-
 
   </div>
 
