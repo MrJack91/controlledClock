@@ -121,6 +121,8 @@ void server_start(void (*socketHandle)(char*, char**)) {
     sendResponse(clientSocket, "HTTP/1.0 200 OK\n");
     sendResponse(clientSocket, "Connection: close\n");
     sendResponse(clientSocket, "Content-type: text/plain;charset=UTF-8\n");
+    sendResponse(clientSocket, "Access-Control-Allow-Headers: *\n");
+    sendResponse(clientSocket, "Access-Control-Allow-Origin: *\n");
     sendResponse(clientSocket, contentLength);
     sendResponse(clientSocket, "expires: -1\n");
     sendResponse(clientSocket, "status: 200\n\n");

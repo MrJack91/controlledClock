@@ -16,13 +16,12 @@ Das Main-Modul verbindet alle übrigen Module miteinander und stellt die Kommuni
 Der Reader liest die Daten von der USB-Schnittstelle zum DCF77 und übergibt diese dem Decoder.
 \item {\textbf{DCF77 Decoder} - dcf77\_decoder.c}\\
 Der Decoder decodiert laufend die erhaltenen Daten von der USB-Schnittstelle und generiert auf den Anfang einer Minute einen entsprechenden Timestamp. Voraussetzung dafür ist, dass die genügend Daten empfangen wurden und keine Fehler aufgetreten sind. Der Timestamp wird anschliessend dem Clock-Modul zur Synchronisation übergeben.
-%TODO: ADD C-FILE NAME
+
 \item {\textbf{Server} - SimpleSocketServer.c}\\
 Der Server bietet eine Web-Schnittstelle via Sockets an, welche den Timestamp, gemäss ISO 8601\footnote{Spezifikation: http://www.iso.org/iso/home/standards/iso8601.htm}, als JSON anbietet. Der Timestamp wird aus der aktuellen Zeit aus dem Clock-Modul erzeugt.
-%TODO: ADD C-FILE NAME
+
 \item {\textbf{Clock} - Clock.c}\\
 Das Clock-Modul bildet eine eigenständige, laufende Uhr. Wird ein DCF77-Signal erfolgreich decodiert, so werden die Informationen (Datum und Zeit) auf den Start einer Minute, sekundengenau übernommen. Ab dann läuft die Uhr wieder autonom weiter.
-Die Länge einer Sekunde wird anhand des System-Tics abgebildet.
 \end{itemize} 
 
 \subsection{Client Side}
@@ -54,7 +53,7 @@ Aus dem Main-Modul heraus wird ein simpler Socket Server in einem separaten Thre
 
 \subsection{Clock}
 Source: \textit{/code/server/Clock.c}\\
-Die Clock wird zu Beginn mit der aktuellen Systemzeit initialisiert. Anschliessend wird mit Hilfe der POSIX-Alarm Funktion jede Sekunde die Zeit erhöht. Dabei werden die Standardmässigen Regeln für die Zeitzählung angewendet.
+Die Clock wird zu Beginn mit der aktuellen Systemzeit initialisiert. Anschliessend wird mit Hilfe der POSIX-Alarm Funktion jede Sekunde eine Funktion getriggert, die die Zeit erhöht. Dabei werden die Standardmässigen Regeln für die Zeitzählung angewendet.
 \begin{itemize}
 \item 1 Minute: 60 Sekunden
 \item 1 Stunde: 60 Sekunden
@@ -74,17 +73,78 @@ Die Clock wird zu Beginn mit der aktuellen Systemzeit initialisiert. Anschliesse
 
 Das Schaltjahr wird wie folgt berechnet. Grundsätzlich gilt: Ist die aktuelle Jahreszahl ohne Rest durch 4 teilbar ist dies ein Schaltjahr. Ist das Jahr wiederum restlos durch 100 teilbar handelt es sich um kein Schaltjahr. Zusätzlich gilt, dass es sich wieder um ein Schaltjahr, wenn das Jahr restlos durch 400 teilbar ist.
 
-Die Uhr bietet eine Funktion an, mit welchem die Zeit "`synchronisiert"' und auf einen bestimmten Wert gesetzt werden kann. Um konkurrierende Zugriffe zu verhindern werden Semaphoren eingesetzt.
+Die Uhr bietet eine Funktion an, mit welchem die Zeit "`synchronisiert"' und auf einen bestimmten Wert gesetzt werden kann.Bei der Synchronisierung wird eine Plausibilisierung der zu synchronisierenden Zeit vorgenommen. Es werden dabei nachfolgende Regeln für die Überprüfung angewendet. Wir haben uns bewusst dafür entschieden die Validierung nur bis auf Stunden-Ebene zu implementieren da je nach Empfangsqualität nur einige wenige Signale vom DCF77 empfangen werden können.
+
+\begin{itemize}
+\item Jahr: 
+	\begin{itemize}
+		\item Jahr entspricht aktuellem Jahr
+		\item Jahr entspricht dem nächsten Jahr
+			\begin{itemize}
+				\item Monat entspricht dem Januar
+				\item Tag entspricht dem 01.
+			\end{itemize}
+		\item Jahr entspricht dem letzten Jahr
+			\begin{itemize}
+				\item Monat entspricht dem Dezember
+				\item Tag entspricht dem 31.
+			\end{itemize}
+	\end{itemize}
+\item Monat:
+	\begin{itemize}
+		\item Monat entspricht aktuellem Monat
+		\item Monat entspricht dem nächsten Monat
+			\begin{itemize}
+				\item Tag entspricht dem 01.
+			\end{itemize}
+		\item Monat entspricht dem letzten Monat
+			\begin{itemize}
+				\item Tag entspricht dem letzten des letzten Monats.
+			\end{itemize}
+	\end{itemize}
+\item Tag:
+\begin{itemize}
+	\item Tag entspricht aktuellem Tag
+	\item Tag entspricht dem nächsten Tag
+		\begin{itemize}
+			\item Stunde entspricht 0.
+		\end{itemize}
+	\item Tag entspricht dem letzten Tag
+		\begin{itemize}
+			\item Stunde entspricht 23.
+		\end{itemize}
+\end{itemize}
+\item Stunde:
+	\begin{itemize}
+		\item Stunde entspricht aktueller Stunde
+		\item Stunde ist grösser gleich die vorletzte Stunde.
+		\item Stunde ist kleiner gleich der übernächsten Stunde.
+	\end{itemize}
+\end{itemize}
+
+Das aktuelle Jahr (Monat, Tag, Stunde) bezeichnet die aktuelle Zeit der Clock (vor der Synchronisation).
+
+Um konkurrierende Zugriffe zu verhindern werden Semaphoren eingesetzt.
 
 Uns ist bewusst, dass die aktuelle Implementation der Uhr je nach Systemlast unterschiedlich stark abweichen kann. Hier mussten wir jedoch aus zeitlichen Gründen einen Kompromiss eingehen. Ursprünglich war angedacht, dass für die Bestimmung einer Sekunde der System-Tic verwendet wird. Dieser generiert 18.2 mal in der Sekunde einen entsprechenden Tic / Interrupt. Die Registrierung einer entsprechenden Interrupt Service Routine oder das explizite Abfragen des Tics erfordert unter allen modernen Betriebssystemen höhere Rechte (Kernel Mode). Dafür müsste entweder ein eigener Geräte-Treiber oder ein Kernel-Modul implementiert werden. Da wir auch nach einigen Anläufen keine funktionierende Lösung realisieren konnten, haben wir uns für die Implementation der vereinfachten Variante entschieden.
 
-\section{Installationsanleitung}
+\section{System-Voraussetzungen}
+Für die Ausführung sind gelten folgende Systemvoraussetzungen:
+
+\begin{itemize}
+\item OS: Windows oder Mac OSX (32- und 64-bit)
+\item Cygwin-Installation
+\end{itemize}
+
+\section{Installationsanleitung - DCF77-Treiber}
 \subsection{OSX}
 Für das Auslesen der Daten wird der D2xx Treiber genutzt. Eine genau Anleitung zur Installation ist in folgendem Dokument in Kapitel "`3.2 Installing D2xx Drivers"' (Seite 9) beschrieben.
 
 Im Git Repo unter:\\
 \textit{/analyse/AN\_134\_FTDI\_Drivers\_Installation\_Guide\_for\_MAC\_OSX.pdf}
 
+\subsection{Windows}
+Um die Applikation unter Windows zu kompilieren muss der Pfad zu den Treiber-Libraries dem Kompilier bekannt gegeben werden.
 
 \section{Betrieb}
 \subsection{Server}
