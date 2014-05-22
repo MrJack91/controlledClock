@@ -13,6 +13,9 @@
   <!-- Bootstrap core CSS -->
   <link href="assets/js/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+  <!-- Digiclock -->
+  <link href="assets/js/lib/digiclock/css/digiclock.css" rel="stylesheet">
+  
   <!-- Custom styles for this template -->
   <link href="assets/css/styles.css" rel="stylesheet">
 
@@ -89,11 +92,18 @@
             <h2 class="panel-title">Digitale Uhrzeit</h2>
           </div>
           <div class="panel-body">
-            http://www.radoslavdimov.com/jquery-plugins/jquery-plugin-digiclock/
-            http://googlecreativelab.github.io/coder-projects/projects/digital_clock/
-            http://www.jqueryscript.net/time-clock/Animated-Digital-Clock-Plugin-with-jQuery-CSS3.html
-            http://www.jqueryscript.net/time-clock/Stylish-jQuery-CSS3-Based-Digital-Clock.html
-            http://www.jqueryrain.com/2011/11/14-best-jquery-clock-tutorials-both-analog-and-digital-clocks/
+			<div class="digiClockContainer">
+			<div class="digiClock">
+				<div id="digiClockDate"></div>
+				  <ul>
+					  <li id="hours"></li>
+					  <li id="point">:</li>
+					  <li id="min"></li>
+					  <li id="point">:</li>
+					  <li id="sec"></li>
+				  </ul>
+				</div>
+			</div>
           </div>
         </div>
       </div>
@@ -183,7 +193,11 @@
 <script type="text/javascript" src="assets/js/lib/coolclock/coolclock.js"></script>
 <script type="text/javascript" src="assets/js/lib/coolclock/moreskins.js"></script>
 <script type="text/javascript" src="assets/js/customCoolClock.js"></script>
+
+<script type="text/javascript" src="assets/js/lib/digiclock/js/digiclock.js"></script>
+
 <script type="text/javascript" src="assets/js/init.js"></script>
+
 <!--
 <script type="text/javascript" src="assets/js/time.js"></script>
 -->
