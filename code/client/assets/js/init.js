@@ -81,4 +81,4 @@ function setTimeManual(e) {
   e.preventDefault();
   return false;
 }
->>>>>>> 2f08da669144055a79fd1f6567903f81c1bedb4d
+
