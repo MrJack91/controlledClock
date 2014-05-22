@@ -31,7 +31,7 @@ var myCoolClock = new CoolClock({
 })
 .always(function() {
 
-});
+});*/
 $.ajax({
             url: "http://localhost:7899/",
             type: "GET",
@@ -43,7 +43,7 @@ $.ajax({
             error: function (xhr, status) {
                 alert("error");
             }
-        });*/
+        });
 
 
 var myTime = new TimeObject(2014,5,16,12,0,0);
