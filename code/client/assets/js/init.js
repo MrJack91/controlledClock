@@ -1,53 +1,84 @@
+var myCoolClock;
 
 $(document).ready(function () {
 
-//Enable Cross-Domain-Support
-$.support.cors = true;
+  //Enable Cross-Domain-Support
+  $.support.cors = true;
 
-//Create CoolClock
+  //Create CoolClock
+  myCoolClock = new CoolClock({
+    canvasId:       'clockid',
+    skinId:         'swissRail',
+    displayRadius:  150,
+    showSecondHand: 'noSeconds',
+    gmtOffset:      2,
+    showDigital:    true,
+    logClock:       false,
+    logClockRev:    false
+  });
 
-var myCoolClock = new CoolClock({
-				canvasId:       'clockid',
-				skinId:         'swissRail',
-				displayRadius:  180,
-				showSecondHand: 'noSeconds',
-				gmtOffset:      2,
-				showDigital:    true,
-				logClock:       false,
-				logClockRev:    false
-			});
+  // expand coolclock
+  myCoolClock.expandClock();
+  myCoolClock.setTime(0);
 
-// Assign handlers immediately after making the request,
-// and remember the jqxhr object for this request
-/*var jqxhr = $.get( "http://localhost:7899/", function(data) {
-	var resp = JSON.parse(data)
-    alert(resp.status);
-})
-.done(function() {
-	alert('done');
-})
-.fail(function(xhr, status, error) {
-	alert('failed');
-})
-.always(function() {
+  $('#btnSetTimeManual').on('click', setTimeManual);
+  $('#btnSyncTime').on('click', syncTimeDcf77);
 
-});*/
-$.ajax({
-            url: "http://localhost:7899/",
-            type: "GET",
-            crossDomain: true,
-            success: function (response) {
-                var resp = JSON.parse(response)
-                alert(resp.status);
-            },
-            error: function (xhr, status) {
-                alert("error");
-            }
-        });
-
-
-var myTime = new TimeObject(2014,5,16,12,0,0);
-myCoolClock.setTime(myTime);
-
-	
+  // init date fields with current values
+  var curDate = new Date();
+  var fullDate = curDate.getDay()+'.' + curDate.getDate() + '.' + curDate.getFullYear();
+  // $('#inputDate').val(fullDate);
+  $('#inputTime').val(curDate.getHours() + ':' + curDate.getMinutes());
 });
+
+
+function syncTimeDcf77(e) {
+  var timeSend = new Date();
+  $.ajax({
+    url: "http://localhost:7899/",
+    type: "GET",
+    crossDomain: true,
+    success: function (response) {
+      var resp = JSON.parse(response);
+      var curDate = new Date(resp.CurrentTime);
+      var syncDate = new Date(resp.LastSyncTime);
+      var receiveTime = new Date();
+      var totalTransferTime = receiveTime.getTime() - timeSend.getTime();
+      var transferTimeSingleWay = totalTransferTime / 2;
+
+      myCoolClock.setTime(curDate.getTime() - transferTimeSingleWay);
+
+      // check the dates
+      var syncDateTime = syncDate.toLocaleString();
+      console.log(syncDateTime);
+      if (syncDate !== true) {
+        syncDateTime = 'Invalid Date (' + resp.LastSyncTime + ')';
+      }
+
+      $('#spLastSyncServer').html(curDate.toLocaleString());
+      $('#spLastSyncDCF77').html(syncDateTime);
+    },
+    error: function (xhr, status) {
+      console.log(xhr);
+      console.log(status);
+      alert("error");
+    }
+  });
+  e.preventDefault();
+  return false;
+}
+
+function setTimeManual(e) {
+  var sDate = $('#inputDate').val();
+  var sTime = $('#inputTime').val();
+
+  console.log('juhu');
+
+  var newDate = new Date(sDate+ ' ' + sTime);
+
+  myCoolClock.setTime(newDate.getTime());
+
+  e.preventDefault();
+  return false;
+}
+>>>>>>> 2f08da669144055a79fd1f6567903f81c1bedb4d
