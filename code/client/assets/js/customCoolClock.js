@@ -3,7 +3,8 @@ CoolClock.prototype.expandClock = function() {
   CoolClock.prototype.currentSeconds = 0;
   CoolClock.prototype.monthNames = [ "Januar", "Februar", "März", "April", "Mai", "Juni", "July", "August", "September", "Oktober", "November", "Dezember" ]; 
   CoolClock.prototype.dayNames= ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"]
-
+  CoolClock.prototype.autoTimerId = -1;
+  
   //Function gets called each second
   CoolClock.prototype.setTime = function(miliseconds) {
     CoolClock.prototype.currentSeconds = miliseconds;

@@ -22,7 +22,8 @@ $(document).ready(function () {
   myCoolClock.setTime(0);
 
   $('#btnSetTimeManual').on('click', setTimeManual);
-  $('#btnSyncTime').on('click', syncTimeDcf77);
+  $('#btnSyncTime').on('click', fireSyncTimeDcf77);
+  $('#cbAutoSync').on('change', setupAutoSync);
 
   // init date fields with current values
   var curDate = new Date();
@@ -32,7 +33,13 @@ $(document).ready(function () {
 });
 
 
-function syncTimeDcf77(e) {
+function fireSyncTimeDcf77(e) {
+  syncTimeDcf77();
+  e.preventDefault();
+  return false;
+}
+
+function syncTimeDcf77(){
   var timeSend = new Date();
   $.ajax({
     url: "http://localhost:7899/",
@@ -62,11 +69,8 @@ function syncTimeDcf77(e) {
     error: function (xhr, status) {
       console.log(xhr);
       console.log(status);
-      alert("error");
     }
   });
-  e.preventDefault();
-  return false;
 }
 
 function setTimeManual(e) {
@@ -81,5 +85,14 @@ function setTimeManual(e) {
 
   e.preventDefault();
   return false;
+}
+
+function setupAutoSync(e){
+
+	if($('#cbAutoSync').is(":checked")){
+		myCoolClock.autoTimerId = setInterval(syncTimeDcf77, 1000);
+	}else{
+		clearInterval(myCoolClock.autoTimerId);
+	}
 }
 
