@@ -1,53 +1,47 @@
 
 $(document).ready(function () {
 
-//Enable Cross-Domain-Support
-$.support.cors = true;
+  //Enable Cross-Domain-Support
+  $.support.cors = true;
 
-//Create CoolClock
+  //Create CoolClock
+  myCoolClock = new CoolClock({
+    canvasId:       'clockid',
+    skinId:         'swissRail',
+    displayRadius:  150,
+    showSecondHand: 'noSeconds',
+    gmtOffset:      2,
+    showDigital:    true,
+    logClock:       false,
+    logClockRev:    false
+  });
 
-var myCoolClock = new CoolClock({
-				canvasId:       'clockid',
-				skinId:         'swissRail',
-				displayRadius:  180,
-				showSecondHand: 'noSeconds',
-				gmtOffset:      2,
-				showDigital:    true,
-				logClock:       false,
-				logClockRev:    false
-			});
+  $('#btnSyncTime').on('click', syncTimeDcf77);
 
-// Assign handlers immediately after making the request,
-// and remember the jqxhr object for this request
-/*var jqxhr = $.get( "http://localhost:7899/", function(data) {
-	var resp = JSON.parse(data)
-    alert(resp.status);
-})
-.done(function() {
-	alert('done');
-})
-.fail(function(xhr, status, error) {
-	alert('failed');
-})
-.always(function() {
+
+  var myTime = new TimeObject(2014,5,16,12,0,0);
+  myCoolClock.setTime(myTime);
+
 
 });
-$.ajax({
-            url: "http://localhost:7899/",
-            type: "GET",
-            crossDomain: true,
-            success: function (response) {
-                var resp = JSON.parse(response)
-                alert(resp.status);
-            },
-            error: function (xhr, status) {
-                alert("error");
-            }
-        });*/
 
 
-var myTime = new TimeObject(2014,5,16,12,0,0);
-myCoolClock.setTime(myTime);
-
-	
-});
+function syncTimeDcf77(e) {
+  $.ajax({
+    url: "http://localhost:7899/",
+    type: "GET",
+    crossDomain: true,
+    success: function (response) {
+      var resp = JSON.parse(response);
+      console.log(resp.CurrentTime);
+      console.log(resp.LastSyncTime);
+    },
+    error: function (xhr, status) {
+      console.log(xhr);
+      console.log(status);
+      alert("error");
+    }
+  });
+  e.preventDefault();
+  return false;
+}

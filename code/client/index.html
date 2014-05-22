@@ -25,7 +25,6 @@
 </head>
 
 <body>
-
 <!-- Fixed navbar -->
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -68,69 +67,70 @@
 <div class="container">
 
   <!-- Main component for a primary marketing message or call to action -->
-  <div class="jumbotron">
-	<div class="row">
-		<div class="col-md-6">
-		  <div id="analogClockContainer">
-			<h1>Analoge Uhrzeit</h1>
-			<!--
-			<canvas id="clockid" class="CoolClock:Skin:Radius:noSeconds:GMTOffset:showDigital:logClock"></canvas>
-			-->
-			<canvas id="clockid" class="CoolClock:swissRail:180:::showDigital"></canvas>
-		</div>
-		</div>
 
-		<div class="col-md-6">
-			<div class="row">
-				<div id="digitalClockContainer">
-				<h1>Digitale Uhrzeit</h1>
-					http://www.radoslavdimov.com/jquery-plugins/jquery-plugin-digiclock/
-					http://googlecreativelab.github.io/coder-projects/projects/digital_clock/
-					http://www.jqueryscript.net/time-clock/Animated-Digital-Clock-Plugin-with-jQuery-CSS3.html
-					http://www.jqueryscript.net/time-clock/Stylish-jQuery-CSS3-Based-Digital-Clock.html
-					http://www.jqueryrain.com/2011/11/14-best-jquery-clock-tutorials-both-analog-and-digital-clocks/
-				</div>
-			</div>
-			<br/><br/>
-			<div class="row">
-				<div id="timeSetterContainer">
-					<h3>Neue Uhrzeit:</h3>
-					
-					<input type="button" value="&Uuml;bernehmen" />
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<br/><br/>
-	<div class="row">
-		<strong><em>Letzte Synchronisierung mit dem Server:</strong> - </em><br/>
-		<strong><em>Letzte Synchronisierung mit DCF77:</strong> - </em>
-	</div>
-    <!--
-    <h1>Navbar example</h1>
-    <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-    <p>To see the difference between static and fixed top navbars, just scroll.</p>
-    <p>
-      <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-        </p>
-        -->
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Analoge Uhrzeit</h2>
+          </div>
+          <div class="panel-body">
+            <div id="divClockAnalog">
+              <canvas id="clockid"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Digitale Uhrzeit</h2>
+          </div>
+          <div class="panel-body">
+            http://www.radoslavdimov.com/jquery-plugins/jquery-plugin-digiclock/
+            http://googlecreativelab.github.io/coder-projects/projects/digital_clock/
+            http://www.jqueryscript.net/time-clock/Animated-Digital-Clock-Plugin-with-jQuery-CSS3.html
+            http://www.jqueryscript.net/time-clock/Stylish-jQuery-CSS3-Based-Digital-Clock.html
+            http://www.jqueryrain.com/2011/11/14-best-jquery-clock-tutorials-both-analog-and-digital-clocks/
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">About</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Information</h3>
+        </div>
+        <div class="panel-body">
+          <strong>Letzte Synchronisierung mit dem Server:</strong> <span id="spLastSyncServer">-</span><br/>
+          <strong>Letzte Synchronisierung mit DCF77:</strong> <span id="spLastSyncDCF77">-</span>
+        </div>
+      </div>
     </div>
-    <div class="panel-body">
-      <p>
-        Im Rahmen unseres Studiums an der ZHAW, haben wir einen DCF77-Empfänger via USB ausgelesen.
-        Diese Daten können via Web-Server abgerufen werden. Diese angzeigte Uhr kann sich via Netzwerk (<a href="http://en.wikipedia.org/wiki/Network_Time_Protocol#SNTP" target="_blank">SNTP</a>) mit diesem Empfänger synchronisieren.
-        Der Empfänger muss momentan lokal am Server angeschlossen sein.
-      </p>
-      <p>
-        Folgend ist unsere vollständige Dokumentation aufrufbar, inkl. der gesamten Analyse.
-      </p>
-      <a class="btn btn-lg btn-primary" href="../../doc/LaTeXTemplate.pdf" role="button" target="_blank">zur Dokumentation &raquo;</a>
+
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Manipulation</h3>
+        </div>
+        <div class="panel-body">
+          <p>
+            <form class="form-inline" role="form">
+              <input type="date" class="form-control" id="inputDate" placeholder="Datum">
+              <input type="time" class="form-control" id="inputTime" placeholder="Zeit">
+              <button type="submit" class="btn btn-default">Zeit setzen</button>
+            </form>
+          </p>
+          <p>
+            <a id="btnSyncTime" class="btn btn-primary" href="" role="button">Zeit synchronisieren</a>
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -141,7 +141,15 @@
           <h3 class="panel-title">About</h3>
         </div>
         <div class="panel-body">
-          <p></p>
+          <p>
+            Im Rahmen unseres Studiums an der ZHAW, haben wir einen DCF77-Empfänger via USB ausgelesen.
+            Diese Daten können via Web-Server abgerufen werden. Diese angzeigte Uhr kann sich via Netzwerk (<a href="http://en.wikipedia.org/wiki/Network_Time_Protocol#SNTP" target="_blank">SNTP</a>) mit diesem Empfänger synchronisieren.
+            Der Empfänger muss momentan lokal am Server angeschlossen sein.
+          </p>
+          <p>
+            Folgend ist unsere vollständige Dokumentation aufrufbar, inkl. der gesamten Analyse.
+          </p>
+          <a class="btn btn-lg btn-primary" href="../../doc/LaTeXTemplate.pdf" role="button" target="_blank">zur Dokumentation &raquo;</a>
         </div>
       </div>
     </div>
@@ -158,8 +166,9 @@
         </div>
       </div>
     </div>
-
   </div>
+
+
 
 
 
@@ -177,8 +186,10 @@
 <script type="text/javascript" src="assets/js/lib/coolclock/coolclock.js"></script>
 <script type="text/javascript" src="assets/js/lib/coolclock/moreskins.js"></script>
 
-<script type="text/javascript" src="assets/js/customCoolClock.js"></script>
-<script type="text/javascript" src="assets/js/time.js"></script>
 <script type="text/javascript" src="assets/js/init.js"></script>
+<!--
+<script type="text/javascript" src="assets/js/time.js"></script>
+<script type="text/javascript" src="assets/js/customCoolClock.js"></script>
+-->
 </body>
 </html>

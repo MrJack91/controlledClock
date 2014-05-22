@@ -1,12 +1,3 @@
-body {
-  padding-top: 70px;
-}
+body { padding-top: 70px; }
 
-#digitalClockContainer{
-	
-}
-
-#timeSetterContainer {
-	
-}
-
+#divClockAnalog { text-align: center; }

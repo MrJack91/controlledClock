@@ -1,6 +1,5 @@
 
 
-
 //Function gets called each second
 CoolClock.prototype.setTime = function(timeObj) {
 		this.currentTime = timeObj;
