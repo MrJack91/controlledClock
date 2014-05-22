@@ -1,0 +1,82 @@
+/* If you want you can use font-face */
+@font-face {
+    font-family: 'BebasNeueRegular';
+    src: url('assets/js/lib/digiclock/BebasNeue-webfont.eot');
+    src: url('assets/js/lib/digiclock/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('assets/js/lib/digiclock/BebasNeue-webfont.woff') format('woff'),
+         url('assets/js/lib/digiclock/BebasNeue-webfont.ttf') format('truetype'),
+         url('assets/js/lib/digiclock/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.digiClockContainer {
+    width: 380px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.digiClock {
+    width: 400;
+    margin: 0 auto;
+    padding: 30px;
+    color: black;
+}
+
+#digiClockDate {
+    font-family: 'BebasNeueRegular', Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+ul {
+    width: 400;
+    margin: 0 auto;
+    padding: 0px;
+    list-style: none;
+    text-align: center;
+}
+
+ul li {
+    display: inline;
+    font-size: 5em;
+    text-align: center;
+    font-family: 'BebasNeueRegular', Arial, Helvetica, sans-serif;
+}
+
+#point {
+    position: relative;
+    -moz-animation: mymove 1s ease infinite;
+    -webkit-animation: mymove 1s ease infinite;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Simple Animation */
+@-webkit-keyframes mymove {
+    0% {opacity: 1.0;
+}
+
+50% {
+    opacity: 0;
+    text-shadow: none;
+}
+
+100% {
+    opacity: 1.0;
+}	
+}
+
+@-moz-keyframes mymove {
+    0% {
+        opacity: 1.0;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1.0;
+    };
+}
