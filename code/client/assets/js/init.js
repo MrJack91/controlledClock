@@ -42,6 +42,7 @@ function syncTimeDcf77(e) {
       var resp = JSON.parse(response);
       var curDate = new Date(resp.CurrentTime);
       var syncDate = new Date(resp.LastSyncTime);
+      // ntp
       var receiveTime = new Date();
       var totalTransferTime = receiveTime.getTime() - timeSend.getTime();
       var transferTimeSingleWay = totalTransferTime / 2;
@@ -72,9 +73,9 @@ function setTimeManual(e) {
   var sDate = $('#inputDate').val();
   var sTime = $('#inputTime').val();
 
-  console.log('juhu');
-
   var newDate = new Date(sDate+ ' ' + sTime);
+
+  console.log(newDate);
 
   myCoolClock.setTime(newDate.getTime());
 
