@@ -1,3 +1,5 @@
 body { padding-top: 70px; }
 
 #divClockAnalog { text-align: center; }
+
+p.noJumbotronP { margin-bottom: 10px; font-size: 14px; font-weight: normal; }
