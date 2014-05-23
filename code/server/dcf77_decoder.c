@@ -223,7 +223,7 @@ char readDate() {
     
     currentTime = subtractSeconds(currentTime, 2);
     
-    printf("%02d:%02d[Min:Sec]\n", currentTime.minute, currentTime.second);
+    // printf("%02d:%02d[Min:Sec]\n", currentTime.minute, currentTime.second);
     
     clock_syncTime(currentTime);
     
