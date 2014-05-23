@@ -60,8 +60,7 @@ function syncTimeDcf77(){
       var syncDateTime = syncDate.toLocaleString();
       console.log(syncDateTime);
       if (syncDate !== true) {
-        syncDateTime = 'Invalid Date (' + resp.LastSyncTime + ')';
-		console.log(syncDateTime);
+        // syncDateTime = 'Invalid Date (' + resp.LastSyncTime + ')';
 		syncDateTime = '-';
       }
 
@@ -92,9 +91,14 @@ function setTimeManual(e) {
 function setupAutoSync(e){
 
 	if($('#cbAutoSync').is(":checked")){
-		myCoolClock.autoTimerId = setInterval(syncTimeDcf77, 1000);
+		if(myCoolClock.autoTimerId == -1){
+			myCoolClock.autoTimerId = setInterval(syncTimeDcf77, 1000);
+		}
 	}else{
-		clearInterval(myCoolClock.autoTimerId);
+		if(myCoolClock.autoTimerId != -1){
+			clearInterval(myCoolClock.autoTimerId);
+			myCoolClock.autoTimerId = -1;
+		}
 	}
 }
 
