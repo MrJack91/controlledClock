@@ -61,6 +61,8 @@ function syncTimeDcf77(){
       console.log(syncDateTime);
       if (syncDate !== true) {
         syncDateTime = 'Invalid Date (' + resp.LastSyncTime + ')';
+		console.log(synDateTime);
+		syncDateTime = '-';
       }
 
       $('#spLastSyncServer').html(curDate.toLocaleString());

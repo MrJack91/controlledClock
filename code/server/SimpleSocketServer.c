@@ -23,7 +23,7 @@
 #endif
 
 #include <unistd.h>
-
+#include <fcntl.h>
 #include <string.h>
 
 /*---------------------------- Includes: User-Libs ---------------------------*/
@@ -63,7 +63,7 @@ void server_start(void (*socketHandle)(char*, char**)) {
   serverSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 
   if (serverSocket < 0) {
-    fprintf(stderr, "Failed to create server socket!");
+     fprintf(stderr, "Failed to create server socket!");
      server_stop();
   }
 
@@ -97,6 +97,7 @@ void server_start(void (*socketHandle)(char*, char**)) {
   acceptSockts = 1;
   //accept client sockets (second part, stop if serversocket is not working -> avoid many outputs on unix)
   while (1 && acceptSockts == 1) {
+      
     clntLen = sizeof (clientAddr);
     int clientSocket = accept(serverSocket, (struct sockaddr *) &clientAddr, &clntLen);
 
@@ -108,6 +109,65 @@ void server_start(void (*socketHandle)(char*, char**)) {
     if (serverDebugInfo > 0) {
       printf("Accepted connection...\n");
     }
+    
+    fcntl(clientSocket, F_SETFL, fcntl(clientSocket, F_GETFL) | O_NONBLOCK);
+    
+    //Reading request
+    char readBuffer[RCVBUFSIZE];
+    int recvMsgSize;
+
+    recvMsgSize = 1;
+    int leCount = 0;
+    int lastWasEnd = 0;
+    int endOfRequest = 0;
+    
+    while(endOfRequest == 0 && recvMsgSize > 0){
+        if (serverDebugInfo > 0) {
+            printf("Size: %d\n",recvMsgSize);
+        }
+        if((recvMsgSize = recv(clientSocket,readBuffer,RCVBUFSIZE,0)) < 0){
+         fprintf(stderr, "Failed to read from client socket!\n");
+        }
+        
+        if (serverDebugInfo > 0) {
+            printf("Request: %s\nProcessing...:\n",readBuffer);
+        }
+        int length = strlen(readBuffer);
+        int counter = 0;
+
+        for(counter = 0;counter < length;counter++){
+            if (serverDebugInfo > 0) {
+                printf("%c",readBuffer[counter]);
+            }
+            if(readBuffer[counter] == '\n'){
+                 leCount++;
+                 if (serverDebugInfo > 0) {
+                    printf("Found one %d %d %d %d\n",lastWasEnd,leCount,counter,length);
+                 }
+                 lastWasEnd = 1;
+
+            }else{
+                lastWasEnd = 0;
+                leCount = 0;
+            }
+            
+            //Blank line to indicate end of request...
+            if(leCount >= 2 && lastWasEnd){
+                if (serverDebugInfo > 0) {
+                    printf("Detected end of request\n");
+                }
+                endOfRequest = 1;
+                break;
+            }
+        }
+        if (serverDebugInfo > 0) {
+            printf("End-Size: %d\n",recvMsgSize);
+        }
+    }
+    if (serverDebugInfo > 0) {
+        printf("Request reading completet...\n");
+    }
+    
     char *handleResponse;
     socketHandle(NULL, &handleResponse);
 
