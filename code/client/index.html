@@ -11,10 +11,13 @@
   <title>Controlled Clock</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="assets/js/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- jQuery UI -->
+  <link href="assets/lib/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.css" rel="stylesheet">
 
   <!-- Digiclock -->
-  <link href="assets/js/lib/digiclock/css/digiclock.css" rel="stylesheet">
+  <link href="assets/lib/digiclock/css/digiclock.css" rel="stylesheet">
   
   <!-- Custom styles for this template -->
   <link href="assets/css/styles.css" rel="stylesheet">
@@ -92,18 +95,32 @@
             <h2 class="panel-title">Digitale Uhrzeit</h2>
           </div>
           <div class="panel-body">
-			<div class="digiClockContainer">
-			<div class="digiClock">
-				<div id="digiClockDate"></div>
-				  <ul>
-					  <li id="hours"></li>
-					  <li id="point">:</li>
-					  <li id="min"></li>
-					  <li id="point">:</li>
-					  <li id="sec"></li>
-				  </ul>
-				</div>
-			</div>
+            <div class="digiClockContainer">
+            <div class="digiClock">
+              <div id="digiClockDate"></div>
+                <ul>
+                  <li id="hours"></li>
+                  <li id="point">:</li>
+                  <li id="min"></li>
+                  <li id="point">:</li>
+                  <li id="sec"></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="panel-title">Synchronisation Info</h2>
+          </div>
+          <div class="panel-body">
+            <b>Synchronisation's Status:</b>
+            <span id="spSyncIdle" class="label label-default labelSync">Keine Aktion</span>
+            <span id="spSyncRun" class="label label-warning labelSync" style="display:none;">Synchronisation...</span>
+            <span id="spSyncSuccess" class="label label-success labelSync" style="display:none;">Erfolgreich</span>
+            <span id="spSyncError" class="label label-danger labelSync" style="display:none;">Fehler</span>
           </div>
         </div>
       </div>
@@ -131,8 +148,12 @@
         <div class="panel-body">
           <p>
             <form class="form-inline" role="form">
-              <input id="inputDate" type="date" class="form-control" placeholder="Datum">
-              <input id="inputTime" type="time" class="form-control" placeholder="Zeit">
+              <div id="fgDate" class="form-group">
+                <input id="inputDate" type="text" class="form-control" placeholder="Datum">
+              </div>
+              <div id="fgTime" class="form-group">
+                <input id="inputTime" type="text" class="form-control" placeholder="Zeit">
+              </div>
               <button id="btnSetTimeManual" class="btn btn-default" type="button">Zeit setzen</button>
             </form>
           </p>
@@ -192,13 +213,15 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="assets/js/lib/jquery/jquery.min.js"></script>
-<script src="assets/js/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/lib/jquery/jquery.min.js"></script>
+<script src="assets/lib/jquery-ui/js/jquery-ui-1.10.4.js"></script>
+<script src="assets/lib/jquery-ui/js/jquery-ui-i18n.min.js"></script>
+<script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Coolclock JS -->
 <!--[if IE]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
-<script type="text/javascript" src="assets/js/lib/coolclock/coolclock.js"></script>
-<script type="text/javascript" src="assets/js/lib/coolclock/moreskins.js"></script>
+<script type="text/javascript" src="assets/lib/coolclock/coolclock.js"></script>
+<script type="text/javascript" src="assets/lib/coolclock/moreskins.js"></script>
 <script type="text/javascript" src="assets/js/customCoolClock.js"></script>
 
 <script type="text/javascript" src="assets/js/init.js"></script>
