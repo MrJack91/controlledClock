@@ -125,7 +125,7 @@ void server_start(void (*socketHandle)(char*, char**)) {
         if (serverDebugInfo > 0) {
             printf("Size: %d\n",recvMsgSize);
         }
-        if((recvMsgSize = recv(clientSocket,readBuffer,RCVBUFSIZE,0)) < 0){
+        if((recvMsgSize = recv(clientSocket,readBuffer,RCVBUFSIZE,0)) < 0 && serverDebugInfo > 0){
          fprintf(stderr, "Failed to read from client socket!\n");
         }
         
