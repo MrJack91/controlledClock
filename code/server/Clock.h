@@ -32,6 +32,8 @@ extern "C" {
     
     void clock_syncTime(TimeStruct aTime);
     
+    TimeStruct subtractSeconds(TimeStruct date, int seconds);
+    
     void clock_ticSecond();
 #ifdef	__cplusplus
 }

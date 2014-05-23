@@ -166,6 +166,41 @@ int getLastDayOfMonth(int year, int aMonth) {
     return maxDay;
 }
 
+/**
+ * Subtract a number of seconds from the date (not more than 59)
+ * @param date date for calculate
+ * @param seconds number of seconds to subtract
+ * @return 
+ */
+TimeStruct subtractSeconds(TimeStruct date, int seconds) {
+  if (seconds <= 59) {
+    date.second -= seconds;
+    if (date.second < 0) {
+      date.second += 60;
+      date.minute -= 1;
+      if (date.minute < 0) {
+        date.minute += 60;
+        date.hour -= 1;
+        if (date.hour < 0) {
+          date.hour += 24;
+          date.day -= 1;
+          if (date.day < 0) {
+            // add the amount of days later (because this depends on the month)
+            date.month -= 1;
+            if (date.month < 0) {
+              date.month += 12;
+              date.year -= 1;
+            }
+            // now the month is clear and we can add the number of days
+            date.day += getLastDayOfMonth(date.year, date.month);
+          }
+        }
+      }
+    }
+  }
+  return date;
+}
+
 int verifyTime(TimeStruct aTime){
     int result = -1;
     

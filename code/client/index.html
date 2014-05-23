@@ -113,14 +113,20 @@
       <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h2 class="panel-title">Synchronisation Info</h2>
+            <h2 class="panel-title">Synchronisation Information</h2>
           </div>
           <div class="panel-body">
-            <b>Synchronisation's Status:</b>
-            <span id="spSyncIdle" class="label label-default labelSync">Keine Aktion</span>
-            <span id="spSyncRun" class="label label-warning labelSync" style="display:none;">Synchronisation...</span>
-            <span id="spSyncSuccess" class="label label-success labelSync" style="display:none;">Erfolgreich</span>
-            <span id="spSyncError" class="label label-danger labelSync" style="display:none;">Fehler</span>
+            <p class="noJumbotronP">
+              <b>Status:</b>
+              <span id="spSyncIdle" class="label label-default labelSync">Keine Aktion</span>
+              <span id="spSyncRun" class="label label-warning labelSync" style="display:none;">Synchronisation...</span>
+              <span id="spSyncSuccess" class="label label-success labelSync" style="display:none;">Erfolgreich</span>
+              <span id="spSyncError" class="label label-danger labelSync" style="display:none;">Fehler</span>
+            </p>
+            <p class="noJumbotronP">
+              Letzte Synchronisierung mit dem Server: <span id="spLastSyncServer">-</span><br/>
+              Letzte Synchronisierung mit DCF77: <span id="spLastSyncDCF77">-</span>
+            </p>
           </div>
         </div>
       </div>
@@ -128,51 +134,50 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Information</h3>
-        </div>
-        <div class="panel-body">
-          <strong>Letzte Synchronisierung mit dem Server:</strong> <span id="spLastSyncServer">-</span><br/>
-          <strong>Letzte Synchronisierung mit DCF77:</strong> <span id="spLastSyncDCF77">-</span>
-        </div>
-      </div>
-    </div>
-
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Manipulation</h3>
         </div>
         <div class="panel-body">
-          <p>
-            <form class="form-inline" role="form">
-              <div id="fgDate" class="form-group">
-                <input id="inputDate" type="text" class="form-control" placeholder="Datum">
-              </div>
-              <div id="fgTime" class="form-group">
-                <input id="inputTime" type="text" class="form-control" placeholder="Zeit">
-              </div>
-              <button id="btnSetTimeManual" class="btn btn-default" type="button">Zeit setzen</button>
-            </form>
-          </p>
-          <p>
-            <button id="btnSyncTime" class="btn btn-primary" type="button">Zeit synchronisieren</button>
-          </p>
-		  <p>
-			<div class="checkbox">
-				<label>
-					<input type="checkbox" id="cbAutoSync"/> Automatisch synchronisieren
-				</label>
-			</div>
-		  </p>
+          <div class="well">
+            <h4>Zeit einstellen</h4>
+            <p>
+              <form class="form-inline" role="form">
+                <div id="fgDate" class="form-group">
+                  <input id="inputDate" type="text" class="form-control" placeholder="Datum">
+                </div>
+                <div id="fgTime" class="form-group">
+                  <input id="inputTime" type="text" class="form-control" placeholder="Zeit">
+                </div>
+                <button id="btnSetTimeManual" class="btn btn-default" type="button">Zeit setzen</button>
+              </form>
+            </p>
+            <p>
+              <button id="btnSyncTime" class="btn btn-primary" type="button">Zeit synchronisieren</button>
+            </p>
+          </div>
+          <div class="well">
+            <h4>Automatische Synchronisation</h4>
+            <p>
+              <form role="form">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" id="cbAutoSync"/> Automatisch synchronisieren
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="" for="txtAutoSyncInterval">Interval (in ms)</label>
+                  <input type="text" class="form-control" id="txtAutoSyncInterval" placeholder="" value="1000">
+                </div>
+              </form>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
+
     <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -190,9 +195,7 @@
           <a class="btn btn-lg btn-primary" href="../../doc/LaTeXTemplate.pdf" role="button" target="_blank">zur Dokumentation &raquo;</a>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Developers</h3>
@@ -204,9 +207,8 @@
         </div>
       </div>
     </div>
+
   </div>
-
-
 </div> <!-- /container -->
 
 

@@ -21,7 +21,7 @@ $(document).ready(function () {
   myCoolClock = new CoolClock({
     canvasId:       'clockid',
     skinId:         'swissRail',
-    displayRadius:  150,
+    displayRadius:  155,
     showSecondHand: 'noSeconds',
     gmtOffset:      2,
     showDigital:    true,
@@ -124,6 +124,10 @@ function setTimeManual(e) {
   var monthForDate = (parseInt(arrDate[1])+11)%12;
   var newDate = new Date(arrDate[2], monthForDate, arrDate[0], arrTime[0], arrTime[1], arrTime[2], 0);
   if (newDate.getFullYear() == arrDate[2]) {
+    // reset last sync data
+    $('#spLastSyncServer').html('-');
+    $('#spLastSyncDCF77').html('-');
+
     // no errors
     $('#fgDate').removeClass('has-error');
     $('#fgTime').removeClass('has-error');
@@ -144,7 +148,12 @@ function setTimeManual(e) {
 
 function setupAutoSync(e){
   if($('#cbAutoSync').is(":checked")){
-    myCoolClock.autoTimerId = setInterval(syncTimeDcf77, 1000);
+    var customInterval = $('#txtAutoSyncInterval').val();
+    customInterval = parseInt(customInterval);
+    if (customInterval == 0) {
+      customInterval = 1000;
+    }
+    myCoolClock.autoTimerId = setInterval(syncTimeDcf77, customInterval);
   }else{
     clearInterval(myCoolClock.autoTimerId);
   }

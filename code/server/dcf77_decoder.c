@@ -220,6 +220,11 @@ char readDate() {
     currentTime.year = 2000+year;
     currentTime.second = 0;
     currentTime.zoneOffset = 2;
+    
+    currentTime = subtractSeconds(currentTime, 2);
+    
+    // printf("%02d:%02d[Min:Sec]\n", currentTime.minute, currentTime.second);
+    
     clock_syncTime(currentTime);
     
   } else {
