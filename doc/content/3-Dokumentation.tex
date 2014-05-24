@@ -2,30 +2,41 @@
 % !TeX spellcheck = de-CH
 
 \chapter{Dokumentation}
-In diesem Kaptiel wird der Aufbau der Implementation mit den verschiedenen Komponenten näher beschrieben.
+In diesem Kapitel wird der Aufbau der Implementation mit den verschiedenen Komponenten näher beschrieben.
 
-%TODO: Finish
 \section{Übersicht der Struktur}
-\subsection{Server Side}
-Das Backend unter \textit{/code/server} ist in folgende Module aufgeteilt:
-%TODO: Ergänzung weiterer Module
+Die Sourcen, Dokumentation, etc. befeinden sich in unserem Github-Repository (Siehe Kapitel \ref{sec:Projektmanagement:Tools})
+\subsection{Server Seite}
+Das Backend befindet sich im Repository unter \textit{/code/server} und ist in folgende Module aufgeteilt:
+
 \begin{itemize}
 \item {\textbf{Main} - dcf77\_main.c} \\
 Das Main-Modul verbindet alle übrigen Module miteinander und stellt die Kommunikation untereinander sicher.
+
 \item {\textbf{DCF77 Reader} - dcf77\_reader.c} \\
 Der Reader liest die Daten von der USB-Schnittstelle zum DCF77 und übergibt diese dem Decoder.
+
 \item {\textbf{DCF77 Decoder} - dcf77\_decoder.c}\\
 Der Decoder decodiert laufend die erhaltenen Daten von der USB-Schnittstelle und generiert auf den Anfang einer Minute einen entsprechenden Timestamp. Voraussetzung dafür ist, dass die genügend Daten empfangen wurden und keine Fehler aufgetreten sind. Der Timestamp wird anschliessend dem Clock-Modul zur Synchronisation übergeben.
+
+\item {\textbf{Clock} - Clock.c}\\
+Das Clock-Modul bildet eine eigenständige, laufende Uhr. Wird ein DCF77-Signal erfolgreich decodiert, so werden die Informationen (Datum und Zeit) auf den Start einer Minute, sekundengenau übernommen. Ab dann läuft die Uhr wieder autonom weiter.
 
 \item {\textbf{Server} - SimpleSocketServer.c}\\
 Der Server bietet eine Web-Schnittstelle via Sockets an, welche den Timestamp, gemäss ISO 8601\footnote{Spezifikation: http://www.iso.org/iso/home/standards/iso8601.htm}, als JSON anbietet. Der Timestamp wird aus der aktuellen Zeit aus dem Clock-Modul erzeugt.
 
-\item {\textbf{Clock} - Clock.c}\\
-Das Clock-Modul bildet eine eigenständige, laufende Uhr. Wird ein DCF77-Signal erfolgreich decodiert, so werden die Informationen (Datum und Zeit) auf den Start einer Minute, sekundengenau übernommen. Ab dann läuft die Uhr wieder autonom weiter.
 \end{itemize} 
 
-\subsection{Client Side}
-Das Frontend ist eine simple Web-Oberfläche, welche die entsprechenden GUI-Elemente darstellt und via HTTP-Requests in bestimmten Zeitintervallen die aktuelle Zeit vom Server abruft.
+\subsection{Client Seite}
+Das Frontend befindet sich im Repository unter \textit{/code/client}. Das Frontend ist eine simple Web-Oberfläche, welche die entsprechenden GUI-Elemente darstellt und via HTTP-Request in bestimmten Zeitintervallen die aktuelle Zeit vom Server abruft. \\
+
+%TODO: Plugins auflisten und kurz beschreiben, Quellen angeben
+Für die Darstellung haben wir folgende Plugins verwendet:
+\begin{itemize}
+\item JQuery
+\end{itemize}
+
+%TODO: Screenshot`/ Screendesign?
 
 \section{Modul-Dokumentation}
 Die Funktionsweise, der einzelnen Module, wurde innerhalb des Codes dokumentiert und beschrieben. Nachfolgend werden die wichtigsten Aspekte der Umsetzung kurz erläutert.
@@ -36,11 +47,12 @@ Via Schnittstelle zum "`Expert mouse CLOCK USB II"' wird der Status der Wartesch
 Sobald ein Wert vorhanden ist, wird dieser ausgelesen und direkt dem Decoder übergeben.
 
 Da das Programm seriell abläuft, ist es wichtig, dass wir pro Verarbeitung nicht länger als eine Sekunde benötigen, denn dann muss das nächste Signal verarbeitet werden können.
-Dadurch das die ganze Software in C vollzogen wird, und keine sehr aufwändigen Berechnungen erfolgen müssen, stellt dies kein Problem dar.
+Dadurch das die ganze Software in C implementiert wurde, und keine sehr aufwändigen Berechnungen durchgeführt werden müssen, stellt dies kein Problem dar.
 
-\subsubsection{standalone}
-Source: \textit{/code/server/dcf77\_reader\_standalone.c}\\
-Diese Version des Readers liest alle empfangene Werte in einen Buffer und gibt sie am Ende zurück. So können veraltete, aber echte Daten für das Debugging verwendet werden.
+%Können wir glaube ich rausnehmen
+%\subsubsection{standalone}
+%Source: \textit{/code/server/dcf77\_reader\_standalone.c}\\
+%Diese Version des Readers liest alle empfangene Werte in einen Buffer und gibt sie am Ende zurück. So können veraltete, aber echte Daten für das Debugging verwendet werden.
 
 \subsection{DCF Decoder}
 Source: \textit{/code/server/dcf77\_decoder.c}\\
@@ -134,6 +146,7 @@ Für die Ausführung sind gelten folgende Systemvoraussetzungen:
 \begin{itemize}
 \item OS: Windows oder Mac OSX (32- und 64-bit)
 \item Cygwin-Installation
+\item Aktueller Browser (Chrome, Mozilla Firefox, Internet Explorer), JavaScript muss aktiviert sein
 \end{itemize}
 
 \section{Installationsanleitung - DCF77-Treiber}
@@ -144,13 +157,17 @@ Im Git Repo unter:\\
 \textit{/analyse/AN\_134\_FTDI\_Drivers\_Installation\_Guide\_for\_MAC\_OSX.pdf}
 
 \subsection{Windows}
-Um die Applikation unter Windows zu kompilieren muss der Pfad zu den Treiber-Libraries dem Kompilier bekannt gegeben werden.
+Um die Applikation unter Windows zu kompilieren muss der Pfad zu den Treiber-Libraries dem Kompilier bekannt gegeben werden. Ansonsten sind keine weiteren Schrite notwendig
 
 \section{Betrieb}
 \subsection{Server}
-Im Verzeichnis \textit{code/server} können via \textit{make} die ausführbaren Dateien generiert werden.
+Im Verzeichnis \textit{code/server} können via \textit{make} (Windows: \textit{make fullWin}, OSX: \textit{make fullOSX}) die ausführbaren Dateien generiert werden.
+
+Anschliessend kann die ausführbare Datei "`controlledClock"' gestartet werden.
 
 \subsection{Client}
-Der Client ist komplett in HTML/JS geschrieben und kann deshalb ohne Installation ausgeführt werden.
+Der Client ist komplett in HTML/JS geschrieben und kann deshalb ohne Installation ausgeführt werden. 
+
+Um die Client zu starten muss die Datei "`index.html"' im Client-Verzeichnis geöffnet werden.
 
 %\subsection{Raspberry-PI}

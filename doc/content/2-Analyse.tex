@@ -17,10 +17,10 @@ Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir kein
 \subsubsection{Kurzer Rückblick in die Geschichte} \label{subsubsec:Analyse:BlickGeschichte}
 Seit langem ist die Menschheit an der Messung der Zeit, bzw. der Uhrzeit, intressiert.
 Seit dem Jahr 300 v. Chr., als die Sonnenuhr in Ägypten erfunden wurde, ergab es sich, dass an zentralen Plätzen solche Sonnenuhren aufgebaut wurden. Wollte man die Uhrzeit wissen, musste man den Weg zur Uhr in Kauf nehmen.
-Da die Uhrzeit mit Hilfe des Sonnenstandes ermittelt wurde, gab es Abweichungen zwischen der gemessenen Zeit an verschiedenen Orten. Aufgrund dessen war es damals nicht möglich eine einheitliche Zeit für ein ganzes Reich oder Land zu bestimmen. Die Uhrzeit war jeweils nur lokal pro Stadt oder Gebiet relativ einheitlich.
+Da die Uhrzeit mit Hilfe des Sonnenstandes ermittelt wurde, gab es Abweichungen zwischen der gemessenen Zeit an verschiedenen Orten. Aufgrund dessen war es damals nicht möglich eine einheitliche Zeit für ein ganzes Reich oder Land zu bestimmen. Die Uhrzeit war jeweils nur lokal pro Stadt oder Gebiet mehr oder weniger einheitlich.
 
 Im Jahr 1248 wurde die erste mechanische Uhr in Exeter (England) in Betrieb genommen. Sie hatte eine Genauigkeit von einer Stunde und musste täglich mit Hilfe der Sonne kalibriert werden.
-Da grosses Interesse an der Uhrzeit bestand, verbreiteten sie sich relativ rasch.
+Da grosses Interesse an der Uhrzeit bestand, wurde in weiteren Städten und Ländern relativ rasch weitere Uhren in Betrieb genommen.
 Man konnte sich die Uhrzeit abonnieren, das hiess, einmal am Tag kam jemand vorbei und teilte einem die aktuelle Uhrzeit mit, welche von einer mobilen Uhr abgelesen wurde.
 
 1656 wurde die erste Pendeluhr entwickelt. 1680 war sie so ausgereift, dass sie einen Minutenzeiger erhielt. Das Problem dieser Technologie war, dass eine Pendeluhr nur an ruhigen Standorten funktionierte.
@@ -28,7 +28,7 @@ Dies stellte besonders für die Schiffsfahrt eine Problem dar, denn auf See wurd
 Ein Fehler von 4 Sekunden entspricht bereits einer Ungenauigkeit  von rund 1.8 km.
 Dies führte dazu, dass die britische Regierung, für eine Genauigkeit von vier Minuten, ein Preisgeld offerierte. Dies entsprach einer Ortungsgenauigkeit von ungefähr 100 km.
 John Harrison gelang es 1778 einen Chronometer (H4)\footnote{Die Bezeichnung Chronometer (altgriechisch für "`Zeit"' und "`Mass, Massstab"') steht für besonders präzise Uhren, welche früher zur Zeitbestimmung und zur Navigation auf Schiffen und Flugzeugen benötigt wurden.} zu entwickeln, der diese Ansprüchen erfüllte.
-%TODO: Müssen wir evtl. noch kurz erklären / erwähnen was ein Chronometer ist? - SOLVED
+
 %QUELLE: http://de.wikipedia.org/wiki/Chronometer
 
 Bis ins Jahr 1835 wurde die Zeitübermittlung durch akustische oder optische Signale ermöglicht.
@@ -89,7 +89,7 @@ Bei der Bestimmung des Zeitmittelwertes werden die Instabilitäten der einzelnen
 Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine Zeitsynchronisation vorzunehmen. Zum Einen über Funk, zum Anderen via Internet.
 
 \subsection{Funk}
-Elektromagnetische Wellen sind seit jeher allgegenwärtig. Es gilt hier natürliche und von Menschen erzeugte elektromagnetische Wellen zu unterscheiden. Natürliche elektromagnetische Wellen werden z.B. durch die Sonne, Gewitter oder Stürme erzeugt. Im Laufe der Geschichte haben die Menschen diese Wellen entdeckt und damit begonnen diese für ihre Zwecke einzusetzen. (Siehe Kapitel \ref{subsec:Analyse:Hintergruende}) - \nameref{subsec:Analyse:Hintergruende}).
+Elektromagnetische Wellen sind seit jeher allgegenwärtig. Es gilt hier natürliche und von Menschen erzeugte elektromagnetische Wellen zu unterscheiden. Natürliche elektromagnetische Wellen werden z.B. durch die Sonne, Gewitter oder Stürme erzeugt. Im Laufe der Geschichte haben die Menschen diese Wellen entdeckt und damit begonnen diese für ihre Zwecke einzusetzen. (Siehe Kapitel \ref{subsec:Analyse:Hintergruende} - \nameref{subsec:Analyse:Hintergruende}).
 
 Die Zeitinformationen werden von Zeitsignaldiensten ausgesendet und können in der Regel kostenfrei genutzt werden. Um diese Signale auszusenden werden sogenannte Zeitzeichensender eingesetzt. 
 
@@ -176,20 +176,19 @@ Das Signal kann einerseits unterwegs oder am Empfangsort durch Gewitter, Stürme
 \subsubsection{Genauigkeit}
 Das Signal erreicht beim Empfänger, bei optimierter Hardware und optimiertem Decodierungsalgorithmus, eine Genauigkeit von 100 ${\mu}sec$. Bei handelsüblichen Geräten wird jedoch in der Regel nur eine Genauigkeit von 0.1 Sekunden erreicht. Für den Hausgebrauch ist dies vollkommen ausreichend.
 In der Industrie ist diese Genauigkeit häufig nicht tragbar.
-Durch eine Erhöhung der Bandbreite des Empfängers kann die Abweichung reduziert werden. Dabei wird jedoch auch der Anteil an empfangenen Störsignale grösser. Diese müssen von der Elektronik verarbeitet und ausgefiltert werden.
+Durch eine Erhöhung der Bandbreite des Empfängers kann die Abweichung reduziert werden. Dabei wird jedoch auch der Anteil an empfangenen Störsignalen grösser. Diese müssen von der Elektronik verarbeitet und herausgefiltert werden.
 
 Für die Bestimmung der Zeit, erreichen die Atomuhren einen relativen Fehler von weniger als $2*10^{-12}$ Sekunden.
 Als Referenz dienen dabei die Primären Atomuhren der PTB.
-Diese bestimmen die aktuelle Uhrzeit mit einem Fehler zwischen $0.7$ bis $1.2 * 10^{-14}$ Sekunden.
+Diese bestimmen die aktuelle Uhrzeit mit einem Fehler der zwischen $0.7$ bis $1.2 * 10^{-14}$ Sekunden liegt.
 \footnote{Ein Fehler von $10^{-14}$ entspricht ca. einer Milliardstel Sekunde pro Tag ($10^{-14} $) oder einer Sekunde in 2.7 Mio. Jahren.}
-%TODO: Review Abweichung, Berechnung ok? - zwar nur halb verstanden aber: SOLVED ;)
 
 \subsubsection{Das Signal}
 Seit 1973 wird neben der Normalfrequenz (77.5 kHz) ein digitales Signal gesendet. Das digitale Signal wird durch negative Modulation (Absenkung Trägeramplitude auf 25 \%) auf die Trägerfrequenz aufgebracht und enthält die Informationen zu Datum und Uhrzeit (Mitteleuropäische Zeit, Mitteleuropäische Sommerzeit). Das Signal codiert innerhalb von einer Minute die Zeit- und Datumsinformationen für die darauffolgende Minute.
 
 Der Beginn einer Sekunde (~eines Bits) wird durch die Absenkung der Trägeramplitude markiert. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung statt findet. Je nach Dauer der Amplitudenabsenkung kennzeichnet dies entweder den binären Wert 0 (Absenkung für 100 ms) oder für den Wert 1 (Absenkung für 200 ms).
 
-Das Signal wird anschliessend über einen 50-kW-Halbleitersender ausgesendet. Seit im Jahr 1998 der Halbleitersender in Betrieb genommen wurde dient der vorher verwendete 50-kW-Röhrensender als Ersatz.
+Das Signal wird anschliessend über einen 50-kW-Halbleitersender ausgesendet. Als Reserve dient der 50-kW-Röhrensender, der 1998 durch den 50-kW-Halbleitersender abgelöst wurde.
 
 \begin{figure}
 \ffigbox[][7.8cm]{
@@ -203,6 +202,8 @@ Das Signal wird anschliessend über einen 50-kW-Halbleitersender ausgesendet. Se
 \end{subfloatrow}
 }{\caption{Beispielhaftes DCF77 Signal}}
 \end{figure}
+
+\newpage
 
 \subsubsection{Codierung}
 Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
@@ -286,7 +287,7 @@ Die Zeitangabe "`12.03.2014 18:15:30"' (MEZ) wird wie folgt als DCF77-Signal cod
 Bitnr.	 &	0	&	1	& 	2	&	3	&	4	&	5	&	6	&	7	&	8	&	9	&	10	&	11	&	12	&	13	&	14	&	15	&	16	&	17	&	18	&	19	\\
 Wert	&	0	&	0	& 	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	0	&	1	&	0	\\
 \\\hline \\
-	&  	&\multicolumn{7}{| c |}{\textit{Minute: 30}}	&	\multicolumn{6}{c |}{\textit{Stunde: 18}}	&	\multicolumn{4}{c }{\textit{Kalendertag: 12}}	\\
+	&  	&\multicolumn{8}{| c |}{\textit{Minute: 30}}	&	\multicolumn{7}{c |}{\textit{Stunde: 18}}	&	\multicolumn{4}{c }{\textit{Kalendertag: 12}}	\\
 Bitnr.	&	20	&	21	&	22	&	23	&	24	&	25	&	26	&	27	&	28	&	29	&	30	&	31	&	32	&	33	&	34	&	35	&	36	&	37	&	38	&	39	\\
 Wert	&	1	&	0	&	0	&	0	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	0	&	1	&	1	&	0	&	0	&	0	&	1	&	0	&	0	\\
 \\\hline \\
@@ -300,7 +301,7 @@ Wert	&	1	&	0	&	1	&	1	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	1	&	1	&	1	&	0	&	0	&	0	&	0	&	0
 \end{landscape}
 
 \subsubsection{BCD-Codierung}
-Kurz zur verwendeten BCD-Codierung (Binary Coded Decimal):\\
+Nachfolgend wird kurz die verwendete BCD-Codierung (Binary Coded Decimal) beschrieben:\\
 Jede Ziffer einer Zahl wird einzeln mit 4 Bit (8, 4, 2, 1) codiert. Von den $2^4 = 16$ Kombinationsmöglichkeiten werden nur 10 verwendet, darum spricht man oft von einer Speicherverschwendung.
 
 \subsubsection{Zusatznutzung}

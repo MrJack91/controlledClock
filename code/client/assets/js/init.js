@@ -19,14 +19,14 @@ $(document).ready(function () {
 
   //Create CoolClock
   myCoolClock = new CoolClock({
-    canvasId:       'clockid',
-    skinId:         'swissRail',
-    displayRadius:  155,
+    canvasId: 'clockid',
+    skinId: 'swissRail',
+    displayRadius: 155,
     showSecondHand: 'noSeconds',
-    gmtOffset:      2,
-    showDigital:    true,
-    logClock:       false,
-    logClockRev:    false
+    gmtOffset: 2,
+    showDigital: true,
+    logClock: false,
+    logClockRev: false
   });
 
   myCoolClock.tickDelay = 100;
@@ -43,8 +43,8 @@ $(document).ready(function () {
   var curDate = new Date();
   var fullDate = pad(curDate.getDate(),2) + '' + '.' + curDate.getFullYear();
   /*
-   $('#inputDate').attr('placeholder', fullDate);
-   */
+$('#inputDate').attr('placeholder', fullDate);
+*/
   var fullTime = pad(curDate.getHours(), 2) + ':' + pad(curDate.getMinutes(), 2) + ':00';
   $('#inputTime').val(fullTime);
   $('#inputTime').attr('placeholder', fullTime);
@@ -72,10 +72,10 @@ function syncTimeDcf77(){
       }
       var syncDate = new Date(resp.LastSyncTime);
       /*
-      if (isNaN(syncDate.getDate())) {
-        syncDate = new Date(0);
-      }
-      */
+if (isNaN(syncDate.getDate())) {
+syncDate = new Date(0);
+}
+*/
       // ntp
       var receiveTime = new Date();
       var totalTransferTime = receiveTime.getTime() - timeSend.getTime();
