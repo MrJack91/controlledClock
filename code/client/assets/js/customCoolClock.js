@@ -13,7 +13,7 @@ CoolClock.prototype.expandClock = function() {
   CoolClock.prototype.refreshDisplay = function() {
     var oTime = null;
     if (CoolClock.prototype.currentSeconds > 0) {
-      CoolClock.prototype.currentSeconds += 1000;
+      CoolClock.prototype.currentSeconds += 100;
       oTime = new Date(CoolClock.prototype.currentSeconds);
     } else {
       oTime = new Date();
