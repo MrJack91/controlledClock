@@ -44,31 +44,32 @@
   <internal package="biblatex" priority="9" active="1">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>LaTeXTemplate.bcf</file>
+      <file>LaTeXTemplate.aux</file>
+      <file>LaTeXTemplate-blx.bib</file>
     </provides>
     <requires type="dynamic">
       <file>LaTeXTemplate.bbl</file>
     </requires>
     <requires type="static">
-      <file>blx-dm.def</file>
       <file>blx-compat.def</file>
       <file>biblatex.def</file>
       <file>blx-natbib.def</file>
-      <file>alphabetic.bbx</file>
+      <file>numeric.bbx</file>
       <file>standard.bbx</file>
-      <file>alphabetic.cbx</file>
+      <file>verbose.cbx</file>
       <file>biblatex.cfg</file>
       <file>german.lbx</file>
     </requires>
   </internal>
-  <external package="biblatex" priority="5" active="1">
-    <generic>biber</generic>
+  <external package="biblatex" priority="5" active="0">
+    <generic>bibtex</generic>
     <cmdline>
-      <binary>biber</binary>
+      <binary>bibtex</binary>
+      <option>-min-crossrefs 2</option>
       <infile>LaTeXTemplate</infile>
     </cmdline>
     <input>
-      <file>LaTeXTemplate.bcf</file>
+      <file>LaTeXTemplate.aux</file>
     </input>
     <output>
       <file>LaTeXTemplate.bbl</file>
@@ -77,10 +78,14 @@
       <file>LaTeXTemplate.bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>LaTeXTemplate.bcf</file>
+      <file>LaTeXTemplate.aux</file>
+      <file>LaTeXTemplate-blx.bib</file>
     </requires>
     <requires type="editable">
       <file>bib/BibtexDatabase.bib</file>
+    </requires>
+    <requires type="static">
+      <file>biblatex.bst</file>
     </requires>
   </external>
 </requests>

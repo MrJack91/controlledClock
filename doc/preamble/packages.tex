@@ -488,14 +488,15 @@
 % Doc:  biblatex.pdf
 % Incompatible: ucs and every previous bibtex package
 \usepackage[
-  style=alphabetic, % Loads the bibliography and the citation style 
-%	style=alphabetic-verb,
+	citestyle=verbose,
+	bibstyle=numeric,
+	sorting=none,
 %	style=numeric, % 
-  % bibstyle=alphabetic, % load a bibliography style
-  % citestyle=alphabetic, % load a citatio style
+%  	bibstyle=numeric, % load a bibliography style
+%   	citestyle=numeric, % load a citatio style
   natbib=true, % define natbib compatible cite commands
 %%--- Backend --- --- ---
-  backend=biber,   % (bibtex, biber)
+  backend=bibtex	,   % (bibtex, biber)
   bibwarn=true,     %
   texencoding=auto, % auto-detect the input encoding
   bibencoding=auto, % (auto (equal to tex), <encoding>)
