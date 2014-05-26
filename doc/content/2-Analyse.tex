@@ -3,10 +3,10 @@
 
 \chapter{Analyse}
 \section{Allgemein}
-Wieso braucht es Zeitsynchronisation? Was für Probleme und Schwierigkeiten können dabei auftreten? Diese Fragen aus der Aufgabenstellung werden in den nachfolgenden Kapiteln detailliert beantwortet.
+Wieso braucht es eine Zeitsynchronisation? Was für Probleme und Schwierigkeiten können dabei auftreten? Diese Fragen aus der Aufgabenstellung werden in den nachfolgenden Kapiteln detailliert beantwortet.
 
 \subsection{Hintergründe} \label{subsec:Analyse:Hintergruende}
-In der heutigen Zeit sind wir es uns gewohnt, dass wir uns darauf verlassen können, dass unsere Uhren die gleiche, oder zumindest beinahe die gleiche, Zeit anzeigen. 
+In der heutigen Zeit sind wir es uns gewohnt, dass wir uns darauf verlassen können, dass unsere Uhren die gleiche, oder zumindest beinahe die gleiche Zeit anzeigen. 
 Wie war das früher? Heute würde vieles nicht mehr funktionieren, wenn wir keine Uhren hätten, bzw. die Uhren nicht synchronisiert werden, oder etwa doch?
 
 \subsubsection{Kurzer Rückblick in die Geschichte} \label{subsubsec:Analyse:BlickGeschichte}
@@ -15,7 +15,7 @@ Seit dem Jahr 300 v. Chr., als die Sonnenuhr in Ägypten erfunden wurde, ergab e
 Da die Uhrzeit mit Hilfe des Sonnenstandes ermittelt wurde, gab es Abweichungen zwischen der gemessenen Zeit an verschiedenen Orten. Aufgrund dessen war es damals nicht möglich eine einheitliche Zeit für ein ganzes Reich oder Land zu bestimmen. Die Uhrzeit war jeweils nur lokal pro Stadt oder Gebiet mehr oder weniger einheitlich.
 
 Im Jahr 1248 wurde die erste mechanische Uhr in Exeter (England) in Betrieb genommen. Sie hatte eine Genauigkeit von einer Stunde und musste täglich mit Hilfe der Sonne kalibriert werden.
-Da grosses Interesse an der Uhrzeit bestand, wurde in weiteren Städten und Ländern relativ rasch weitere Uhren in Betrieb genommen.
+Da ein grosses Interesse an der Uhrzeit bestand, wurden in weiteren Städten und Ländern relativ rasch weitere Uhren in Betrieb genommen.
 Man konnte sich die Uhrzeit abonnieren, das hiess, einmal am Tag kam jemand vorbei und teilte einem die aktuelle Uhrzeit mit, welche von einer mobilen Uhr abgelesen wurde.
 
 1656 wurde die erste Pendeluhr entwickelt. 1680 war sie so ausgereift, dass sie einen Minutenzeiger erhielt. Das Problem dieser Technologie war, dass eine Pendeluhr nur an ruhigen Standorten funktionierte.
@@ -28,20 +28,20 @@ Bis ins Jahr 1835 wurde die Zeitübermittlung durch akustische oder optische Sig
 Mit dem Aufkommen der Eisenbahn und der somit verbundenen Anforderung, über grössere Strecke die gleiche Zeit zu halten, etablierte sich der Abgleich via elektronische Leitung.
 
 Die ersten Gehversuche der drahtlosen Zeitübermittlung wurden im Jahr 1903 in Washington am United States Naval Observatory gemacht.
-Für die Seefahrt startete 1904 die erste regelmässige Zeitübermittlung via Funk. Sechs Jahre später wurde das erste Signal fürs Land, via Eiffelturm, versendet. Im Jahr 1917 hat der erste Vorläufer der heutigen Zeitzeichensender den Betrieb aufgenommen. Die Grosssendestelle Nauen (Bundesland Brandenburg DE) sendete zweimal im Tag via Langwelle ein Zeizeichen. Daraufhin entstand im Laufe der Jahre ein weltweites Netz von Zeitzeichensendern. \footcite{wikiFunkHistory}
+Für die Seefahrt startete 1904 die erste regelmässige Zeitübermittlung via Funk. Sechs Jahre später wurde das erste Signal für auf dem Land, via Eiffelturm, versendet. Im Jahr 1917 hat der erste Vorläufer der heutigen Zeitzeichensender den Betrieb aufgenommen. Die Grosssendestelle Nauen (Bundesland Brandenburg DE) sendete zweimal im Tag via Langwelle ein Zeitzeichen. Daraufhin entstand im Laufe der Jahre ein weltweites Netz von Zeitzeichensendern. \footcite{wikiFunkHistory}
 
-Erst im Jahr 1970 wurde der heutige Zeitübermittlungs-Dienst DCF77, in Mainflingen bei Frankfurt in Betrieb genommen.
+Erst im Jahr 1970 wurde der heutige Zeitübermittlungs-Dienst DCF77, in Mainflingen bei Frankfurt, in Betrieb genommen.
 Kurz darauf, im Jahr 1978, wurden der Betrieb des ersten GPS-Satelliten, mit einer eigenen Atomuhr an Board gestartet. \footcite{astrosiggiFunk}  \footcite{wikiTimeSignal}
 
 \subsection{Atomuhr}
-Unter Atomuhr versteht wird folgendes bezeichnet:
+Mit einer Atomuhr wird Folgendes bezeichnet:
 \begin{quote}
 Eine Atomuhr ist ein Zeitmesser, dessen Zeitnormal die hochfrequente Schwingungsdauer bestimmter Atome ist (z.B. Caesium, Rubidium), die durch ein elektromagnetisches Feld oder optisches Pumpen zu Schwingungen angeregt werden und einen Quarzgenerator synchronisieren.
 \end{quote}
 Die Atomuhr wurde vom Amerkikaner Isidor Isaac Rabi (1898-1988) erfunden. Er wurde 1944 mit dem Nobelpreis belohnt. \footcite{meinbergAtomClock}
 
 \subsection{Funkuhr}
-Im Gegensatz zur Atomuhr, kann eine Funkuhr nicht selbst die korrekte Zeit berechnen. Sie hat einen Funkempfänger eingebaut, der von einen "`echten"' Atomuhr das Funksignal empfängt und daraus die genaue Uhrzeit annäheren kann. Der erstmalige Zeitabgleich dauert, je nach Synchronisationstyp, wenige Minuten. Sobald der Decode Prozess abgeschlossen ist, läuft die Uhr synchronisiert.
+Im Gegensatz zur Atomuhr, kann eine Funkuhr nicht selbst die korrekte Zeit berechnen. Sie hat einen Funkempfänger eingebaut, der von einer "`echten"' Atomuhr das Funksignal empfängt und daraus die genaue Uhrzeit annäheren kann. Der erstmalige Zeitabgleich dauert, je nach Synchronisationstyp, wenige Minuten. Sobald der Decode Prozess abgeschlossen ist, läuft die Uhr synchronisiert.
 
 Die Genauigkeit einer Funkuhr liegt im Schnitt zwischen 5 und 25 msec. \footcite{wikiFunkuhr} \footcite{heretFunkuhr}
 
@@ -52,10 +52,10 @@ Neben UTC gibt es auch noch \textit{Universal Time (UT1)}, welche im Gegensatz z
 
 Die UTC wird von der \textit{Temps Atomique International - Interkantonale Atomzeit (TAI)} abgeleitet und vom \textit{Bureau International des Poids et Mesures - Internationales Büro für Mass und Gewicht (BIPM)} ermittelt.
 Als Grundlage dienen Referenzzeiten von ungefähr 250 Atomuhren, die über den ganzen Globus verteilt sind.
-Bei der Bestimmung des Zeitmittelwertes werden die Instabilitäten der einzelnen Uhren mittels einer Gewichtung berücksichtigt. Dieses Mittel wird als \textit{Echelle Atomique Libre - Freie Atomzeiskala (EAL)} bezeichnet. Die EAL stimmt nicht mit der Definition der SI-Sekunde überein. Daher muss dies durch eine Anpassung der Frequenz korrigiert werden. Die so resultierende Zeit wird als Internationale Atomzeit bezeichnet.
+Bei der Bestimmung des Zeitmittelwertes werden die Instabilitäten der einzelnen Uhren mittels einer Gewichtung berücksichtigt. Dieses Mittel wird als \textit{Echelle Atomique Libre - Freie Atomzeitskala (EAL)} bezeichnet. Die EAL stimmt nicht mit der Definition der SI-Sekunde überein. Daher muss dies durch eine Anpassung der Frequenz korrigiert werden. Die so resultierende Zeit wird als Internationale Atomzeit bezeichnet.
 
 \section{Möglichkeiten der Zeitsynchronisation}
-Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine Zeitsynchronisation vorzunehmen. Zum Einen über Funk, zum Anderen via Internet.
+Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine Zeitsynchronisation vorzunehmen. Zum einen über Funk, zum anderen via Internet.
 
 \subsection{Funk}
 Elektromagnetische Wellen sind seit jeher allgegenwärtig. Es gilt hier natürliche und von Menschen erzeugte elektromagnetische Wellen zu unterscheiden. Natürliche elektromagnetische Wellen werden z.B. durch die Sonne, Gewitter oder Stürme erzeugt. Im Laufe der Geschichte haben die Menschen diese Wellen entdeckt und damit begonnen diese für ihre Zwecke einzusetzen. (Siehe Kapitel \ref{subsec:Analyse:Hintergruende} - \nameref{subsec:Analyse:Hintergruende}).
@@ -68,7 +68,7 @@ Die Bestimmung der Weltzeit wird durch das Internationale Büro für Mass und Ge
 
 \subsection{Zeitzeichensender - Allgemein}
 
-Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen muss dass Signal über eine gewisse Zeit empfangen werden. Vielfach liegt dem Signal mit den Zeitinformationen eine Normalfrequenz (Siehe Kapitel \ref{subsubsec:Analyse:Frequenznormale} - \nameref{subsubsec:Analyse:Frequenznormale}) zu Grunde.
+Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen, muss das Signal über eine gewisse Zeit empfangen werden. Vielfach liegt dem Signal mit den Zeitinformationen eine Normalfrequenz (Siehe Kapitel \ref{subsubsec:Analyse:Frequenznormale} - \nameref{subsubsec:Analyse:Frequenznormale}) zu Grunde.
 
 \subsection{Sendeanlage}
 Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, vielfach werden die Signale über einen normalen Rundfunksender übermittelt. Jede Sendeanlage verfügt über eine eindeutige Identifikation um eine Zuordnung des Signals zu ermöglichen. Meistens ist das Signal an sich bereits eindeutig und kann einer Sendeanlage zugeordnet werden.
@@ -120,7 +120,7 @@ DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhaus
 Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz). Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 mitgesendet. Es wurde aber festgestellt, dass dies eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Seither wird das Signal ohne Rufzeichen ausgesendet. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
 
 \subsubsection{Signalerzeugung}
-Das Signal wird von drei unabhängigen Steuereinheiten mit je einer Caesium-Atomuhr erzeugt (1 Hauptkanal, 2 Reservekanäle). Weicht das Signal des Hauptkanals von den Signalen der Reservekanäle ab findet automatische eine Umschaltung auf einen Reservekanal statt. Sind auch diese beiden Signale nicht mehr identisch wird der Vorgang unterbrochen und es wird kein Signal ausgesendet. Jede der drei Einheiten verfügt über eine separate Stromversorgung. Die drei Steuereinheiten sind in einem Speziellen Raum am Sendestandort untergebracht. Darin enthalten ist auch eine weitere Rubidium-Atomuhr, welche als Ersatz und Referenz zur Verfügung steht. Die gesamte Anlage kann via Fernzugriff gesteuert und gewartet werden. \footcite{hopfDCF_GPS}
+Das Signal wird von drei unabhängigen Steuereinheiten mit je einer Caesium-Atomuhr erzeugt (1 Hauptkanal, 2 Reservekanäle). Weicht das Signal des Hauptkanals von den Signalen der Reservekanäle abfindet automatisch eine Umschaltung auf einen Reservekanal statt. Sind auch diese beiden Signale nicht mehr identisch wird der Vorgang unterbrochen und es wird kein Signal ausgesendet. Jede der drei Einheiten verfügt über eine separate Stromversorgung. Die drei Steuereinheiten sind in einem Speziellen Raum am Sendestandort untergebracht. Darin enthalten ist auch eine weitere Rubidium-Atomuhr, welche als Ersatz und Referenz zur Verfügung steht. Die gesamte Anlage kann via Fernzugriff gesteuert und gewartet werden. \footcite{hopfDCF_GPS}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
   \vspace{-20pt}
@@ -147,13 +147,13 @@ Durch eine Erhöhung der Bandbreite des Empfängers kann die Abweichung reduzier
 
 Für die Bestimmung der Zeit, erreichen die Atomuhren einen relativen Fehler von weniger als $2*10^{-12}$ Sekunden.
 Als Referenz dienen dabei die Primären Atomuhren der PTB.
-Diese bestimmen die aktuelle Uhrzeit mit einem Fehler der zwischen $0.7$ bis $1.2 * 10^{-14}$ Sekunden liegt.
+Diese bestimmen die aktuelle Uhrzeit mit einem Fehler der zwischen $0.7 * 10^{-14}$ bis $1.2 * 10^{-14}$ Sekunden liegt.
 \footnote{Ein Fehler von $10^{-14}$ entspricht ca. einer Milliardstel Sekunde pro Tag ($10^{-14} $) oder einer Sekunde in 2.7 Mio. Jahren.}
 
 \subsubsection{Das Signal}
 Seit 1973 wird neben der Normalfrequenz (77.5 kHz) ein digitales Signal gesendet. Das digitale Signal wird durch negative Modulation (Absenkung Trägeramplitude auf 25 \%) auf die Trägerfrequenz aufgebracht und enthält die Informationen zu Datum und Uhrzeit (Mitteleuropäische Zeit, Mitteleuropäische Sommerzeit). Das Signal codiert innerhalb von einer Minute die Zeit- und Datumsinformationen für die darauffolgende Minute.
 
-Der Beginn einer Sekunde (~eines Bits) wird durch die Absenkung der Trägeramplitude markiert. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung statt findet. Je nach Dauer der Amplitudenabsenkung kennzeichnet dies entweder den binären Wert 0 (Absenkung für 100 ms) oder für den Wert 1 (Absenkung für 200 ms).
+Der Beginn einer Sekunde (eines Bits) wird durch die Absenkung der Trägeramplitude markiert. Die Ausnahme bildet hier die letzte Sekunde, bei welcher keine Absenkung stattfindet. Je nach Dauer der Amplitudenabsenkung kennzeichnet dies entweder den binären Wert 0 (Absenkung für 100 ms) oder für den Wert 1 (Absenkung für 200 ms).
 
 Das Signal wird anschliessend über einen 50-kW-Halbleitersender ausgesendet. Als Reserve dient der 50-kW-Röhrensender, der 1998 durch den 50-kW-Halbleitersender abgelöst wurde.
 
@@ -236,7 +236,7 @@ Die Codierung der Zeitinformation erfolgt anhand der untenstehenden Tabelle.
 59 & Keine Sekundenmarke
 \end{longtable}
 
-Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört empfangen können um die Zeit eindeutig einzustellen. Auf jeden Fall werden die ersten 36 Sekunden und anschliessend ein Minutenübergang (Sekunden 58 und 59) benötigt.
+Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört empfangen können, um die Zeit eindeutig einzustellen. Auf jeden Fall werden die ersten 36 Sekunden und anschliessend ein Minutenübergang (Sekunden 58 und 59) benötigt.
 
 \begin{wrapfigure}{r}{\textwidth}
   \centering
@@ -266,28 +266,28 @@ Wert	&	1	&	0	&	1	&	1	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	1	&	1	&	1	&	0	&	0	&	0	&	0	&	0
 
 \subsubsection{BCD-Codierung}
 Nachfolgend wird kurz die verwendete BCD-Codierung (Binary Coded Decimal) beschrieben:\\
-Jede Ziffer einer Zahl wird einzeln mit 4 Bit (8, 4, 2, 1) codiert. Von den $2^4 = 16$ Kombinationsmöglichkeiten werden nur 10 verwendet, darum spricht man oft von einer Speicherverschwendung.
+Jede Ziffer einer Zahl wird einzeln mit 4 Bit (8, 4, 2, 1) codiert. Von den $2^4 = 16$ Kombinationsmöglichkeiten werden nur 10 verwendet; darum spricht man oft von einer Speicherverschwendung.
 
 \subsubsection{Zusatznutzung}
-Das Signal des Zeitzeichensenders wird seit Ende 2006 zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14. Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
+Das Signal des Zeitzeichensenders wird seit Ende 2006 zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14 Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig, da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
 
 \subsection{Fehlererkennung beim Empfänger}
-In die Codierung ist eine einfache Fehlererkennung, anhand einer einfachen Parität, eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierung nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit und Kontinuität der gelieferten Zeitinformationen gesetzt.
+In die Codierung ist eine einfache Fehlererkennung, anhand einer einfachen Parität, eingebaut. Die Fehlererkennung ist jedoch bei Blockfehlern und Fehlermaskierungen nicht immer gewährleistet. In der Praxis wird häufig auf Redundanz, bzw. Stetigkeit und Kontinuität der gelieferten Zeitinformationen gesetzt.
 
 Dazu ein Beispiel:\\
-In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten / Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
+In den aktuellen Zeitinformationen wird das Jahr 2014 und der Monat März geliefert. In den vorangehenden Minuten oder Stunden wurde aber immer das Jahr 2014 und der Monat Januar geliefert. Daraus lässt sich schliessen, dass es sich bei der aktuellen Zeitinformation um einen Fehler handelt.
 
-Eine Fehlerkorrektur ist mit einer einfachen Parität nicht möglich. Werden jedoch die Daten der letzten Minute / Stunde / Tag hinzugezogen kann basierend auf dem Inhalt eine Fehlerkorrektur durchgeführt werden.
+Eine Fehlerkorrektur ist mit einer einfachen Parität nicht möglich. Werden jedoch die Daten der letzten Minuten, Stunden und Tagen hinzugezogen kann basierend auf dem Inhalt eine Fehlerkorrektur durchgeführt werden.
 
 \subsection{Fehlererkennung beim Sender}
-Das in Mainflingen ausgesendete Signal wird an Braunschweig ausgewertet, analysiert und bei Bedarf ein Alarm ausgelöst. Der Alarm wird ausgelöst, wenn während mehrerer Minuten die gleichen logischen Fehler im Signal erkannt wurden oder wenn auf technischer Ebene eine Unregelmässigkeit festgestellt wurde (z.B. zu kleines Signal über eine längere Zeitdauer).
+Das in Mainflingen ausgesendete Signal wird an Braunschweig ausgewertet, analysiert und bei Bedarf wird ein Alarm ausgelöst. Der Alarm wird ausgelöst, wenn während mehrerer Minuten die gleichen logischen Fehler im Signal erkannt wurden oder wenn auf technischer Ebene eine Unregelmässigkeit festgestellt wurde (z.B. zu kleines Signal über eine längere Zeitdauer).
 
 \subsubsection{Network Time Protocol}
-Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Anaylse:Internet}) das DCF77-Signal als Referenz verwendet wird dieser mit der Kennung "`.DCFa"' gekennzeichnet.
+Wird bei eine NTP-Root-Server (Siehe Kapitel \ref{Anaylse:Internet}) das DCF77-Signal als Referenz verwendet, wird dieser mit der Kennung "`.DCFa"' gekennzeichnet.
 
 \subsection{GPS}
-Nebst der Zeitsynchronisation über Funk, kann eine genauere Information von den GPS-Satelliten gewonnen werden. Dies obwhol GPS-Systeme hauptsächlich zur Lokalisierung des Standortes entwickelt wurden.
-Momentan befinden sich sechs solche Satelliten auf ungefähr 200'000 km Höhe. Jeder umrundet die Erde zweimal pro Tag. Auf jedem Satellit sind jeweils zwei Atomuhren vorhanden.
+Nebst der Zeitsynchronisation über Funk, kann eine genauere Information von den GPS-Satelliten gewonnen werden. Dies obwohl GPS-Systeme hauptsächlich zur Lokalisierung des Standortes entwickelt wurden.
+Momentan befinden sich sechs solche Satelliten in ungefähr 200'000 km Höhe. Jeder umrundet die Erde zweimal pro Tag. Auf jedem Satellit sind jeweils zwei Atomuhren vorhanden.
 Ein Satellit sendet andauernd seine Bahnposition und die genaue Uhrzeit. Durch Signale mehrerer Satelliten, kann der Empfänger seinen genauen Standort berechnen.
 Anschliessend kann die Laufzeit des Signals zurück gerechnet und die durchs Versenden verstrichene Zeit, der Delay, approximiert werden.
 Durch dieses Verfahren kann die Uhrzeit mit einer Genauigkeit unter 1 ${\mu}sec$ berechnet werden.
@@ -341,7 +341,7 @@ Nun kann der Client mit folgender Rechnung die Uhrzeit gut annähern (inkl. der 
 \end{itemize}
 
 \subsubsection{Beispiel Synchronisation}
-Ein konkretes Beispiel dazu (Zur Vereinfachung in Milisekunden).\\
+Ein konkretes Beispiel dazu (zur Vereinfachung in Millisekunden).\\
 \vspace{0em}
 (Die Clientzeit ist jeweils falsch. Die Serverzeit ist korrekt. Die zwei Zeiten sind nicht synchron und dürfen daher nicht direkt miteinander verrechnet werden.)
 \begin{itemize}
@@ -374,20 +374,20 @@ Da das Protokoll sehr komplex ist, gibt es auch eine vereinfachte Version, die S
 Die genaue Funktionsweise dieses Protokolles wird in dieser Arbeit nicht erläutert. \footcite{rubTimesync} \footnote{Spezifikation zum NTP \url{http://www.eecis.udel.edu/~mills/database/reports/ntp4/ntp4.pdf}}
 
 \section{Weitere Zeitsignaldienste}
-Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit keine grosse Bedeutung mehr haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon eine Zeitdienst angeboten.
+Es gibt einige weitere Zeitsignaldienste, welche jedoch in der heutigen Zeit keine grosse Bedeutung mehr haben. Das Zeitsignal wird zum Teil auch als Zusatzinformation auf dem Hörfunk oder im Video- / Teletext von Fernsehsendern übertragen. Früher wurde auch über das öffentliche Telefon ein Zeitdienst angeboten.
 
 \section{Fazit}
-Mit Hilfe der Analyse konnten folgenden Schwerpunkte und Herausforderungen, für die Umsetzung des Projektes, identifiziert werden.
+Mit Hilfe der Analyse konnten folgenden Schwerpunkte und Herausforderungen für die Umsetzung des Projektes, identifiziert werden.
 
 \subsection{Codierung der Zeitinformationen einer Minute}
 Pro Minute wird jeweils die Zeitinformation der nächsten Minute empfangen.
 Einfachheitshalber wird vorausgesetzt, dass wir mindestens eine vollständige Minute decodieren können.
-Dabei müssen die Sekundenkennungen gezählt werden, so dass man daraus Rückschlüsse auf die Zeit machen kann.
-Da der Signal Takt der Sekunde entspricht (1 Hz), sollte daraus die exakte Sekundendauer angenähert werden.
+Dabei müssen die Sekunden-Kennungen gezählt werden, so dass man daraus Rückschlüsse auf die Zeit machen kann.
+Da der Signal-Takt der Sekunde entspricht (1 Hz), sollte daraus die exakte Sekundendauer angenähert werden.
 Es muss also eine eigenständige Uhr implementiert werden, die mit diesen Gegebenheiten umgehen kann.
 Die Uhr muss komplett ohne Signal auskommen und dabei akkurat weiterlaufen. Weiter muss bei erfolgreichem Empfang der Zeit entsprechend reagiert und die Uhr neu justiert werden.
 
-Die Implementation dieser Uhr wird nicht einfach werden, da das Projekt auf einem Multi-Threading-fähigen Rechner umgesetzt wird. Das heisst es gibt keine Echtzeit Ausführungen.
+Die Implementation dieser Uhr wird nicht einfach werden, da das Projekt auf einem Multi-Threading-fähigen Rechner umgesetzt wird. Das heisst es gibt keine Echtzeit-Ausführungen.
 Das Zusammenspiel von Soft- und Hardware gilt als gegeben.
 Wenn z.B. eine Sekunde mit einer gewissen Anzahl Durchläufe in einer Schleife angenähert wird, so ist nicht garantiert, dass diese Schleife immer die gleiche Ausführungszeit benötigt.
 Grund dafür ist, das die verfügbaren Systemressourcen mit anderen Prozessen geteilt werden müssen.

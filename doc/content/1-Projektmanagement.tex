@@ -8,10 +8,10 @@
 \section{Team}
 Das Projektteam besteht aus folgenden Personen:
 \begin{itemize}
-\item Michael Hadorn\\
-\textit{E-Mail: michael.hadorn@gmail.com, ZHAW-Kurzzeichen: hadormic} 
-\item Daniel Brun \\
-\textit{E-Mail: daniel.brun@gmx.net, ZHAW-Kurzzeichen: brundan1} 
+\item \textbf{Michael Hadorn}\\
+E-Mail: \href{mailto:michael.hadorn@gmail.com}{michael.hadorn@gmail.com}, ZHAW-Kurzzeichen: hadormic
+\item \textbf{Daniel Brun}\\
+E-Mail: \href{mailto:daniel.brun@gmx.net}{daniel.brun@gmx.net}, ZHAW-Kurzzeichen: brundan1
 \end{itemize}
 
 Da unser Projektteam sehr übersichtlich ist legen wir nicht von Anfang an fixe Rollen innerhalb des Projektes fest. Einzelne Rollen werden sich im Laufe der Zeit von selbst herauskristallisieren. 
@@ -19,12 +19,12 @@ Da unser Projektteam sehr übersichtlich ist legen wir nicht von Anfang an fixe 
 \section{Betreuung}
 Unsere Projektarbeit wird durch folgende Personen betreut:
 \begin{itemize}
-\item Syrus Mozafar\\
+\item \textbf{Syrus Mozafar}\\
 Bereich: Methodik \& Planung \\
-\textit{E-Mail: moza@zhaw.ch, ZHAW-Kurzzeichen: moza} 
-\item George Brügger \\
+E-Mail: \href{mailto:moza@zhaw.ch}{moza@zhaw.ch}, ZHAW-Kurzzeichen: moza
+\item \textbf{George Brügger}\\
 Bereich: Technik \& Inhalt \\
-\textit{E-Mail: irs.and.e@gmail.com} 
+E-Mail: \href{mailto:irs.and.e@gmail.com}{irs.and.e@gmail.com}
 \end{itemize}
 
 \section{Tools}
@@ -41,7 +41,7 @@ Repository: \url{https://github.com/MrJack91/controlledClock}
 
 \section{Planung}
 
-Die Grobplanung der Meilensteine und einzelnen Task wurde zu Beginn des Projektes gemacht. Die Detailplanung wird jeweils am Anfang des bearbeiteten Meilensteins und der Arbeitspakete gemacht. So können wir aus gemachten Erfahrungen und Fehlern lernen und die Planung immer dem wirklichen Projektfortschritt anpassen. So haben wir auch die Möglichkeit zu reagieren, falls wir sehen, dass gewisse Aufgaben länger brauchen als ursprünglich geplant. Dann werden wir eine entsprechende Repriorisierung der Tasks und gegebenenfalls der Meilensteine durchführen.
+Die Grobplanung der Meilensteine und einzelnen Task wurden zu Beginn des Projektes gemacht. Die Detailplanung wird jeweils am Anfang des bearbeiteten Meilensteins und der Arbeitspakete gemacht. So können wir aus gemachten Erfahrungen und Fehlern lernen und die Planung immer dem wirklichen Projektfortschritt anpassen. So haben wir auch die Möglichkeit zu reagieren, falls wir sehen, dass gewisse Aufgaben länger brauchen als ursprünglich geplant. Dann werden wir eine entsprechende Repriorisierung der Tasks und gegebenenfalls der Meilensteine durchführen.
 
 \subsection{Meilensteine}
 Es wurden folgende Meilensteine definiert:
@@ -68,16 +68,17 @@ Es wurden folgende Meilensteine definiert:
 \end{itemize}
 
 \subsubsection{Analyse abgeschlossen}
-Mit diesem Meilenstein wird die Grundlage für das gesamte Projekt gelegt. Es wird eine detaillierte Analyse der Aufgabenstellung und den Themenbereichen Zeitsynchronisation per Funk / im Internet, Network Time Protocol und weitere angrenzende Bereiche durchgeführt. Die Ergebnisse der Analyse dienen als Grundlage für die konkrete Umsetzung der späteren Meilensteine.
+Mit diesem Meilenstein wird die Grundlage für das gesamte Projekt gelegt. Es wird eine detaillierte Analyse der Aufgabenstellung und den Themenbereichen Zeitsynchronisation per Funk und im Internet, Network Time Protocol und weiteren angrenzenden Bereiche durchgeführt. Die Ergebnisse der Analyse dienen als Grundlage für die konkrete Umsetzung der späteren Meilensteine.
 
 \subsubsection{Server / API umgesetzt}
-Der Server, bzw. die API zum Bezug der Daten wird als eigenständiges Arbeitspaket angesehen und somit auch als Meilenstein definiert. Es werden die Schnittstellen der API definiert und umgesetzt. Darin enthalten ist eine "`normale"' API zur Abfrage der Zeit und eine weitere welche eine minimale Implementation des Network Time Protocols anbietet.
+Der Server, bzw. die API zum Bezug der Daten wird als eigenständiges Arbeitspaket angesehen und somit auch als Meilenstein definiert. Es werden die Schnittstellen der API definiert und umgesetzt.
+Via API muss das aktuelle Datum und das Datum der letzten erfolgreichen Zeitsynchronisation über den  DCF77 abrufbar sein.
 
 \subsubsection{Auslesen und Interpretation der Daten des Empfängers abgeschlossen}
-Dieser Meilenstein ist die Grundlage des gesamten Projektes und beinhaltet das Arbeitspaket zum Auslesen und Interpretieren der Daten, die vom Funkempfänger geliefert werden. Der Empfänger musst zuerst beschafft und getestet werden, daher erfolgt die Abgabe dieses Meilensteins erst relativ spät gegen Ende des Projektes. Ein weiterer Grund ist die Komplexität der Anforderung die Daten via einem mitgeliefertem Treiber von der Schnittstelle auszulesen.
+Dieser Meilenstein ist die Grundlage des gesamten Projektes und beinhaltet das Arbeitspaket zum Auslesen und Interpretieren der Daten, die vom Funkempfänger geliefert werden. Der Empfänger musste zuerst beschafft und getestet werden, daher erfolgte die Abgabe dieses Meilensteins erst relativ spät gegen Ende des Projektes. Ein weiterer Grund ist die Komplexität der Anforderung die Daten via einem mitgeliefertem Treiber von der Schnittstelle auszulesen.
 
 \subsubsection{Client GUI Implementation abgeschlossen}
-Der Meilenstein mit dem Arbeitspaket zur Implementation des Client GUIs wird erst bei Projektabgabe abgegeben. Für uns ist die Implementation eines perfekten GUIs zweitrangig und wir möchten uns auf den Kern des Projektes fokussieren. Stellen wir im Verlauf des Projektes fest, dass wir uns bei der Aufwandschätzung verschätzt haben oder unvorhergesehene Schwierigkeiten auftauchen, werden wir Abstriche beim Client GUI machen, um die Kernfunktionalität so weit als möglich fertig zu stellen. Auch beim GUI liegt der Fokus zuallererst auf der Funktionalität und erst im Anschluss auf Zusatzfeatures und Effekten.
+Der Meilenstein mit dem Arbeitspaket zur Implementation des Client GUIs wird erst bei der Projektabgabe abgegeben. Für uns ist die Implementation eines perfekten GUIs zweitrangig und wir möchten uns auf den Kern des Projektes fokussieren. Stellen wir im Verlauf des Projektes fest, dass wir uns bei der Aufwandschätzung verschätzt haben oder unvorhergesehene Schwierigkeiten auftauchen, werden wir Abstriche beim Client GUI machen, um die Kernfunktionalität so weit als möglich fertig zu stellen. Auch beim GUI liegt der Fokus zuallererst auf der Funktionalität und erst im Anschluss auf Zusatzfeatures und Effekten.
 
 \subsubsection{Umsetzung, Dokumentation und Projekt abgeschlossen}
 Mit diesem Meilenstein wird die Umsetzung, die Dokumentation und somit das ganze Projekt abgeschlossen und zur Bewertung eingereicht.
@@ -87,28 +88,28 @@ Mit diesem Meilenstein wird die Umsetzung, die Dokumentation und somit das ganze
 \subsection{1. Abgabe - 24.03.2014}
 Während der ersten Iteration haben wir uns intensiv mit der Analyse unserer Aufgabenstellung und der dazugehörigen Themen beschäftigt.
 
-Die Analyse der Themen gestaltet sich als sehr spannend. Bald sahen wir uns auch dem Problem gegenüber, dass wir nicht bei allen Themen alle Details im Rahmen dieses Projektes zusammentragen konnten. Daher mussten wir uns an gewissen Stellen mit einer weniger detaillierten Fassung begnügen. Die Zusammengetragenen Informationen haben unser Verständnis enorm verbessert und bilden eine solide Grundlage für die weiteren Meilensteine in unserem Projekt.
+Die Analyse der Themen gestaltet sich als sehr spannend. Bald sahen wir uns auch dem Problem gegenüber, dass wir nicht bei allen Themen alle Details im Rahmen dieses Projektes zusammentragen konnten. Daher mussten wir uns an gewissen Stellen mit einer weniger detaillierten Fassung begnügen. Die zusammengetragenen Informationen haben unser Verständnis enorm verbessert und bilden eine solide Grundlage für die weiteren Meilensteine in unserem Projekt.
 
-Bei den Themen \textit{Network Time Protocol} und \textit{Probleme \& Schwierigkeiten} haben wir uns entschieden nicht ganz so viel Zeit zu investieren, wie geplant war. Die \textit{Probleme \& Schwierigkeiten} wurden zum Teile bereits in anderen Kapiteln abgedeckt und wird auch im Fazit nochmals angeschnitten, daher haben wir das Kapitel nicht so ausführlich gestaltet. Beim \textit{Network Time Protocol} haben wir uns eine vereinfachte Variante beschränkt, da es in seiner Gesamtheit sehr komplex ist, würde dies in Kombination mit den übrigen Zielstellungen den Rahmen dieser Projektarbeit sprengen.
+Bei den Themen \textit{Network Time Protocol} und \textit{Probleme \& Schwierigkeiten} haben wir uns entschieden nicht ganz so viel Zeit zu investieren wie geplant war. Die \textit{Probleme \& Schwierigkeiten} wurden zum Teile bereits in anderen Kapiteln abgedeckt und wird auch im Fazit nochmals angeschnitten, daher haben wir das Kapitel nicht so ausführlich gestaltet. Beim \textit{Network Time Protocol} haben wir uns auf eine vereinfachte Variante beschränkt, da es in seiner Gesamtheit sehr komplex ist, würde dies in Kombination mit den übrigen Zielstellungen den Rahmen dieser Projektarbeit sprengen.
 
 \subsubsection{Aktueller Planungsstand}
 Für den ersten Meilenstein stand relativ wenig Zeit zur Verfügung. Nichtsdestotrotz waren wir in der Lage die geplanten Tasks in der zur Verfügung stehenden Zeit erfolgreich abzuschliessen. Auch die geschätzten Aufwände entsprachen etwa den tatsächlichen Aufwänden. Im Bereich NTP haben wir weniger Zeit gebraucht als ursprünglich geplant. Die Gründe dafür wurden oben bereits erläutert.
 
 \subsubsection{Ausblick 2. Abgabe}
-Da wir keine grossen Restanzen aus der ersten Iteration haben, gibt es auch keine direkten Konsequenzen auf die 2. Iteration. Die Analyse hat einige Knackpunkte offen gelegt, die bei der Umsetzung berücksichtigt werden müssen. Bezüglich Dokument-Layout haben wir noch kleinere offene Punkte, welche wir im Laufe der nächsten Iterationen bereinigen werden.
+Da wir keine grossen Restanzen aus der ersten Iteration haben, gibt es auch keine direkten Konsequenzen auf die zweiten Iteration. Die Analyse hat einige Knackpunkte offen gelegt, die bei der Umsetzung berücksichtigt werden müssen. Bezüglich Dokument-Layout haben wir noch kleinere offene Punkte, welche wir im Laufe der nächsten Iterationen bereinigen werden.
 
 \newpage
 \subsection{2. Abgabe - 14.04.2014}
 Nach Abschluss der ersten Iteration hatten wir mit Syrus Mozafar und George Brügger je ein separates Treffen bezüglich dem aktuellen Projektstand. Aus beiden Treffen konnten wir wertvolle Inputs für den weiteren Projektverlauf mitnehmen. 
 
-Beim Treffen mit George Brügger sind wir zum Schluss gekommen, dass wir ein Replanning und weitere Verfeinerung der Aufgabenstellung machen müssen. Die Dokumentation und der Zeitplan wurden entsprechend angepasst. Auch kamen wir zum Schluss, dass eine Implementation des Backend in C unumgänglich ist. Da wir beide noch nie grössere, bzw. komplexere Programme in C geschrieben haben, stellt dies für uns eine weitere Herausforderung dar. Als Konsequenz davon rechen wir damit, dass wir nicht alle (Zusatz-)Funktionen wie geplant umsetzen können.
+Beim Treffen mit George Brügger sind wir zum Schluss gekommen, dass wir ein Replanning und weitere Verfeinerung der Aufgabenstellung machen müssen. Die Dokumentation und der Zeitplan wurden entsprechend angepasst. Auch kamen wir zum Schluss, dass eine Implementation des Backend in C unumgänglich ist. Da wir beide noch nie grössere, bzw. komplexere Programme in C geschrieben haben, stellt dies für uns eine weitere Herausforderung dar. Als Konsequenz davon rechnen wir damit, dass wir nicht alle (Zusatz-)Funktionen wie geplant umsetzen können.
 
 Aktuell stellt vor allem das Auslesen des System-Tics eine grosse Hürde für uns dar. Nach sehr intensiven und langwierigen Recherchen und einigen Dutzend ausprobierten Beispielcodes sind wir zum Schluss gekommen, dass der System-Tic nur über eine Interrupt Service Routine ausgelesen werden kann. Die Interrupt Service Routine wiederum muss als Treiber implementiert werden, da auf die entsprechenden Bereiche des Betriebsystems aus dem User-Mode heraus nicht zugegriffen werden kann. Die Ausnahme bildet hier eine allfällige Implementation in Assembler.
 
-Da wir beide über unterschiedliche Notebooks und Betriebssysteme (Win 7 und Mac OS) verfügen, haben wir einen Versuch mit einem Raspberry Pi gestartet. Mit dem Raspberry verfügen wir über die gleichen Voraussetzungen und haben im Detail die Kontrolle, bzw. das Wissen, über die verwendete Hardware. So können wir uns bei der Implementation auch auf ein OS und eine Hardware beschränken. Niemand von uns hat bisher jemals auf diesen Ebenen programmiert. Dies ist eine spannende Herausforderung, jedoch ist Ungewiss, ob wir unser Ziel auch wirklich erreichen können.
+Da wir beide über unterschiedliche Notebooks und Betriebssysteme (Windows 7 und Mac OS X) verfügen, haben wir einen Versuch mit einem Raspberry Pi gestartet. Mit dem Raspberry verfügen wir über die gleichen Voraussetzungen und haben im Detail die Kontrolle, bzw. das Wissen, über die verwendete Hardware. So können wir uns bei der Implementation auch auf ein Betriebssystem und eine Hardware beschränken. Niemand von uns hat bisher jemals auf diesen Ebenen programmiert. Dies ist eine spannende Herausforderung, jedoch ist Ungewiss, ob wir unser Ziel auch wirklich erreichen können.
 
 Auch beim "`Read-"' und "`Decode-Teil"' haben wir uns ein wenig überschätzt. Zur Zeit der ersten Planung wussten wir noch gar nicht, ob wir das Backend in C oder Java umsetzen würden.
-Das Read und Decode war einiges komplizierter als wir uns das vorgestellt haben. Da war zum Beispiel die fortlaufende Suche nach korrekten Zeitstempeln. Momentan haben wir zur Definition eines korrekten Zeitstempels "`nur"' die Kontrolle der Parität eingebaut, dewegen erkennen wir fast viermal mehr Zeitstempel, als es gültige Zeitstempeln im Signal hat. Dies muss verbessert werden.
+Das Read und Decode war einiges komplizierter als wir uns das vorgestellt haben. Da war zum Beispiel die fortlaufende Suche nach korrekten Zeitstempeln. Momentan haben wir zur Definition eines korrekten Zeitstempels "`nur"' die Kontrolle der Parität eingebaut; dewegen erkennen wir fast viermal mehr Zeitstempel, als es gültige Zeitstempeln im Signal hat. Dies muss verbessert werden.
 
 \subsubsection{Aktueller Planungsstand}
 Auch der Termin für die zweite Abgabe des Meilensteins ist schneller da gewesen, als wir uns das gedacht hatten. Vor allem, da wir etwas mit der Programmiersprache zu kämpfen hatten. Vom String-Handling, über Speicherallozierung bis hin zu Problemen mit Libraries, die es nur für bestimmte OS-Versionen, OS-Typen oder Compiler gibt. Die Probleme waren grundsätzlich sehr spannend und herausfordernd. Jedoch mussten wir in die Problemfindung einige Zeit investieren.
@@ -119,20 +120,20 @@ Zu Beginn der Iteration hatten wir ein erneutes Treffen mit Syrus Mozafar. Dabei
 
 Während dieser Iteration haben wir uns damit beschäftigt, die angefangenen Komponenten soweit als möglich zu finalisieren. Dabei mussten wir feststellen, dass wir aufgrund der unterschiedlichen Plattformen weiterhin Probleme hatten. Einerseits hatten wir von Anfang an mit einem grösseren Aufwand gerechnet und zum Anderen hatten wir während dieser und der letzten Iteration erhebliche Verzögerungen aufgrund von Problemen und Herausforderungen. 
 
-In Anbetracht der Auslastung durch das Studium und der aktuelle Projektsituation werden wird diese Woche mit Herrn Brügger zusammensitzen und die Ziele des Projektes nochmals überarbeitet und den Gegebenheiten angepasst. Dabei werden wir wahrscheinlich vor allem im Bereich GUI einige Abstriche in Kauf nehmen müssen.
+In Anbetracht der Auslastung durch das Studium und der aktuelle Projektsituation werden wird diese Woche mit Herrn Brügger zusammensitzen und die Ziele des Projektes nochmals überarbeiten und den Gegebenheiten angepasst. Dabei werden wir wahrscheinlich vor allem im Bereich GUI einige Abstriche in Kauf nehmen müssen.
 
-Nach dem Treffen, haben wir uns definitiv dafür entschieden die eigenständige Uhr mit Hilfe eines Timers o.ä. zu implementieren. Die Anbindung an den System-Tic wäre zu aufwändig gewesen und hätte den Rahmen des Projektes gesprengt. Die Gründe dafür wurden bereits im Abschlussbericht der letzten Iteration und in der Dokumentation beschrieben.
+Nach dem Treffen, haben wir uns definitiv dafür entschieden die eigenständige Uhr mit Hilfe eines Timers o.Ä. zu implementieren. Die Anbindung an den System-Tic wäre zu aufwändig gewesen und hätte den Rahmen des Projektes gesprengt. Die Gründe dafür wurden bereits im Abschlussbericht der letzten Iteration und in der Dokumentation beschrieben.
 
-Die Implementation des WebServers ist abgeschlossen und funktioniert auf allen Plattformen einwandfrei. Die Daten des DCF77-Empfängers können empfangen, decodiert und mit der eigenständigen Uhr synchronisiert werden. Die zeit der Uhr kann über eine WebService-Schnittstelle abgerufen werden. Aktuell stehen wir noch vor der Herausforderung alle Komponenten auf beiden Plattformen (Windows und Mac OS) gleichermassen zum Laufen zu bringen.
+Die Implementation des WebServers ist abgeschlossen und funktioniert auf allen Plattformen einwandfrei. Die Daten des DCF77-Empfängers können empfangen, decodiert und mit der eigenständigen Uhr synchronisiert werden. Die Zeit der Uhr kann über eine WebService-Schnittstelle abgerufen werden. Aktuell stehen wir noch vor der Herausforderung alle Komponenten auf beiden Plattformen (Windows und Mac OS X) gleichermassen zum Laufen zu bringen.
 
 \subsubsection{Aktueller Planungsstand}
-Trotz der vielen freien Tage aufgrund von Ostern, Sechseläuten und 1. Mai war auch diese Iteration rasch vorüber. Abgesehen von den Schwierigkeiten mit den verschieden Plattformen verlief die Iteration relativ ruhig. Die Planung mussten wir nochmals an die aktuellen Gegebenheiten anpassen. Auch einige Aufwandsschätzungen mussten wir nochmals revidieren.
+Trotz der vielen freien Tage aufgrund von Ostern, Sechseläuten und 1. Mai war auch diese Iteration rasch vorüber. Abgesehen von den Schwierigkeiten mit den verschiedenen Plattformen verlief die Iteration relativ ruhig. Die Planung mussten wir nochmals an die aktuellen Gegebenheiten anpassen. Auch einige Aufwandsschätzungen mussten wir nochmals revidieren.
 
-Während dem Projekt gibt es immer wieder spannende und interessante Herausforderungen zu bewältigen. Auch wenn dies zum Teil etwas zeitaufwändig und nervenaufreibend ist haben wir immer noch Spass am Projekt und können uns 1laufend neue und interessante Dinge aneignen.
+Während dem Projekt gibt es immer wieder spannende und interessante Herausforderungen zu bewältigen. Auch wenn dies zum Teil etwas zeitaufwändig und nervenaufreibend ist, haben wir immer noch Spass am Projekt und können uns laufend neue und interessante Dinge aneignen.
 
 \newpage
 \subsection{4. Abgabe (finale) - 31.05.2014}
-Entgegen der Erwartungen konnten wir in der letzten Iteration noch einige Erfolgserlebnisse verzeichnen. So haben wir es endlich geschafft, dass alle Module auf beiden Plattformen (Windows und Mac OSX) kompiliert und ausgeführt werden können. Die Ursachen lagen in einigen Details bei der Implementation und an einem falschen Include, der nicht bemerkt wurde, da die Fehlermeldung zum einen erst während dem Linken auftrat und zum anderen eine Inkompatibilität (OS / Architektur) der zu linkenden Treiber-Bibliotheken suggerierte. 
+Entgegen der Erwartungen konnten wir in der letzten Iteration noch einige Erfolgserlebnisse verzeichnen. So haben wir es endlich geschafft, dass alle Module auf beiden Plattformen (Windows und Mac OS X) kompiliert und ausgeführt werden können. Die Ursachen lagen in einigen Details bei der Implementation und an einem falschen Include, der nicht bemerkt wurde, da die Fehlermeldung zum einen erst während dem Linken auftrat und zum anderen eine Inkompatibilität (OS X / Architektur) der zu linkenden Treiber-Bibliotheken suggerierte. 
 
 Als wir die fertig empfangene Zeit im Client mit einer Atomuhr verglichen, bemerkten wir einen Zwei-Sekunden unterschied. Der beruhte auf einem Fehler der zwischen den verschiedenen Modulen "`Decoder"' und "`Clock"' hin und her geschoben wurde. Der fertige Zeitstempel für die folgende Minute wird jeweils in der Sekunde 58 decodiert. Nun haben wir die 2 Sekunden Wartezeit nirgends mehr beachtet. Sprich das fertige Signal wurde direkt der Clock als neue, präzise Uhrzeit übergeben. Dies haben wir sofort gefixt.
 
