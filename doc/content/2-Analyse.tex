@@ -56,6 +56,7 @@ Neben UTC gibt es auch noch \textit{Universal Time (UT1)}, welche im Gegensatz z
 Die UTC wird von der \textit{Temps Atomique International - Interkantonale Atomzeit (TAI)} abgeleitet und vom \textit{Bureau International des Poids et Mesures - Internationales Büro für Mass und Gewicht (BIPM)} ermittelt.
 Als Grundlage dienen Referenzzeiten von ungefähr 250 Atomuhren, die über den ganzen Globus verteilt sind.
 Bei der Bestimmung des Zeitmittelwertes werden die Instabilitäten der einzelnen Uhren mittels einer Gewichtung berücksichtigt. Dieses Mittel wird als \textit{Echelle Atomique Libre - Freie Atomzeitskala (EAL)} bezeichnet. Die EAL stimmt nicht mit der Definition der SI-Sekunde überein. Daher muss dies durch eine Anpassung der Frequenz korrigiert werden. Die so resultierende Zeit wird als Internationale Atomzeit bezeichnet.
+\footcite{iersTimeDefinition}
 
 \section{Möglichkeiten der Zeitsynchronisation}
 Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine Zeitsynchronisation vorzunehmen. Zum einen über Funk, zum anderen via Internet.
@@ -64,6 +65,7 @@ Der heutige Stand der Technik bietet grundsätzlich zwei Möglichkeiten um eine 
 Elektromagnetische Wellen sind seit jeher allgegenwärtig. Es gilt hier natürliche und von Menschen erzeugte elektromagnetische Wellen zu unterscheiden. Natürliche elektromagnetische Wellen werden z.B. durch die Sonne, Gewitter oder Stürme erzeugt. Im Laufe der Geschichte haben die Menschen diese Wellen entdeckt und damit begonnen diese für ihre Zwecke einzusetzen. (Siehe Kapitel \ref{subsec:Analyse:Hintergruende} - \nameref{subsec:Analyse:Hintergruende}).
 
 Die Zeitinformationen werden von Zeitsignaldiensten ausgesendet und können in der Regel kostenfrei genutzt werden. Um diese Signale auszusenden werden sogenannte Zeitzeichensender eingesetzt. 
+\footcite{circuitFunk}
 
 \subsection{Zeitsignaldienste}
 Auf der Erde verteilt gibt es zahlreiche Zeitsignaldienste, die alle miteinander verbunden sind. Die Zeit der jeweiligen Dienste stimmt bis weit unterhalb von Nanosekunden miteinander überein. Jeder Dienst verwaltet die UTC (Coordinated Universal Time, Weltzeit) für ihr Land. Daneben steuern auch Messungen vom Internationalen Dienst für Erdrotation und Referenzssysteme (IERS) zur Berechnung der Weltzeit bei.
@@ -72,6 +74,9 @@ Die Bestimmung der Weltzeit wird durch das Internationale Büro für Mass und Ge
 \subsection{Zeitzeichensender - Allgemein}
 
 Zeitzeichensender senden in bestimmten Zeitabständen codierte Zeitinformationen. Funkuhren und entsprechende Geräte können diese Signale empfangen, decodieren und interpretieren. Die Zeit und das Datum auf dem Gerät wird mit denen des Signales abgeglichen. Um eine erfolgreiche Synchronisierung zu erreichen, muss das Signal über eine gewisse Zeit empfangen werden. Vielfach liegt dem Signal mit den Zeitinformationen eine Normalfrequenz (Siehe Kapitel \ref{subsubsec:Analyse:Frequenznormale} - \nameref{subsubsec:Analyse:Frequenznormale}) zu Grunde.
+\footcite{wikiZeitzeichensender}
+\footcite{dcf77}
+\footcite{bmvitAt}
 
 \subsection{Sendeanlage}
 Die Zeitzeichensender benötigen nicht zwingend eine spezielle Sendeanlage, vielfach werden die Signale über einen normalen Rundfunksender übermittelt. Jede Sendeanlage verfügt über eine eindeutige Identifikation um eine Zuordnung des Signals zu ermöglichen. Meistens ist das Signal an sich bereits eindeutig und kann einer Sendeanlage zugeordnet werden.
@@ -86,8 +91,10 @@ Das Signal wird am Sendestandort oder in der unmittelbaren Nähe von mehreren At
 
 \subsubsection{Frequenznormale} \label{subsubsec:Analyse:Frequenznormale}
 Bis heute wird oft das Signal von Rundfunksendern (z.B. Radiostationen) als Frequenznormale ausgewertet. Vorallem in den 70er Jahren war der Einsatz der Frequenznormale weit verbreitet, da dies die einzige Möglichkeit für eine "`Zeitsynchronisation"' war. Die Frequenznormale ist eine Vorstufe der heutigen Zeitzeichensenders (bzw. dem heutigen Signal). Es wird eine hochgenaue Schwingungsfrequenz eingesetzt (z.B. 150 kHz bei Langwellensendern oder 50 / 60 Hz im Stromnetz). Das Empfangsgerät musste einmal manuell auf die aktuelle Zeit eingestellt werden, anschliessend zählte dieses die Schwingungen des Signals, was jeweils einer Sekunde entsprach. Heute wird die Frequenznormale häufig als Grundlage für digitale Signale verwendet. 
+\footcite{wikiNormalfrequenz}
+\footcite{bmvitAt}
 
-\newpage 
+\newpage
 
 \begin{wrapfigure}{r}{0.5\textwidth}
   \centering
@@ -100,14 +107,17 @@ Bis heute wird oft das Signal von Rundfunksendern (z.B. Radiostationen) als Freq
 \subsubsection{Zeitzeichensender in der Schweiz}
 
 In der Schweiz war zwischen 1966 und 2011 der Zeitzeichensender HBG in Prangins (VD) in Betrieb. Aufgrund mangelnder Nachfrage wurde der Sendebetrieb Ende 2011 eingestellt und die Sendeanlage gesprengt und abgebaut. Der Sender wurde vom Eigenössischen Institut für Metrologie betrieben und sendete mit einer Frequenz von 75 kHz.
-
+\footcite{adminChHBGPrangins}s
 \newpage
 
 \subsection{Zeitzeichensender - DCF77}
 DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhausen) der von der Physikalisch-Technischen Bundesanstalt in Braunschweig (PTB) entwickelt wurde. Der Betrieb erfolgt durch die T-Systems Media Broadcast GmbH, einer Tochtergesellschaft der Deutschen Telekom AG.
+\footcite{ptbDcf77Doku}
+\footcite{ptbDcf77News}
+\footcite{dcf77}
 
 \begin{figure}[h]
-\ffigbox[][7.8cm]{ %
+\ffigbox[][7.8cm]{ 
 \begin{subfloatrow}
   \ffigbox[\FBwidth][]
     { \caption[Antennenfeld]{Antennenfeld (Quelle: Wikipedia, Patrick Kempf; \url{http://de.wikipedia.org/wiki/DCF77})}}
@@ -118,6 +128,8 @@ DCF77 bezeichnet einen Zeitzeichensender in Deutschland (Mainflingen in Mainhaus
 \end{subfloatrow}
 }{\caption{Sendeanlage in Mainflingen (Mainhausen, DE)}}
 \end{figure}
+
+\newpage
 
 \subsubsection{Das Rufzeichen}
 Die Bezeichnung setzt sich aus D für Deutschland, C für Langwellensender, F für Frankfurt (Mainhausen liegt in der Nähe von Frankfurt) und 77 für die Sendefrequenz (77.5 kHz). Früher wurde das Rufzeichen des Senders während der 20. bis 32. Sekunde der Minuten 19, 39 und 59 mitgesendet. Es wurde aber festgestellt, dass dies eine Verschlechterung des Signal-zu-Rausch-Abstandes zur Folge hatte. Seither wird das Signal ohne Rufzeichen ausgesendet. Das Signal des DCF77 kann auch ohne Rufzeichen eindeutig identifiziert werden.
@@ -137,6 +149,7 @@ Das Signal wird von drei unabhängigen Steuereinheiten mit je einer Caesium-Atom
 
 \subsubsection{Signalreichweite}
 Das DCF77 Signal hat je nach Wetterlage, Tages- und Jahreszeit eine Reichweite von 2'000 km. Es wird unterteilt in Bodenwellen, welche sich entlang der Erdoberfläche ausbreiten, und Raumwellen, welche sich durch Reflexion an der ionosphärischen D-Schicht ausbreiten. Bis zu einer Distanz von 500 km vom Sendeort ist die Bodenwelle sehr stabil und überwiegt den Anteil an Raumwellen. Im Bereich von 500 - 1'100 km ist das Verhältnis von Raum- und Bodenwellen etwa gleich gross. Dabei besteht die Gefahr der gegenseitigen Auslöschung. Ab einer Entfernung von 1'100 km nimmt der Anteil an Raumwellen laufend zu.
+\footcite{ptbDcf77Reichweite}
 
 \subsubsection{Fehleranfälligkeit (Sender \& Empfänger)}
 Signale welche mit Amplitudenmodulation können relativ einfach gestört werden, da die Amplitude verhältnismässig leicht von aussen beeinflusst werden kann.
@@ -152,6 +165,7 @@ Für die Bestimmung der Zeit, erreichen die Atomuhren einen relativen Fehler von
 Als Referenz dienen dabei die Primären Atomuhren der PTB.
 Diese bestimmen die aktuelle Uhrzeit mit einem Fehler der zwischen $0.7 * 10^{-14}$ bis $1.2 * 10^{-14}$ Sekunden liegt.
 \footnote{Ein Fehler von $10^{-14}$ entspricht ca. einer Milliardstel Sekunde pro Tag ($10^{-14} $) oder einer Sekunde in 2.7 Mio. Jahren.}
+\footnote{hopfDcfGps}
 
 \subsubsection{Das Signal}
 Seit 1973 wird neben der Normalfrequenz (77.5 kHz) ein digitales Signal gesendet. Das digitale Signal wird durch negative Modulation (Absenkung Trägeramplitude auf 25 \%) auf die Trägerfrequenz aufgebracht und enthält die Informationen zu Datum und Uhrzeit (Mitteleuropäische Zeit, Mitteleuropäische Sommerzeit). Das Signal codiert innerhalb von einer Minute die Zeit- und Datumsinformationen für die darauffolgende Minute.
@@ -243,7 +257,7 @@ Idealerweise sollte ein Gerät das Signal mindestens zwei Minuten ungestört emp
 
 \begin{wrapfigure}{r}{\textwidth}
   \centering
-    \includegraphics[width=0.5\textwidth]{./images/Analyse/DCF77_Codierscheibe.png}
+    \includegraphics[width=0.7\textwidth]{./images/Analyse/DCF77_Codierscheibe.png}
   \caption[DCF77-Codierung als Codierscheibe]{DCF77-Codierung als Codierscheibe (Quelle: Endorphino; 
   \url{http://endorphino.de/projects/electronics/timemanipulator/index.html})} 
 \end{wrapfigure}
@@ -270,6 +284,7 @@ Wert	&	1	&	0	&	1	&	1	&	0	&	1	&	1	&	0	&	0	&	0	&	0	&	1	&	1	&	1	&	0	&	0	&	0	&	0	&	0
 \subsubsection{BCD-Codierung}
 Nachfolgend wird kurz die verwendete BCD-Codierung (Binary Coded Decimal) beschrieben:\\
 Jede Ziffer einer Zahl wird einzeln mit 4 Bit (8, 4, 2, 1) codiert. Von den $2^4 = 16$ Kombinationsmöglichkeiten werden nur 10 verwendet; darum spricht man oft von einer Speicherverschwendung.
+\footcite{spsBCD}
 
 \subsubsection{Zusatznutzung}
 Das Signal des Zeitzeichensenders wird seit Ende 2006 zusätzlich für Alarmierungen und Wetterdaten eingesetzt. Dafür werden die ersten 14 Bit der Minute verwendet. Im Katastrophenfall werden Details zur Katastrophe und der Region übermittelt. Diese Informationen werden aufgrund ihrer Auswirkungen doppelt gesichert (Paritätsbit und Wiederholung). Die Wetterdaten werden von der Firma Meteo Time GmbH bereitgestellt und ermöglichen eine viertägige Vorhersage für 60 Regionen in Europe. Die Decodierung dieser Wetterdaten ist jedoch lizenzpflichtig, da diese im proprietären Meteo-Time-Protokoll übermittelt werden.
@@ -313,7 +328,6 @@ Die genaue Sendedauer eines  Datenpaktes, welches die korrekete Uhrzeit beinhalt
 
 Da keine Aussage über die Genauigkeit der empfangenen Information möglich ist, verliert sie drastisch an Wert.
 
-%TODO: Evtl. Kapitel NTP vorziehen -> Verständnis
 \section{Zeitprotokoll}
 Um eine brauchbare Synchronisation via Internet zu ermöglichen wurde folgender, vereinfachter Datenaustausch definiert: (Der Client synchronisiert seine Zeit mit der genauen Zeit eines Server. Die Serverzeit entspricht also nicht der Clientzeit.)\footcite{stackoverflowNtp}
 
