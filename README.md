@@ -7,6 +7,7 @@ ZHAW project - Controlled Clock over usb
 Einleitung
 ----------
 Die vollständige Dokumentation wurde mit LATEX und der "allgemeinen Vorlage" von Matthias Pospiech (http://www.matthiaspospiech.de/latex/vorlagen/allgemein/) geschrieben. Eine aktuelle Version kann via /doc/LaTeXTemplate.tex generiert werden.
+Eine fertiges PDF befindet sich unter /doc/ControlledClock_v1_0\_DanielBrun\_MichaelHadorn.pdf
 
 Installation
 ------------
