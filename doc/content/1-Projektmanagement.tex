@@ -128,13 +128,13 @@ Die Implementation des WebServers ist abgeschlossen und funktioniert auf allen P
 \subsubsection{Aktueller Planungsstand}
 Trotz der vielen freien Tage aufgrund von Ostern, Sechseläuten und 1. Mai war auch diese Iteration rasch vorüber. Abgesehen von den Schwierigkeiten mit den verschieden Plattformen verlief die Iteration relativ ruhig. Die Planung mussten wir nochmals an die aktuellen Gegebenheiten anpassen. Auch einige Aufwandsschätzungen mussten wir nochmals revidieren.
 
-Während dem Projekt gibt es immer wieder spannende und interessante Herausforderungen zu bewältigen. Auch wenn dies zum Teil etwas zeitaufwändig und nervenaufreibend ist haben wir immer noch Spass am Projekt und können uns laufend neue und interessante Dinge aneignen.
+Während dem Projekt gibt es immer wieder spannende und interessante Herausforderungen zu bewältigen. Auch wenn dies zum Teil etwas zeitaufwändig und nervenaufreibend ist haben wir immer noch Spass am Projekt und können uns 1laufend neue und interessante Dinge aneignen.
 
 \newpage
-\subsection{4. Abgabe - 31.05.2014}
+\subsection{4. Abgabe (finale) - 31.05.2014}
 Entgegen der Erwartungen konnten wir in der letzten Iteration noch einige Erfolgserlebnisse verzeichnen. So haben wir es endlich geschafft, dass alle Module auf beiden Plattformen (Windows und Mac OSX) kompiliert und ausgeführt werden können. Die Ursachen lagen in einigen Details bei der Implementation und an einem falschen Include, der nicht bemerkt wurde, da die Fehlermeldung zum einen erst während dem Linken auftrat und zum anderen eine Inkompatibilität (OS / Architektur) der zu linkenden Treiber-Bibliotheken suggerierte. 
 
-Als wir die fertig empfangene Zeit im Client mit einer Atomuhr verglichen, bemerkten wir einen zwei Sekunden unterschied. Der beruhte auf einem Fehler der zwischen den verschiedenen Modulen "`Decoder"' und "`Clock"' hin und her geschoben wurde. Der fertige Zeitstempel für die folgende Minute wird jeweils in der Sekunde 58 decodiert. Nun haben wir die 2 Sekunden Wartezeit nirgends mehr beachtet. Sprich das fertige Signal wurde direkt der Clock als neue, präzise Uhrzeit übergeben. Dies haben wir sofort gefixt.
+Als wir die fertig empfangene Zeit im Client mit einer Atomuhr verglichen, bemerkten wir einen Zwei-Sekunden unterschied. Der beruhte auf einem Fehler der zwischen den verschiedenen Modulen "`Decoder"' und "`Clock"' hin und her geschoben wurde. Der fertige Zeitstempel für die folgende Minute wird jeweils in der Sekunde 58 decodiert. Nun haben wir die 2 Sekunden Wartezeit nirgends mehr beachtet. Sprich das fertige Signal wurde direkt der Clock als neue, präzise Uhrzeit übergeben. Dies haben wir sofort gefixt.
 
 Beim Client lieft alles nach Planung. Jegliche Basis Features wurden umgesetzt. Angedachte Ideen bezüglich SNTP/NTP Vergleich und Server Simulation (Mock up) wurden nicht umgesetzt. Auch haben wir keine Animation beim ändern der analogen Uhrzeit eingebaut.
 
