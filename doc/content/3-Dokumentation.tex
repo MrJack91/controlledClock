@@ -176,3 +176,48 @@ Anschliessend kann die ausführbare Datei "`./controlledClock.exe"' gestartet we
 Der Client ist komplett in HTML/JS geschrieben und kann deshalb ohne Installation ausgeführt werden. 
 
 Um die Client zu starten muss die Datei "`index.html"' im Client-Verzeichnis geöffnet werden. Um eine Synchronisation auszuführen, muss der Server laufen.
+
+\newpage
+\section{Screenshots}
+
+\subsection{Server}
+
+\begin{figure}[htbp!]
+	\caption{Konsolen Output bei laufendem Server (mit DCF77 via USB)}
+	\centering
+		\includegraphics[width=0.8\textwidth]{./images/screenshots/server_console_output.png}
+\end{figure}
+
+\begin{figure}[htbp!]
+	% \vspace{-20pt}
+	\caption{HTTP Request auf Webserver}
+	\centering
+		\includegraphics[width=0.5\textwidth]{./images/screenshots/server_webresponse.png}
+\end{figure}
+
+\newpage
+
+\subsection{Client}
+\begin{figure}[htbp!]
+	\caption{Client nach Aufruf (vollständig geladen und initialisiert)}
+	\centering
+		\includegraphics[width=0.9\textwidth]{./images/screenshots/client_full_initialised.png}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\caption{Eintstellmöglichkeiten via Web-GUI}
+	\centering
+		\includegraphics[width=0.9\textwidth]{./images/screenshots/client_controlling.png}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\caption{Synchronisation ohne DCF77 Signal}
+	\centering
+		\includegraphics[width=1\textwidth]{./images/screenshots/client_clock_sync_without_dcf77.png}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\caption{Synchronisation mit gültigem DCF77 Signal}
+	\centering
+		\includegraphics[width=1\textwidth]{./images/screenshots/client_clock_sync_with_dcf77.png}
+\end{figure}
