@@ -2,7 +2,7 @@
 % !TeX spellcheck = de-CH
 
 \chapter{Dokumentation}
-In diesem Kapitel wird der Aufbau der Implementation mit den verschiedenen Komponenten näher beschrieben.
+Die beiden Applikationsteile sind unabhängig voneinander lauffähig und soweit als möglich modular aufgebaut. Nachfolgend wird die Struktur und die Implementation der einzelnen Komponenten und Module näher beschrieben.
 
 \section{Übersicht der Struktur}
 Die Sourcen, Dokumentation, etc. befinden sich in unserem Github-Repository (Siehe Kapitel \ref{sec:Projektmanagement:Tools})
@@ -10,7 +10,7 @@ Die Sourcen, Dokumentation, etc. befinden sich in unserem Github-Repository (Sie
 Das Backend befindet sich im Repository unter \textit{/code/server} und ist in folgende Module aufgeteilt:
 
 \begin{itemize}
-\item {\textbf{Main} - dcf77\_main.c} \\
+\item {\textbf{Main} - main.c} \\
 Das Main-Modul verbindet alle übrigen Module miteinander und stellt die Kommunikation untereinander sicher.
 
 \item {\textbf{DCF77 Reader} - dcf77\_reader.c} \\
@@ -22,8 +22,6 @@ Der Decoder decodiert laufend die erhaltenen Daten von der USB-Schnittstelle und
 \item {\textbf{Clock} - Clock.c}\\
 Das Clock-Modul bildet eine eigenständige, laufende Uhr. Wird ein DCF77-Signal erfolgreich decodiert, so werden die Informationen (Datum und Zeit) sekundengenau übernommen. Anschliessend läuft die Uhr autonom weiter. Als Basis wird die Systemzeit des Server-Hosts verwendet.
 
-%TODO Wie überprüfen wir das Signal?! -> 2 Timestamps zum Vergleich
-
 \item {\textbf{Server} - SimpleSocketServer.c}\\
 Der Server bietet eine Web-Schnittstelle via Sockets an, welche den Timestamp, gemäss ISO 8601\footnote{Spezifikation: \url{http://www.iso.org/iso/home/standards/iso8601.htm}}, als JSON anbietet. Der Timestamp wird aus der aktuellen Zeit aus dem Clock-Modul erzeugt.
 
@@ -32,7 +30,6 @@ Der Server bietet eine Web-Schnittstelle via Sockets an, welche den Timestamp, g
 \subsection{Client Seite}
 Das Frontend befindet sich im Repository unter \textit{/code/client}. Das Frontend ist eine Web-Oberfläche, welche die entsprechenden GUI-Elemente darstellt und via HTTP-Request in bestimmten Zeitintervallen die aktuelle Zeit vom Server abruft.\\
 
-%TODO: Plugins auflisten und kurz beschreiben, Quellen angeben
 Für die Darstellung haben wir folgende Plugins verwendet:
 \begin{itemize}
 \item \textbf{jQuery \& jQuery UI}\\
@@ -44,14 +41,17 @@ Von Twitter eine Struktur-Vorlage um eine moderne Website umzusetzen. Sie bietet
 \item \textbf{CoolClock}\\
 Die CoolClock ist ein Projekt in dem eine analoge Uhr vollständig mit HTML 5, CSS und JS umgesetzt worden ist. (\url{http://randomibis.com/coolclock/})
 
-%\TODO Dani \item digiClock
+\item \textbf{Digital Clock with jQuery}\\
+Die "`Digital Clock with jQuery"' ist ein Mini-Plugin, bzw. eine Anleitung zur Integration einer digitalen Zeitanzeige basierend auf HTML, CSS3 und jQuery. (\url{http://www.jqueryrain.com/?GFHGsTco})
 
 \end{itemize}
 
-%TODO: Screenshot`/ Screendesign?
-
 \section{Modul-Dokumentation}
 Die Funktionsweise, der einzelnen Module, wurde innerhalb des Codes dokumentiert und beschrieben. Nachfolgend werden die wichtigsten Aspekte der Umsetzung kurz erläutert.
+
+\subsection{Main}
+Source: \textit{/code/server/main.c}\\
+Im Main-Modul werden die übrigen Module sequentiell initialisiert und jeweils in separaten Threads die Ausführung gestartet. Das Modul stellt auch das Verbindungsglied für die Kommunikation zwischen den einzelnen Modulen dar.
 
 \subsection{DCF Reader}
 Source: \textit{/code/server/dcf77\_reader.c}\\
@@ -137,9 +137,9 @@ Die Uhr bietet eine Funktion an, mit welchem die Zeit "`synchronisiert"' und auf
 	\end{itemize}
 \end{itemize}
 
-Das aktuelle Jahr (Monat, Tag, Stunde) bezeichnet die aktuelle Zeit der Clock (vor der Synchronisation).
+\textit{Das aktuelle Jahr (Monat, Tag, Stunde) bezeichnet jeweils die aktuelle Zeit der Clock (vor der Synchronisation).}\\
 
-Um konkurrierende Zugriffe zu verhindern, werden Semaphoren eingesetzt.
+Um konkurrierende Zugriffe zu verhindern, werden Semaphoren eingesetzt.\\
 
 Uns ist bewusst, dass die aktuelle Implementation der Uhr je nach Systemlast unterschiedlich stark abweichen kann. Hier mussten wir jedoch aus zeitlichen Gründen einen Kompromiss eingehen. Ursprünglich war gedacht, dass für die Bestimmung einer Sekunde der System-Tic verwendet wird. Dieser generiert 18.2 mal in der Sekunde einen  Tic-Interrupt. Die Registrierung einer entsprechenden Interrupt Service Routine oder das explizite Abfragen des Tics erfordert unter allen modernen Betriebssystemen höhere Rechte (Kernel Mode). Dafür müsste entweder ein eigener Geräte-Treiber oder ein Kernel-Modul implementiert werden. Da wir auch nach einigen Anläufen keine funktionierende Lösung realisieren konnten, haben wir uns für die Implementation der vereinfachten Variante entschieden.
 
@@ -152,15 +152,23 @@ Für die Ausführung gelten folgende Systemvoraussetzungen:
 
 \begin{itemize}
 \item OS: Windows oder Mac OSX (32- und 64-bit)
-\item C-Programme Kompilierung und Ausführung (für Windows empfiehlt sich eine Cygwin-Installation)
+\item Compiler und Environment für C-Programme (gcc, für Windows wird eine Cygwin-Installation benötigt)
 \item Aktueller Browser (Chrome, Mozilla Firefox, Internet Explorer), JavaScript muss aktiviert sein
 \end{itemize}
 
-\section{Installationsanleitung - DCF77-Treiber}
-\subsection{OSX}
-Für das Auslesen der Daten wird der D2xx Treiber genutzt. Eine genau Anleitung zur Installation ist in folgendem Dokument in Kapitel "`3.2 Installing D2xx Drivers"' (Seite 9) beschrieben.
+\section{Hardware}
+Als Empfänger für das DCF77-Signal haben wir die  "`Expert Mouse Clock USB II"' von Gude (\url{http://www.gude.info/}) verwendet. Technische Details sind auf der Wiki-Seite des Herstellers einsehbar.
+\begin{itemize}
+\item Installation: \url{http://wiki.gude.info/FAQ_Expert_mouseCLOCK_USB_II_Installation} \\
+\item FAQ: \url{http://wiki.gude.info/FAQ_mouseCLOCK_USB_II} \\
+\item Technische Dokumentation: \url{http://wiki.gude.info/FAQ_mouseCLOCK_Programmierung} \\
+\end{itemize}
 
-Im Git Repo unter:\\
+\section{Installationsanleitung - FTDI-/ D2XX-Treiber}
+\subsection{OSX}
+Für das Auslesen der Daten wird der FTDI-/ D2XX-Treiber genutzt. Eine genau Anleitung zur Installation ist in folgendem Dokument in Kapitel "`3.2 Installing D2xx Drivers"' (Seite 9) beschrieben. \\
+
+Die Anleitung ist im Git Repository unter folgendem Pfad abgelegt:\\
 \textit{/analyse/AN\_134\_FTDI\_Drivers\_Installation\_Guide\_for\_MAC\_OSX.pdf}
 
 \subsection{Windows}
