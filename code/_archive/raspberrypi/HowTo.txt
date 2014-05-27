@@ -1,4 +1,0 @@
-Raspberry PI on Windows:
------------------------
-First Run of new Image: http://xecdesign.com/qemu-emulating-raspberry-pi-the-easy-way/
-Fix Keyboard-Configuration: http://www.raspberrypi.org/forums/viewtopic.php?f=5&t=5743
