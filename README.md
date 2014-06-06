@@ -16,3 +16,7 @@ Die genaue Installation des Treibers wird im Kapitel 4.4 in der oben erwähnten 
 Für den Server gibt es zwei lauffähige Versionen Binaries.
 * Window: [/code/server/build/controlledClock_WIN.exe](https://github.com/MrJack91/controlledClock/tree/master/code/server/build)
 * OS X: [/code/server/build/controlledClock_OSX.out](https://github.com/MrJack91/controlledClock/tree/master/code/server/build)
+
+Video zur Arbeit
+----------------
+https://www.youtube.com/watch?v=HflGCAK-dgg
