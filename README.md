@@ -3,6 +3,8 @@ controlledClock
 
 ZHAW project - Controlled Clock over usb
 
+**Status:** Das Projekt wurde im Juni 2014 erfolgreich abgeschlossen. Es wird nicht mehr weiterentwickelt.
+
 
 Einleitung
 ----------
